@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <!-- 添加 markdown-it 用于解析 markdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
+    <!-- 添加代码高亮支持 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        /* 保持之前的所有样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #202122;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: #fff;
+            border-bottom: 1px solid #a2a9b1;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .container {
+            display: flex;
+            margin-top: 50px;
+            min-height: calc(100vh - 50px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #f8f9fa;
+            border-right: 1px solid #a2a9b1;
+            padding: 20px;
+            position: fixed;
+            top: 50px;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin: 8px 0;
+        }
+
+        .nav-section-title {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #202122;
+            padding: 6px 0;
+            font-weight: 500;
+        }
+
+        .nav-section-title:hover {
+            background-color: #f0f0f0;
+            border-radius: 3px;
+        }
+
+        .nav-toggle {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            position: relative;
+        }
+
+        .nav-toggle::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-right: 2px solid #72777d;
+            border-bottom: 2px solid #72777d;
+            transform: translate(-75%, -50%) rotate(45deg);
+            transition: transform 0.2s;
+        }
+
+        .nav-section.collapsed .nav-toggle::before {
+            transform: translate(-75%, -75%) rotate(-45deg);
+        }
+
+        .nav-section.collapsed .nav-items {
+            display: none;
+        }
+
+        .nav-items {
+            margin-left: 24px;
+        }
+
+        .nav-link {
+            color: #3366cc;
+            text-decoration: none;
+            display: block;
+            padding: 4px 0;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 40px;
+            max-width: 1000px;
+        }
+
+        /* Markdown 内容样式 */
+        .markdown-body h1 {
+            font-size: 1.8em;
+            margin-bottom: 0.8em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #a2a9b1;
+            color: #000;
+            font-family: 'Linux Libertine','Georgia','Times',serif;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.5em;
+            margin: 1em 0;
+            padding-bottom: 0.2em;
+            border-bottom: 1px solid #c8ccd1;
+            color: #162441;
+            font-family: 'Linux Libertine','Georgia','Times',serif;
+        }
+
+        .markdown-body p {
+            margin: 1em 0;
+            line-height: 1.6;
+        }
+
+        .markdown-body code {
+            padding: 0.2em 0.4em;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+        }
+
+        .markdown-body pre {
+            margin: 1em 0;
+            padding: 16px;
+            overflow: auto;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+        }
+
+        .markdown-body pre code {
+            padding: 0;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">World Snapshot</h1>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="nav-section">
+                <div class="nav-items">
+                    <a href="#" class="nav-link" data-md="content/00_song.md">Preface</a>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">
+                    <span class="nav-toggle"></span>
+                    Getting Started
+                </div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link" data-md="content/quickstart.md">Overview</a>
+                    <a href="#" class="nav-link" data-md="content/quickstart.md">Quick Start</a>
+                    <a href="#" class="nav-link" data-md="tutorial.md">Basic Tutorial</a>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">
+                    <span class="nav-toggle"></span>
+                    Core Features
+                </div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link" data-md="components.md">Basic Components</a>
+                    <a href="#" class="nav-link" data-md="advanced.md">Advanced Features</a>
+                    <a href="#" class="nav-link" data-md="practices.md">Best Practices</a>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">
+                    <span class="nav-toggle"></span>
+                    Blogs
+                </div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link" data-md="blog/02_cv_rebirth.md">02 Computer Vision's Rebirth</a>
+                    <a href="#" class="nav-link" data-md="blog/01_best_paper.md">01 Rethink Best Papers</a>
+                    <a href="#" class="nav-link" data-md="blog/00_world_model.md">00 Discuss Real World Models</a>
+                </div>
+            </div>
+
+        </nav>
+
+        <main class="main-content">
+            <div class="markdown-body" id="content">
+                <!-- Markdown 内容将被渲染在这里 -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 初始化 markdown-it
+        const md = window.markdownit({
+            html: true,
+            linkify: true,
+            typographer: true,
+            highlight: function (str, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(str, { language: lang }).value;
+                    } catch (__) {}
+                }
+                return '';
+            }
+        });
+
+        // 加载并渲染 Markdown 文件
+        async function loadMarkdown(filename) {
+            try {
+                const response = await fetch(filename);
+                const text = await response.text();
+                document.getElementById('content').innerHTML = md.render(text);
+                // 代码高亮
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+                // 更新文档标题
+                document.title = document.querySelector('.markdown-body h1')?.textContent || 'Documentation';
+            } catch (error) {
+                console.error('Error loading markdown file:', error);
+                document.getElementById('content').innerHTML = '<p>Error loading content.</p>';
+            }
+        }
+
+        // 为导航链接添加点击事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const mdFile = e.target.getAttribute('data-md');
+                loadMarkdown(mdFile);
+                // 更新 URL，但不刷新页面
+                history.pushState(null, '', `?page=${mdFile}`);
+            });
+        });
+
+        // 添加折叠功能
+        document.querySelectorAll('.nav-section-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const section = title.closest('.nav-section');
+                section.classList.toggle('collapsed');
+            });
+        });
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 'overview.md';
+            loadMarkdown(page);
+        });
+
+        // 处理浏览器前进/后退
+        window.addEventListener('popstate', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 'overview.md';
+            loadMarkdown(page);
+        });
+    </script>
+
+</body>
+</html>
