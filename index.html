@@ -76,6 +76,31 @@
             top: 50px;
             bottom: 0;
             overflow-y: auto;
+            /* 添加平滑滚动效果 */
+            scroll-behavior: smooth;
+        }
+
+        /* 默认隐藏滚动条 */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        /* 鼠标悬停或滚动时显示滚动条 */
+        .sidebar:hover::-webkit-scrollbar-thumb,
+        .sidebar:active::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* 鼠标悬停在滚动条上时的样式 */
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.4);
         }
 
         .nav-section {
@@ -252,6 +277,8 @@
                     Blogs
                 </div>
                 <div class="nav-items">
+                    <a href="#" class="nav-link" data-md="blog/02_cv_rebirth.md">04 Create Laplace's Demon</a>
+                    <a href="#" class="nav-link" data-md="blog/02_cv_rebirth.md">03 Time Flowing in Graphics</a>
                     <a href="#" class="nav-link" data-md="blog/02_cv_rebirth.md">02 Computer Vision's Rebirth</a>
                     <a href="#" class="nav-link" data-md="blog/01_best_paper.md">01 Rethink Best Papers</a>
                     <a href="#" class="nav-link" data-md="blog/00_world_model.md">00 Discuss Real World Models</a>
@@ -372,6 +399,32 @@
             }
         });
 </script>
+
+<style>
+    footer {
+        font-size: small;
+        border-top: 1px solid #c0c0c0;
+        padding-top: 0.1em;
+        margin-top: 0.1em;
+        color: #c0c0c0;
+        margin-left: 230px; /* 与侧边栏宽度相同 */
+    }
+    
+    footer a {
+        color: #80a0b0;
+    }
+    
+    .footer-text {
+        padding-left: 40px; /* 与 main-content 的 padding 相同 */
+        padding-bottom: -10px;
+    }
+</style>
+    
+<footer>
+    <div class="footer-text">
+        © CC BY-SA 4.0: Feel free to use this template, but please keep the Powered by <a href="https://github.com/World-Snapshot/doc" target="_blank">World Snapshot Doc</a>.
+    </div>
+</footer>
 
 </body>
 </html>

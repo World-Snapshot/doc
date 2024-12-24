@@ -1,6 +1,6 @@
 # Overview
 
-You must be curious about this amazing project. After reading that song, we felt the guidance and truth. But how should we proceed? There are multimodal papers being produced every moment, aren't there?
+You must be curious: After reading that song, we felt the guidance and truth. But how should we proceed? There are multimodal papers being produced every moment, aren't there?
 
 The answer is Computer Vision - the name of the song.
 

@@ -1,4 +1,4 @@
-## Rethink Best Papers
+# Rethink Best Papers
 
 The Best Papers also have their hierarchies, and let's just talk about the interesting ones.
 

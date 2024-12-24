@@ -1,4 +1,4 @@
-## Computer Vision's Rebirth
+# Computer Vision's Rebirth
 
 Our **WSG** (World Snapshot Graphics) and **WSV** (World Snapshot Video) may promote the birth of some new areas:
 
@@ -33,6 +33,26 @@ Then wsg has dozens or hundreds of properties, which previously might have requi
 Suppose you have two wsv files, one with a girl dancing and another with a boy dancing.
 
 Theoretically, you only need to exchange their RGB colors in corresponding body pixel regions while keeping their pose information unchanged to achieve motion transfer.
+
+### WS-Based Human Motion Synthesis
+
+In World Snapshot, when we generate human bodies, it's like shadow puppetry - we generate each layer of the person. From outside to inside, these layers are: surface skin layer (RGB colors), normal human body, depth human body, 3D human body (SMPL/Mesh Human), 2D skeleton structure... and so on.
+
+Since they are trained and generated simultaneously, with pixel-level fusion, correspondence, and binding, what we're actually generating is something with rich layers like a building or a world. Theoretically, if the model generates the building or world correctly, the different layers of the human body should be correct.
+
+For example, when the palm is turned sideways, each finger should conform to the 3D structure, rather than having fingers that appear to have a landslide effect.
+
+### WS-Based Occlusion Estimation
+
+World Snapshot shows promise in reducing the possibility of one dog disappearing when blocked by another dog.
+
+Because if an image has two overlapping dogs, the overlapping portion in the segmentation layer will be labeled as a shared part between the two dog IDs, assigned with two depth values. The depth values will be in a list form, where each item has an ID, and the pixel values of each item are determined by the ID indicating whether this pixel belongs to this item. Similarly, depth values will indicate different layers between two items. For example, one item's depth values might fluctuate between zero and ten, while another item's depth values might fluctuate between ninety and one hundred.
+
+After training, the generative model will also be good at handling overlapping objects. For instance, after generation, our video player can make judgments, determining the depth differences between two objects, then deciding which pixels' RGB values should be displayed.
+
+However, there's an issue here: during training, if an object is occluded, you can't predict its color - you can only judge based on the visible parts that can be observed. We won't try to assign predicted colors to occluded parts. This should be decided by the generative model itself.
+
+This also aligns with our logic - this is how we humans do it too. If the occluded person's arm is wearing red clothing, we humans might guess their entire outfit is red. But it's also possible that the main body of their clothing is blue. This has a kind of Schrödinger's cat feeling to it, which is very interesting. I call this the "World Snapshot Clothing Paradox."
 
 ### WS-Based Games
 
