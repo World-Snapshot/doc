@@ -10,7 +10,7 @@ If ResNet solves the problem of training depth, then WSG solves the problem of t
 
 "The celestial bodies above the ground have physical forms, while those below the ground do not. Therefore, the sun and moon with physical forms exist above the earth, while the formless sun and moon exist in the underworld.
 
-The sun symbolizes the yang force, so the sun above is stronger than the sun in the underworld; the moon symbolizes the yin force, so the moon in the underworld is stronger than the moon above.
+The sun symbolizes the yang force, so the sun in the sky is stronger than the sun in the underworld; the moon symbolizes the yin force, so the moon in the underworld is stronger than the moon in the sky.
 
 The physical sun was born first, so all concepts of [sun] originate from it; the formless moon was born first, so all concepts of [moon] stem from it. The above and below correspond to each other, and this is your achievement as the divine king."
 
@@ -18,7 +18,7 @@ This plot has a strong style of transformation between reality and virtuality. A
 
 Humans have 5 senses, and if we add more, would it affect how we perceive the world? Some animals don't have hearing, while others don't have vision - does this affect how they perceive the world? The answer is no. Being able to distinguish a few more types of light wouldn't make much difference for humans. Bats can understand the world through sound waves; it's just a different direction of evolution.
 
-Therefore, I'm probably doing the right thing - in the AI world, perhaps the moon is underground. We should construct new data structures to enable models to perceive the world anew.
+Therefore, the answer might be just the opposite - training breadth should be achieved through upgrading data formats - in the AI world, perhaps the moon is in the underworld. We should construct new data structures to enable models to perceive the world anew correctly.
 
 ### Diffusion Models, ControlNet, Gaussian & WSG
 
