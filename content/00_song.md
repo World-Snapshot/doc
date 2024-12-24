@@ -1,6 +1,6 @@
 # Preface
 
-Welcome to this project called World Snapshot, which aims to record information about the world for AI learning.
+Welcome to this project called World Snapshot, which aims to record the world information for AI learning.
 
 This project originally stemmed from my thoughts while processing sign language data: why do we keep processing data? Because models don't understand the world, and models need our help.
 

@@ -32,4 +32,4 @@ The existing Gaussian model is in some sense a prototype of WSG, except that the
 
 It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on 3DGS-predicted distances. I probably won't consider filling Gaussian properties into WSG channels for now.
 
-*Conceived this blog on 23 Dec 24 and completed on 24 Dec 24*
+*Conceived this blog on 23 Dec 24 and completed on 23 Dec 24*
