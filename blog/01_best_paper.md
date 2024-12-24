@@ -8,11 +8,11 @@ ResNet emerged to address the problem of gradient vanishing or explosion when mo
 
 If ResNet solves the problem of training depth, then WSG solves the problem of training breadth. In a certain Greek mythology novel, there is such a plot:
 
-<p>The celestial bodies above the ground have physical forms, while those below the ground do not. Therefore, the sun and moon with physical forms exist above the earth, while the formless sun and moon exist in the underworld.</p>
+"The celestial bodies above the ground have physical forms, while those below the ground do not. Therefore, the sun and moon with physical forms exist above the earth, while the formless sun and moon exist in the underworld.
 
-<p>The sun symbolizes the yang force, so the sun above is stronger than the sun in the underworld; the moon symbolizes the yin force, so the moon in the underworld is stronger than the moon above.</p>
+The sun symbolizes the yang force, so the sun above is stronger than the sun in the underworld; the moon symbolizes the yin force, so the moon in the underworld is stronger than the moon above.
 
-<p>The physical sun was born first, so all concepts of [sun] originate from it; the formless moon was born first, so all concepts of [moon] stem from it. The above and below correspond to each other, and this is your achievement as the divine king.</p>
+The physical sun was born first, so all concepts of [sun] originate from it; the formless moon was born first, so all concepts of [moon] stem from it. The above and below correspond to each other, and this is your achievement as the divine king."
 
 This plot has a strong style of transformation between reality and virtuality. After completing the conception of WSG (World Snapshot Graphics), I thought, if training depth relies on models, should training breadth still rely on models/algorithms?
 

@@ -243,21 +243,50 @@
             }
         });
 
+        // 存储当前页面状态
+        let currentPage = '';
+
         // 加载并渲染 Markdown 文件
         async function loadMarkdown(filename) {
+            // 安全检查
+            if (!filename) {
+                console.error('No filename provided');
+                document.getElementById('content').innerHTML = '<p>Error: Invalid page request</p>';
+                return;
+            }
+
             try {
+                // 保存当前页面
+                currentPage = filename;
+                
                 const response = await fetch(filename);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const text = await response.text();
+                
+                // 渲染内容
                 document.getElementById('content').innerHTML = md.render(text);
+                
                 // 代码高亮
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightBlock(block);
                 });
-                // 更新文档标题
-                document.title = document.querySelector('.markdown-body h1')?.textContent || 'Documentation';
+                
+                // 更新标题
+                const firstH1 = document.querySelector('.markdown-body h1');
+                if (firstH1) {
+                    document.title = firstH1.textContent;
+                }
+
+                // 更新 URL
+                const newUrl = `${window.location.pathname}?page=${filename}`;
+                history.pushState({ page: filename }, '', newUrl);
+                
             } catch (error) {
                 console.error('Error loading markdown file:', error);
-                document.getElementById('content').innerHTML = '<p>Error loading content.</p>';
+                document.getElementById('content').innerHTML = 
+                    `<p>Error loading content. Please make sure the file "${filename}" exists.</p>`;
             }
         }
 
@@ -265,16 +294,21 @@
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const mdFile = e.target.getAttribute('data-md');
-                loadMarkdown(mdFile);
-                // 更新 URL，但不刷新页面
-                history.pushState(null, '', `?page=${mdFile}`);
+                e.stopPropagation(); // 阻止事件冒泡
+                
+                // 使用 currentTarget 而不是 target
+                const mdFile = e.currentTarget.getAttribute('data-md');
+                if (mdFile) {
+                    loadMarkdown(mdFile);
+                }
             });
         });
 
         // 添加折叠功能
         document.querySelectorAll('.nav-section-title').forEach(title => {
-            title.addEventListener('click', () => {
+            title.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 const section = title.closest('.nav-section');
                 section.classList.toggle('collapsed');
             });
@@ -283,17 +317,21 @@
         // 初始化页面
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page') || 'overview.md';
+            const page = urlParams.get('page') || 'content/00_song.md'; // 设置默认页面
             loadMarkdown(page);
         });
 
         // 处理浏览器前进/后退
-        window.addEventListener('popstate', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page') || 'overview.md';
-            loadMarkdown(page);
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.page) {
+                loadMarkdown(e.state.page);
+            } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                const page = urlParams.get('page') || 'content/00_song.md';
+                loadMarkdown(page);
+            }
         });
-    </script>
+</script>
 
 </body>
 </html>
