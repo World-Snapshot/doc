@@ -33,8 +33,32 @@
             border-bottom: 1px solid #a2a9b1;
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            padding: 0;
             z-index: 100;
+            justify-content: space-between; /* 添加这行来使标题和链接分开 */
+        }
+
+        .header-title {
+            font-size: 1.5em;
+            font-weight: 500;
+            margin-left: 20px;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 20px; /* 链接之间的间距 */
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .header-link {
+            color: #3366cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
         }
 
         .container {
@@ -172,6 +196,11 @@
 <body>
     <header class="header">
         <h1 class="header-title">World Snapshot</h1>
+        <div class="header-links">
+            <a href="#" class="header-link">[Project Page]</a>
+            <a href="#" class="header-link">[Github]</a>
+            <a href="#" class="header-link">[Twitter]</a>
+        </div>
     </header>
 
     <div class="container">

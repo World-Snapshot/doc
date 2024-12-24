@@ -1,6 +1,6 @@
 ## Computer Vision's Rebirth
 
-Our **WSG** (World Snapshot Graphics) and **WSV** (World Snapshot Video) may promote the birth of some new fields:
+Our **WSG** (World Snapshot Graphics) and **WSV** (World Snapshot Video) may promote the birth of some new areas:
 
 ### Computer Graphics in WS
 
