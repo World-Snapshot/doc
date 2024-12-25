@@ -14,7 +14,7 @@ This makes sense, but he later seemed to expect an architecture more powerful th
 
 My proposed "World Snapshot Graphics (.wsg)" seems to be the answer explored by the two of them. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post.
 
-Note: I originally only learned about world models through LeCun's tweets, about two or three of them. When I recently conceived the WSG format, I revisited part of his published speeches. I was deeply moved - although he didn't provide the answer, his vision of future products was sufficient to describe WSG-based models, namely world models.
+Note: I originally only learned about world models through LeCun's tweets, about two or three of them. When I recently conceived the WSG format, I revisited part of his published speeches. I was deeply moved - although he didn't provide the answer, but his definition (models that can predict future world states) was sufficient to describe WSG-based models, namely world models.
 
 *Conceived this blog on 22 Dec 24 and completed on 23 Dec 24*
 
