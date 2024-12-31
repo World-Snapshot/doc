@@ -28,6 +28,14 @@ Just by changing the data loading suffix from .png to .wsg in text2img models, i
 
 Then wsg has dozens or hundreds of properties, which previously might have required countless encoders or multimodal fusion methods, but now doesn't need them at all. You input text and can output information in dozens to hundreds of formats.
 
+### WS-Based Fine-tuning of Generative Models
+
+Theoretically, most of the existing flourishing pre-trained generative models don't need to be retrained. They only need to be fine-tuned on WSG format files of certain scale to generate world segments.
+
+For instance, the latest version of diffusion models generates content that is absolutely very close to reality. After fine-tuning, it can attach various physical properties or additional attributes to the generated content.
+
+The more training it receives, the better the generated additional properties should be. Moreover, it won't affect the original generative capabilities (provided that your training data is equally refined). The additional new attribute generation capability depends on the quality and quantity of our new WSG data.
+
 ### Pixel-Level Style Transfer
 
 Suppose you have two wsv files, one with a girl dancing and another with a boy dancing.

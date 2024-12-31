@@ -27,7 +27,7 @@ Note1: I originally only learned about world models through LeCun's tweets, abou
 
 Note2: I later discovered that world models also natively can predict the past world states.
 
-*Conceived this blog on 22th Dec 24, completed on 23th Dec 24, Updated on 26th Dec 24*
+*Conceived this blog on 22th Dec 24, Completed on 23th Dec 24, Updated on 26th Dec 24*
 
 <!--
 <div style="background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 5px;">
