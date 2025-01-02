@@ -14,7 +14,7 @@ However, pixels are the basic unit of image display, not the basic unit of our c
 
 I make the following definitions:
 
-- **World Pixels**, world elements, also called world points, are basic units that add more attribute values to pixels, not just color values. World pixels have more than 3 channels to record more information about a scene.
+- **World Pixels**, world elements, world points, also called world snapshot atoms, are basic units that add more attribute values to pixels, not just color values. World pixels have more than 3 channels to record more information about a scene.
 
 - **World Snapshot Graphics**, abbreviated as .wsg format, also called world snapshot or world frame, is a new graphic format composed of world pixels, with each world pixel point in its proper position in the image, but containing more information.
 
