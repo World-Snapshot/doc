@@ -2,11 +2,11 @@
 
 You must be curious: After reading that song, we felt the guidance and truth. But how should we proceed? There are multimodal papers being produced every moment, aren't there?
 
-The answer is Computer Vision - the name of the song.
+The answer is [Computer Vision](https://en.wikipedia.org/wiki/Computer_vision) - the name of the song.
 
 Computer Vision is a science that uses cameras and computers to replace human eyes for recognition, tracking and measurement of targets, and further processes information with computers to create images more suitable for human eye observation or transmission to instrumental detection.
 
-The way humans recognize the world is through vision, and the common basic unit is pixels. Pixels are the basic unit of image display, indivisible, determined by the color values of three lights.
+The way humans recognize the world is through vision, and the common basic unit is pixels. [Pixels](https://en.wikipedia.org/wiki/Pixel) are the basic unit of image display, indivisible, determined by the color values of three lights.
 
 However, pixels are the basic unit of image display, not the basic unit of our cognitive world! If we want to store the entire world in computer graphics, i.e., world snapshot graphics, we should change the basic unit.
 

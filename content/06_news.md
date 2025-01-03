@@ -4,7 +4,7 @@ Here we provide full news of World Snapshot:
 
 ## 2025
 
-- **Jan 1**: Description
+- **Jan 3:** Blog "Time Flowing in Graphics" completed.
 
 ## 2024
 
