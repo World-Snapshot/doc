@@ -1,6 +1,6 @@
-# Relative Existence in All Things
+# Relative be in All Things
 
-## Does the creation of the world require human intervention
+## Does the Creation of the World require Human Intervention
 
 The world is so vast - is it really possible for us to manually construct it? Since the emergence of neural networks, they have accomplished many things humans cannot do. Perhaps building the world doesn't need much human intervention - was anyone adjusting the universe's parameters during the Big Bang? I don't know.
 
@@ -12,9 +12,9 @@ Let's start with the basics:
 
 Google DeepMind's Felix Hill said, "Syntax isn't a thing" and when the GPT era arrived, people understood its meaning - syntax is something that models can master with enough data.
 
-So I can say "physical rules aren't important for vision models." We can see that Google's VEO2 has mastered, or rather fitted, physical rules very well. We only need to provide it at the data level, just like how large language models master the syntax of Java, Python, or plain text, large vision models can master part of these rules.
+So I can say "physical rules aren't important for vision models." We can see that Google's [VEO2](https://deepmind.google/technologies/veo/veo-2/) has mastered, or rather fitted, physical rules very well. We only need to provide it at the data level, just like how large language models master the syntax of Java, Python, or plain text, large vision models can master part of these rules, without too much additional process.
 
-Similarly, just as GPT doesn't rely on architectural improvements (specifically adding syntax learning), world snapshot models have also achieved mastery of physical rules without relying on architectural improvements, and this approach is equally simple. This concept has been mentioned several times in previous blogs.
+Similarly, just as GPT doesn't rely on architectural improvements (mainly refer to by adding syntax module), world snapshot models have also achieved mastery of physical rules without relying on architectural improvements, and this approach is equally simple. This concept has been mentioned several times in previous blogs.
 
 ## Relative Learning
 
