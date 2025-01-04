@@ -2,11 +2,11 @@
 
 The Best Papers also have their hierarchies, and let's just talk about the interesting ones.
 
-### ResNet and WSG
+## ResNet and WSG
 
 ResNet emerged to address the problem of gradient vanishing or explosion when model layers increase. In traditional neural networks, each layer extracts features from the previous layer, and as the number of layers increases, problems like degradation usually occur. ResNet avoids these issues by adopting skip connections.
 
-If ResNet solves the problem of training depth, then WSG solves the problem of training breadth. In a certain Greek mythology novel, there is such a plot:
+<strong style="color: #666666">If ResNet solves the problem of training depth, then WSG solves the problem of training breadth.</strong> In a certain Greek mythology novel, there is such a plot:
 
 "The celestial bodies above the ground have physical forms, while those below the ground do not. Therefore, the sun and moon with physical forms exist above the earth, while the formless sun and moon exist in the underworld.
 
@@ -20,7 +20,7 @@ Humans have 5 senses, and if we add more, would it affect how we perceive the wo
 
 Therefore, the answer might be just the opposite - training breadth should be achieved through upgrading data formats - in the AI world, perhaps the moon is in the underworld. We should construct new data structures to enable models to perceive the world anew correctly.
 
-### Diffusion Models, ControlNet, Gaussian & WSG
+## Diffusion Models, ControlNet, Gaussian & WSG
 
 In the past 5 years, LLM has been one of the most brilliant achievements in NLP, while generative models have been one of the most brilliant achievements in CV.
 

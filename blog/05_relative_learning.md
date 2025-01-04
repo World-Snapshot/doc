@@ -12,13 +12,13 @@ Let's start with the basics:
 
 Google DeepMind's Felix Hill said, "Syntax isn't a thing" and when the GPT era arrived, people understood its meaning - syntax is something that models can master with enough data.
 
-So I can say "physical rules aren't important for vision models." We can see that Google's [VEO2](https://deepmind.google/technologies/veo/veo-2/) has mastered, or rather fitted, physical rules very well. We only need to provide it at the data level, just like how large language models master the syntax of Java, Python, or plain text, large vision models can master part of these rules, without too much additional process.
+So I can say <strong style="color: #666666">"physical rules aren't important for vision models"</strong>, ie, you don't need to develop an additional architecture for learn it. We can see that Google's [VEO2](https://deepmind.google/technologies/veo/veo-2/) has mastered, or rather fitted, physical rules very well. We only need to provide it at the data level, just like how large language models master the syntax of Java, Python, or plain text, large vision models can master part of these rules, without too much additional process.
 
-Similarly, just as GPT doesn't rely on architectural improvements (mainly refer to by adding syntax module), world snapshot models have also achieved mastery of physical rules without relying on architectural improvements, and this approach is equally simple. This concept has been mentioned several times in previous blogs.
+In a summary, just as GPT doesn't rely on architectural improvements (improve mainly refer to by adding syntax module), world snapshot models will also achieve mastery of physical rules without relying on architectural improvements, and this approach is equally simple. This concept has been mentioned several times in previous blogs.
 
 ## Relative Learning
 
-In reality, can humans really measure how much mass an object has, or like Iron Man or Terminator, measure various data? We cannot.
+In reality, can humans really measure how much mass an object has without tools, or like Iron Man or Terminator, measure various data just by eyes? We cannot. Visual models cannot achieve 100% accurate results either, they are not gods, unless they have a scale or ruler.
 
 We rely on relative abilities - we know one object is heavier than another, one object is taller than another, some objects are hotter, some are colder. When we touch a table, we feel a resistance. We know some people are relatively taller, some are relatively further away. Some cars drive toward a destination, but can you calculate exactly when they'll arrive? We don't do better than Google Maps.
 
