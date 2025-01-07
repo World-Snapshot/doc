@@ -26,7 +26,7 @@ So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many res
 
 **Note2**: I later discovered that world models also natively can predict the past world states.
 
-**Note3**: There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. As for me personally, I prefer to call my model a world snapshot model.
+**Note3**: There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. As for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
 
 *Conceived this blog on 22th Dec 24, Completed on 23th Dec 24, Updated on 26th Dec 24*
 

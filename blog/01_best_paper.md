@@ -30,6 +30,6 @@ What I want to discuss is that diffusion models, as an elegant generative model,
 
 The existing Gaussian model is in some sense a prototype of WSG, except that they haven't combined it with the images themselves, making it a bit cumbersome. In the future, Gaussian-related technologies can be integrated into WS-related model methods. This is very promising.
 
-It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on 3DGS-predicted distances. I probably won't consider filling Gaussian properties into WSG channels for now.
+It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using relative distances. Because relative distances are easier to scale and the total length can be adjusted according to actual lengths.
 
 *Conceived this blog on 23th Dec 24 and completed on 23th Dec 24*

@@ -251,3 +251,5 @@ Version format: MAJOR.MINOR.PATCH
 - Quality assessment methods
 - Performance benchmarks
 - Compatibility testing
+
+*Please read blogs 01 and 02*

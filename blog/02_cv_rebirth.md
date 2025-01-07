@@ -1,6 +1,6 @@
 # Computer Vision's Rebirth
 
-Our **WSG** (World Snapshot Graphics) and **WSV** (World Snapshot Video) may promote the birth of some new areas:
+Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video) and **WaveGen** (Wave Function Generation) may promote the birth of some new areas:
 
 ### Computer Graphics in WS
 
@@ -12,15 +12,11 @@ For example, our WSG natively supports relative and absolute distances. We can c
 
 Since most world parameters exist in basic units, we can natively calculate world instances rather than through models learning parts separately for interaction.
 
-### WSG, WSV Data Collection
+### Quantum Wave Function Generation
 
-We temporarily record instantaneous world information through various recognition and perception models. However, we can record WS more accurately through mechanical devices. Such WS data quality is significantly higher.
+I have specifically developed a new type of generative model based on quantum wave functions (abbreviated as WaveGen) to better model world information. This new generative model has many advantages - conceptually and theoretically, it is rooted in the fundamental principles of the universe, making it much more elegant than the denoising process of diffusion models. Its control over physical conditions is natively supported, making it more elegant than embedded approaches like ControlNet. 
 
-### Data Mining Based on WSG, WSV
-
-When we train a text2wsg model, we're actually training a text2world model. It contains dozens of times more information, all of which can be used for analysis.
-
-For instance, we can classify wsg through pose/motion information, classify wsg through depth and sound - the world itself has many characteristics, not just simple labels. This transcends traditional image classification to become world classification.
+Personally, I hope its impact will surpass both of these predecessors, and hope it will serve as a bridge for communication between the AI and physics communities.
 
 ### WS-Based World Generation Models
 
@@ -35,6 +31,16 @@ Theoretically, most of the existing flourishing pre-trained generative models do
 For instance, the latest version of diffusion models generates content that is absolutely very close to reality. After fine-tuning, it can attach various physical properties or additional attributes to the generated content.
 
 The more training it receives, the better the generated additional properties should be. Moreover, it won't affect the original generative capabilities (provided that your training data is equally refined). The additional new attribute generation capability depends on the quality and quantity of our new WSG data.
+
+### WSG, WSV Data Collection
+
+We temporarily record instantaneous world information through various recognition and perception models. However, we can record WS more accurately through mechanical devices. Such WS data quality is significantly higher.
+
+### Data Mining Based on WSG, WSV
+
+When we train a text2wsg model, we're actually training a text2world model. It contains dozens of times more information, all of which can be used for analysis.
+
+For instance, we can classify wsg through pose/motion information, classify wsg through depth and sound - the world itself has many characteristics, not just simple labels. This transcends traditional image classification to become world classification.
 
 ### Pixel-Level Style Transfer
 
