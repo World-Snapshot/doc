@@ -1,6 +1,6 @@
 # Computer Vision's Rebirth
 
-Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video) and **WaveGen** (Wave Function Generation) may promote the birth of some new areas:
+Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video), **WSF** (World Snapshot Fields) and **WaveGen** (Quantum Wave Function Generation) may promote the birth of some new areas:
 
 ### Computer Graphics in WS
 
@@ -32,11 +32,11 @@ For instance, the latest version of diffusion models generates content that is a
 
 The more training it receives, the better the generated additional properties should be. Moreover, it won't affect the original generative capabilities (provided that your training data is equally refined). The additional new attribute generation capability depends on the quality and quantity of our new WSG data.
 
-### WSG, WSV Data Collection
+### WSG, WSV, WSF Data Collection
 
 We temporarily record instantaneous world information through various recognition and perception models. However, we can record WS more accurately through mechanical devices. Such WS data quality is significantly higher.
 
-### Data Mining Based on WSG, WSV
+### Data Mining Based on WSG, WSV, WSF
 
 When we train a text2wsg model, we're actually training a text2world model. It contains dozens of times more information, all of which can be used for analysis.
 

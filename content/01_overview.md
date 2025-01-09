@@ -20,7 +20,7 @@ I make the following definitions:
 
 - **World Snapshot Video**, abbreviated as .wsv format, is a continuous world segment composed of several world snapshots.
 
-- **World Snapshot Fields**, abbreviated as .wsf format, is a neural field file synthesized from two or more perspectives of wsg/wsv files through certain methods. Although wsv files already contain fragments of a world (such as 3D information), their viewpoints are fixed. wsf aims to obtain views from other perspectives and is an extended visualization method. (It's theoretical for now)
+- **World Snapshot Fields**, abbreviated as .wsf format, is a mixed neural radiance field file synthesized from two or more perspectives of wsg/wsv files through certain methods. Although wsv files already contain fragments of a world (such as 3D information), their viewpoints are fixed. wsf aims to obtain views from other perspectives and is an extended visualization method. (It's theoretical for now)
 
 ## Explain
 

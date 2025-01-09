@@ -6,7 +6,9 @@ Yann LeCun often says that large language models are not world models, and human
 
 Fei-Fei Li has also tried to create model-based spatial intelligence to make some improvements. This path has potential but isn't elegant enough. Although data is finetuned simply, it primarily serves the model. Of course, newly developed spatial methods will always be valuable experience and wealth for reference.
 
-Some early works had "world model" in their names, but they were just beneficial attempts with agents and scenarios - these attempts ahead of their time. Because there were no LLMs, agents, or robots trained in excellent simulation environments back then. So from today's perspective, those works were just prototypes that touched the boundaries of hybrid agents and artificial environments. Finally, some works of big company or famous lab, despite extensive promotion and contributions, are merely better image generation models or architectures. There is no fundamental change in their essence, so they are no different from image generation ten years ago, just with better results.
+Some early works had "world model" in their names, but they were just beneficial attempts with agents and scenarios - these attempts ahead of their time. Because there were no LLMs, agents, or robots trained in excellent simulation environments back then. So from today's perspective, those works were just prototypes that touched the boundaries of hybrid agents and artificial environments.
+
+Finally, some works of big company or famous lab, despite extensive promotion and contributions, are merely better image generation models or architectures. There is no fundamental change in their essence, so they are no different from image generation ten years ago, just with better results.
 
 However, some works are quite nonsensical - they're clearly doing Text2Motion or Text2Pose, yet claim to be world models. Where is the "world" in this? Would changing the engine or other visualization environments affect their human pose generation? It would be better to call themselves human model, embodied intelligence rather than world models. City modeling and 3DGS are more qualified to call themselves world models than these works.
 
@@ -22,9 +24,9 @@ This makes sense, but he later seemed to expect an architecture more powerful th
 
 So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many researchers are looking for. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post.
 
-**Note1**: I originally only learned about world models through LeCun's tweets, about two or three of them. Actually, I don't care about world models at all, I think it's a very broad concept. But when I recently conceived the WSG format, and then I revisited part of his published speeches. I was surprised - although he didn't provide the answer, but his definition (models that can predict future world states) was sufficient to describe WSG-based models, namely world models.
+**Note1**: I originally only learned about world models through LeCun's tweets, about two or three of them. Actually, I don't care about world models at all, I think it's a very broad concept. But when I recently conceived the WSG format, and then I revisited part of his published speeches. I was surprised - although he didn't provide the answer, but his definition (models that can predict future world states) was sufficient to describe WSG-based models, namely world snapshot models.
 
-**Note2**: I later discovered that world models also natively can predict the past world states.
+**Note2**: I later discovered that world snapshot models also natively can predict the past world states.
 
 **Note3**: There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. As for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
 

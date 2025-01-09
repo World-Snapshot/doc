@@ -20,7 +20,7 @@ Humans have 5 senses, and if we add more, would it affect how we perceive the wo
 
 Therefore, the answer might be just the opposite - training breadth should be achieved through upgrading data formats - in the AI world, perhaps the moon is in the underworld. We should construct new data structures to enable models to perceive the world anew correctly.
 
-## Diffusion Models, ControlNet, Gaussian & WSG
+## Diffusion, ControlNet and WaveGen
 
 In the past 5 years, LLM has been one of the most brilliant achievements in NLP, while generative models have been one of the most brilliant achievements in CV.
 
@@ -28,8 +28,10 @@ However, CV's images cannot be fully controlled yet, and videos can hardly gener
 
 What I want to discuss is that diffusion models, as an elegant generative model, still have potential in the future WSG era, or rather, any generative model will shine through WSG.
 
+## NeRF, 3DGS, and WSF
+
 The existing Gaussian model is in some sense a prototype of WSG, except that they haven't combined it with the images themselves, making it a bit cumbersome. In the future, Gaussian-related technologies can be integrated into WS-related model methods. This is very promising.
 
-It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using relative distances. Because relative distances are easier to scale and the total length can be adjusted according to actual lengths.
+It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using metric distances or affine-invariant distances, as this makes reconstruction and rendering faster. Although humans perceive the external world through relative feeling, everything in nature ultimately has its natural scale.
 
 *Conceived this blog on 23th Dec 24 and completed on 23th Dec 24*

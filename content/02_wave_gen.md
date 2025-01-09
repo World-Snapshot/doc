@@ -1,1 +1,1 @@
-# Wave Function Generation (WaveGen)
+# Quantum Wave Function Generation (WaveGen)
