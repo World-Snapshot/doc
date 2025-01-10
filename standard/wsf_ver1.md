@@ -103,5 +103,6 @@ When applied to image generation, it exhibits some excellent properties:
 
 If we can ensure that quantum mechanical probability distribution calculations (i.e., predictions of superposition probability of pixel states) are faster than 3DGS's Gaussian calculations, we will be faster than 3DGS.
 
+**Note 1:** Existing quantum GANs, quantum diffusion models, and quantum generative models all use existing generative models to explore applications in the quantum domain. Some attempt to generate complex mazes or structures, unrelated to image and scene generation. Others involve "wavelet diffusion" and "wavelet transforms" in the frequency domain, which are unrelated to the properties of quantum waves and their collapse. Unlike previous approaches, we are the first work to focus on image generation through quantum wave functions. 
 
 *Please read blogs 01 and 05*
