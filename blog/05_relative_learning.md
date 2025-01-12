@@ -1,4 +1,4 @@
-# Relative be in All Things
+# Relative in All Things
 
 ## Does the Creation of the World require Human Intervention
 

@@ -16,7 +16,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 6: Reserved for future essential
 - 7: Reserved for future essential
 
-### Quantum Phase Field [8-15] (必需)
+### Quantum Phase Field [8-15] (Necessary)
 - 8: Phase value (0-1) - 像素状态叠加表示
 - 9: Gradient magnitude - 状态转换梯度强度 
 - 10: Direction field - 8方向编码
@@ -24,7 +24,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 12: Quantum state confidence
 - 13-15: Reserved for quantum properties
 
-### Core Extension [16-31] (必需)
+### Core Extension [16-31] (Optional)
 - 16: Color space identifier
 - 17: Bit depth
 - 18: Image quality score
@@ -32,7 +32,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 20-31: Reserved for core information expansion
 
 ## Depth and Geometry Domain [32-63]
-### Basic Depth [32-39] (必需 - 可通过深度估计获取)
+### Basic Depth [32-39] (Necessary - 可通过深度估计获取)
 - 32: Absolute depth value (meters)
 - 33: Relative depth value (0-1)
 - 34: Depth confidence
@@ -40,7 +40,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 38: Curvature
 - 39: Edge distance
 
-### Advanced Geometry [40-47] (可选 - AI推断)
+### Advanced Geometry [40-47] (Optional - AI推断)
 - 40: Surface roughness map
 - 41: Displacement map
 - 42: Ambient occlusion
@@ -48,7 +48,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 44: Surface continuity
 - 45-47: Reserved for geometry details
 
-### Motion Geometry [48-55] (必需 - 从视频提取)
+### Motion Geometry [48-55] (Optional - 从视频提取)
 - 48: Motion vector X
 - 49: Motion vector Y
 - 50: Motion vector Z
@@ -61,7 +61,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 Reserved for future geometry data
 
 ## Pose and Human Information Domain [64-95]
-### Basic DWPose Information [64-71] (可选 - 通过姿态估计)
+### Basic DWPose Information [64-71] (Necessary - 通过姿态估计)
 - 64: Keypoint ID (0-193)
 - 65: Person ID
 - 66: Confidence
@@ -69,53 +69,143 @@ Reserved for future geometry data
 - 70: Visibility
 - 71: Pose type
 
-### Advanced Pose [72-79] (可选 - AI推断)
+### Advanced Pose [72-79] (Optional - AI推断)
 - 72: Joint rotations
 - 73: Action class ID
 - 74: Movement speed
 - 75: Interaction ID
 - 76-79: Reserved for pose dynamics
 
-### Physics Properties [80-87] (可选 - 物理推断)
-- 80: Mass estimation
-- 81: Center of gravity
-- 82: Basic collision bounds
-- 83: Object rigidity
-- 84-87: Reserved for physics
+## Physics Properties Domain [80-95]
+### Basic Physics [80-87] (Necessary)
 
-### Pose Extension [88-95]
-Reserved for future pose data
+- 80: Mass distribution (relative, 0-1)
+```
+- 0: extremely light
+- 1: extremely heavy
+- NaN: unknown
+```
+
+- 81: Center of gravity (3D coordinates, normalized)
+```
+- Vector3(x,y,z) relative to pixel position
+- NaN: unknown
+```
+
+- 82: Basic collision bounds
+```
+- Bit flags for collision shape primitives
+- 0x01: sphere
+- 0x02: box
+- 0x04: capsule
+- 0x08: mesh
+```
+
+- 83: Object rigidity (0-1)
+```
+- 0: completely soft
+- 1: completely rigid
+- Derived from Young's modulus
+```
+
+### Advanced Physics [84-95] (Optional)
+- 84: Material density (relative, 0-1)
+```
+- Local density at pixel position
+- Normalized relative to standard density table
+```
+
+- 85: Young's modulus (normalized, 0-1)
+```
+- Local elasticity at pixel position
+- Mapped from standard material values
+```
+
+- 86: Poisson ratio (0-0.5)
+```
+- Local deformation property
+- NaN if not applicable
+```
+
+- 87: Friction coefficient (0-1)
+```
+- Surface friction property
+- NaN if not applicable
+```
+
+- 88: Restitution coefficient (0-1)
+```
+- Bounce/energy retention
+- NaN if not applicable
+```
+
+- 89-95: Reserved for future physics properties
 
 ## Material Properties Domain [96-127]
-### Basic Material [96-103] (可选 - 材质估计)
+### Basic Material [96-103] (Optional - 材质估计)
 - 96: Roughness (0-1)
+```
+- Surface roughness value
+- NaN if not measurable
+```
+
 - 97: Metallic (0-1)
+```
+- Metallic property value
+- Higher values indicate more metallic properties
+```
+
 - 98: Specular reflectance
+```
+- Surface light reflection characteristics
+- Based on material properties
+```
+
 - 99: Transparency
+```
+- Material transparency level
+- 0: completely opaque
+- 1: completely transparent
+```
+
 - 100: Refractive index
+```
+- Material's light bending properties
+- Standard range: 1.0-3.0
+```
+
 - 101: Emissive intensity
+```
+- Self-illumination strength
+- 0: no emission
+```
+
 - 102: Material ID
+```
+- Reference to material database
+- Unique identifier for each material type
+```
+
 - 103: Material confidence
+```
+- Confidence in material classification
+- 0-1 range
+```
 
-### Advanced Material [104-111] (可选 - 高级材质推断)
-- 104: Subsurface scattering
-- 105: Anisotropic roughness
-- 106: Clearcoat
-- 107: Sheen
-- 108: Iridescence
-- 109-111: Reserved for material properties
+### Material Classification [104-127] (Optional)
+- 104: Material type
+```
+- Basic material classification
+- 0x01: solid
+- 0x02: liquid
+- 0x04: granular
+```
 
-### Material Attributes [112-119] (可选 - 视觉属性)
-- 112: Surface age/wear
-- 113: Weathering pattern
-- 114: Surface temperature (visual)
-- 115-119: Reserved for visual attributes
-
-### Material Extension [120-127]
+### Material Extension [105-127]
 Reserved for future material properties
 
 ## Sound Properties Domain [128-159]
-### Global Audio [128-135] (必需 - 音频分析)
+### Global Audio [128-135] (Necessary - 音频分析)
 - 128: Sound pressure level (dB)
 - 129: Primary frequency
 - 130: Sound source type ID
@@ -123,7 +213,7 @@ Reserved for future material properties
 - 132: Basic reverb value
 - 133-135: Reserved
 
-### Spatial Audio [136-143] (可选 - 空间音频分析)
+### Spatial Audio [136-143] (Optional - 空间音频分析)
 - 136: Sound attenuation
 - 137: Directional intensity
 - 138: Source correlation
@@ -131,7 +221,7 @@ Reserved for future material properties
 - 140: Doppler effect
 - 141-143: Reserved
 
-### Audio Analysis [144-151] (可选 - AI音频分析)
+### Audio Analysis [144-151] (Optional - AI音频分析)
 - 144: Harmonic content
 - 145: Audio texture
 - 146: Emotional valence

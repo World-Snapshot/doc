@@ -28,7 +28,7 @@ However, CV's images cannot be fully controlled yet, and videos can hardly gener
 
 What I want to discuss is that diffusion models, as an elegant generative model, still have potential in the future WSG era, or rather, any generative model will shine through WSG.
 
-## NeRF, 3DGS, and WSF
+## Point Cloud, NeRF, 3DGS, and WSF
 
 The existing Gaussian model is in some sense a prototype of WSG, except that they haven't combined it with the images themselves, making it a bit cumbersome. In the future, Gaussian-related technologies can be integrated into WS-related model methods. This is very promising.
 
