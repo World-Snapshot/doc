@@ -6,8 +6,8 @@ Last Updated: 2025-01-13
 
 | Features | WaveGen | Diffusion | GAN | Point Cloud | NeRF | 3D Gaussian |
 |----------|---------|-----------|-----|-------------|------|-------------|
-| Generation Mechanism | Quantum Wave Collapse | Thermodynamic Entropy Reversal | Adversarial Generation | Geometric Modeling | Volume Rendering | Gaussian Distribution |
-| Physical Foundation | ✓Quantum Mechanics | ✓Thermodynamics | ✗ | ✗ | ✗ | ✓Statistical Mechanics |
+| Generation Mechanism | Virtual-Real World Point Transformation | Noise Addition and Removal | Adversarial Generation | Geometric Modeling | Volume Rendering | Gaussian Distribution |
+| Theory Foundation | Quantum Mechanics (Wave Collapse) | Thermodynamics (Entropy Inversion) | Game Theory | ✗ | ✗ | Statistical Mechanics |
 | Iteration Steps | Single-step | Multi-step | Single-step | - | - | - |
 | 2D Support | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | 3D Support | ✓ | ✗ | △Partial | ✓ | ✓ | ✓ |
