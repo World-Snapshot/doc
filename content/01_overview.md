@@ -20,7 +20,7 @@ I make the following definitions:
 
 - **World Snapshot Video**, abbreviated as .wsv format, is a continuous world segment composed of several world snapshots.
 
-- **World Snapshot Fields**, abbreviated as .wsf format, is a mixed neural radiance field file synthesized from two or more perspectives of wsg/wsv files through certain methods. Although wsv files already contain fragments of a world (such as 3D information), their viewpoints are fixed. wsf aims to obtain views from other perspectives and is an extended visualization method. (It's theoretical for now)
+- **World Snapshot Fields**, abbreviated as .wsf format, also called world field, is a mixed neural radiance field file synthesized from two or more perspectives of wsg/wsv files through certain methods. Although wsv files already contain fragments of a world (such as 3D information), their viewpoints are fixed. wsf aims to obtain views from other perspectives and is an extended visualization method.
 
 ## Explain
 
@@ -28,6 +28,6 @@ When a model reads graphics, it will read a pixel as a basic tensor with 3 value
 
 Since there aren't many models that directly process the color values of each pixel, and won't notice, damage, or adjust these basic units, most models should be able to train world snapshot graphics with minimal modifications. At most, the most basic tensor flow between the entire input and output needs to be adjusted.
 
-We provide specific standards for WSG and WSV in next section. We also provide img2wsg converter, wsg reader, wsg interpreter, and wsv player.
+We provide specific standards for WSG, WSV and WSF in next section. We also provide img2wsg converter, wsg reader, wsg interpreter, and wsv, wsf player.
 
 *Please read blogs 00*

@@ -4,3 +4,10 @@ We have rearranged the articles from Preface, Standard, Get Start, and Blogs acc
 
 - **World Snapshot Doc (English):** [PDF]()
 - **World Snapshot Doc (Chinese):** [PDF]()
+
+## Preview
+
+<iframe 
+    style="width: 100%; height: 550px; border: none;"
+    src="book/test_print.pdf"
+></iframe>
