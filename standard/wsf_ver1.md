@@ -34,6 +34,7 @@ When applied to image generation, it exhibits some excellent properties:
 <summary>Advantages</summary>
 
 1. Natural Characteristics
+
 * No need for hard-coded rules
 * No need for complex attention mechanisms
 * Let physical laws handle spatial correlations naturally
@@ -41,22 +42,26 @@ When applied to image generation, it exhibits some excellent properties:
 * Natural spatial continuity and coherence
 
 2. Physical Properties
+
 * Natural transitions produced by wave function interference
 * Long-range feature propagation through non-locality
 * Controllable randomness from quantum measurements
 * Self-organizing properties through wave function interference
 
 3. Control Mechanisms
+
 * Potential field control: Natural guidance of generation process through potential fields
 * Boundary control: Utilizing wave function's self-adaptive boundary properties
 * Local quantum measurements: Achieving controlled local changes
 
 4. Comparison with Diffusion Models Advantages:
+
 * No need for internal Self-Attention mechanisms in images
 * Natural handling of spatial continuity
 * Physical constraints provide inherent generation rules
 
 5. Unique Mechanisms
+
 * Controllable randomness through quantum measurements
 * Soft constraints provided by potential fields
 * Natural adaptation to boundary conditions
@@ -67,26 +72,31 @@ When applied to image generation, it exhibits some excellent properties:
 <summary>Main Application Scenarios:</summary>
 
 1. Image Editing
+
 * Local redrawing: utilizing boundary adaptation
 * Seamless stitching: using periodic boundary conditions
 * Style fusion: leveraging wave function interference effects
 
 2. Material Generation
+
 * Fabric wrinkles: using local quantum measurements
 * Metal reflections: utilizing wave function phase properties
 * Natural textures: using wave interference effects
 
 3. Natural Scenes
+
 * Cloud formations: using wave function continuous evolution
 * Water ripples: utilizing wave equation properties
 * Leaf movements: using local quantum states
 
 4. Portrait Processing
+
 * Hair variations: using local quantum measurements
 * Facial expressions: using potential field control
 * Skin details: using wave function interference
 
 5. Architectural Design
+
 * Floor plan generation: using boundary condition control
 * Texture mapping: using wave function evolution
 * Light and shadow effects: using potential field guidance
@@ -102,6 +112,8 @@ When applied to image generation, it exhibits some excellent properties:
 </details>
 
 If we can ensure that quantum mechanical probability distribution calculations (i.e., predictions of superposition probability of pixel states) are faster than 3DGS's Gaussian calculations, we will be faster than 3DGS.
+
+## Method
 
 **Note 1:** Existing quantum GANs, quantum diffusion models, and quantum generative models all use existing generative models to explore applications in the quantum domain. Some attempt to generate complex mazes or structures, unrelated to image and scene generation. Others involve "wavelet diffusion" and "wavelet transforms" in the frequency domain, which are unrelated to the properties of quantum waves and their collapse. Unlike previous approaches, we are the first work to focus on image generation through quantum wave functions. 
 

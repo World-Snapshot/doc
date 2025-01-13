@@ -9,6 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <!-- 添加mermaid支持 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
     <!-- 添加代码高亮支持 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -273,6 +275,34 @@
 </style>
 
 
+<!--这是表格样式-->
+<style>
+    .markdown-body table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+    }
+
+    .markdown-body th,
+    .markdown-body td {
+        border: 1px solid #d0d7de;
+        padding: 8px 12px;
+    }
+
+    .markdown-body th {
+        background-color: #f6f8fa;
+        font-weight: 600;
+    }
+
+    .markdown-body tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    .markdown-body tr:hover {
+        background-color: #f1f2f3;
+    }
+    </style>
+
 </head>
 <body>
     <header class="header">
@@ -376,7 +406,11 @@
             html: true,
             linkify: true,
             typographer: true,
+            tables: true,
             highlight: function (str, lang) {
+                if (lang === 'mermaid') {
+                    return `<pre class="mermaid">${str}</pre>`;
+                }
                 if (lang && hljs.getLanguage(lang)) {
                     try {
                         return hljs.highlight(str, { language: lang }).value;
@@ -391,7 +425,6 @@
 
         // 加载并渲染 Markdown 文件
         async function loadMarkdown(filename) {
-            // 安全检查
             if (!filename) {
                 console.error('No filename provided');
                 document.getElementById('content').innerHTML = '<p>Error: Invalid page request</p>';
@@ -399,9 +432,7 @@
             }
 
             try {
-                // 保存当前页面
                 currentPage = filename;
-                
                 const response = await fetch(filename);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -410,6 +441,9 @@
                 
                 // 渲染内容
                 document.getElementById('content').innerHTML = md.render(text);
+                
+                // 初始化 Mermaid
+                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
                 
                 // 代码高亮
                 document.querySelectorAll('pre code').forEach((block) => {
@@ -422,7 +456,6 @@
                     document.title = firstH1.textContent;
                 }
 
-                // 更新 URL
                 const newUrl = `${window.location.pathname}?page=${filename}`;
                 history.pushState({ page: filename }, '', newUrl);
                 
