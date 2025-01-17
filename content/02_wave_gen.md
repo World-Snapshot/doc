@@ -9,20 +9,20 @@ Therefore, we will try to directly generate a dynamic world scene, which wave co
 
 ## Prospect
 
-At the WSG level, I hope we can generate a perfect frame of a world scene. At the WSV level, we can generate an entire movie at once, or even generate continuous video spanning several days. At the WSF level, we hope to create a naturally coherent world where every user is a creator god.
+At the WSG level, I hope we can generate a perfect photo of a world scene. At the WSV level, we can generate an entire movie at once, or even generate continuous video spanning several days. At the WSF level, we hope to create a naturally coherent world where every user is a creator god.
 
-I hope AI can generate a happy world without fatigue, without regret, only happiness and dreams coming true. When users enter it, they can even live a happy life forever. I mean: <strong style="color: #666666">Humans will have the ability to create the subordinate universe from now.</strong>
+I hope AI can generate a happy world without fatigue, without regret, only happiness and dreams coming true. When users enter it, they can even live a happy life forever. I mean: <strong style="color: #666666">Hope humans will have the ability to create the subordinate universe from now.</strong>
 
-## 1. Basic Model Comparison
+## 1. Basic Comparison
 
-| Features | Wave Function Generation | Diffusion Model | GAN Model | Point Cloud | NeRF | 3D Gaussian |
+| Features | Wave Function Generation | Diffusion Model | GAN Model | Point Cloud | NeRFields | 3D Gaussian |
 |----------|---------|-----------|-----|-------------|------|-------------|
 | Generation Mechanism | Virtual-Real World Point Transformation | Noise Addition and Removal | Adversarial Generation | Geometric Modeling | Volume Rendering | Gaussian Distribution |
 | Theory Foundation | Quantum Mechanics (Wave Collapse) | Thermodynamics (Entropy Inversion) | Game Theory | ✗ | ✗ | Statistical Mechanics |
 | Iteration Steps | Single-step | Multi-step | Single-step | - | - | - |
 | 2D Support | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | 3D Support | ✓ | ✗ | △Partial | ✓ | ✓ | ✓ |
-| Representation | Implicit ↔ Explicit | Explicit | Explicit | Explicit | Implicit | Explicit |
+| Representation | Implicit ↔ Explicit | the Explicit | the Explicit | the Explicit | is Implicit | the Explicit |
 
 ## 2. Core Advantages
 
@@ -30,7 +30,7 @@ I hope AI can generate a happy world without fatigue, without regret, only happi
 
 ```mermaid
 graph TD
-    A[WaveGen] --> B[Quantum Mechanics Base]
+    A["Wave Function Generation (WaveGen)"] --> B[Quantum Mechanics Base]
     B --> C[Wave Function Collapse]
     B --> D[Quantum Superposition]
     B --> E[Uncertainty Principle]

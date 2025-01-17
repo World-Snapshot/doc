@@ -115,6 +115,16 @@ If we can ensure that quantum mechanical probability distribution calculations (
 
 ## Method
 
+Since WSG itself carries depth information, when we also try to view WSF as a field diffused with virtual functions, it leads to confusion in our understanding, as both WSG and WSF are 3D files.
+
+Our intention is to view WSG as a two-dimensional representation of a world from a specific viewpoint. The measured depth serves as the initial value for the z-axis in training, and through the learning process, we learn the true z-values in 3D space.
+
+When a particular viewpoint is observed, we collapse the pixel areas along the line of sight, transforming the point cloud from virtual to real (which aligns well with the real-world observer effect). At this point, the point cloud's x and y axes can fill the entire viewpoint area, while the z-axis exists at different depths.
+
+When we change viewpoints, we should collapse again because different viewpoints should have different colors and depths. However, the xyz coordinates and most properties of the same points should remain consistent. During reconstruction, we can consider keeping some data unchanged to reduce computational costs.
+
+In essence, WSF should be a mixed virtual-real field that computes in real-time based on the observer effect. WS rendering is similar to explicit point cloud rendering and can use rasterization, which theoretically should be quite fast. For optimization, we can consider reusing points that have already been collapsed.
+
 **Note 1:** Existing quantum GANs, quantum diffusion models, and quantum generative models all use existing generative models to explore applications in the quantum domain. Some attempt to generate complex mazes or structures, unrelated to image and scene generation. Others involve "wavelet diffusion" and "wavelet transforms" in the frequency domain, which are unrelated to the properties of quantum waves and their collapse. Unlike previous approaches, we are the first work to focus on image generation through quantum wave functions. 
 
 *Please read blogs 01 and 05*

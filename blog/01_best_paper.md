@@ -26,12 +26,18 @@ In the past 5 years, LLM has been one of the most brilliant achievements in NLP,
 
 However, CV's images cannot be fully controlled yet, and videos can hardly generate coherent movies longer than 2 hours. Compared to LLM, it seems somewhat weak. As for the reasons, I've already mentioned them in the Song of Computer Vision (2025), so I won't elaborate further.
 
-What I want to discuss is that diffusion models, as an elegant generative model, still have potential in the future WSG era, or rather, any generative model will shine through WSG.
+I believe the CV field should be completely unified: standardization of basic formats; unification of generation methods across dimensions, like 2D (image/video), 3D (scene), and 4D (dynamic scene). There should be not only explicit control methods like ControlNet but also implicit constraint control methods through theory. Thus, WaveGen was born.
+
+Just as GPT destroyed dozens of NLP downstream tasks, <strong style="color: #666666">WSG at the fundamental level has made almost all modality fusion methods obsolete, WaveGen will make many previous methods (GAN, Diffusion, Point Cloud, NeRF, 3DGS etc.) become mundane.</strong>
+
+However, as generation models that made great contributions before, they still have potential in the future WSG era, or more precisely, any generation model will shine through WSG.
 
 ## Point Cloud, NeRF, 3DGS, and WSF
 
-The existing Gaussian model is in some sense a prototype of WSG, except that they haven't combined it with the images themselves, making it a bit cumbersome. In the future, Gaussian-related technologies can be integrated into WS-related model methods. This is very promising.
+Existing point cloud and Gaussian models are in some sense prototypes of WSG, except they didn't combine it with probability or the image itself, which makes it a bit cumbersome. In the future, point cloud and Gaussian-related technologies can be integrated into WS-related model methods. This is very promising.
+
+NeRF is somewhat like WSF under pure probability, though NeRF cannot transform to explicit representation. However, compared to point clouds, it can reduce the occurrence of holes. Overall, previous 3D methods were all quite good, though they each seem to have their own drawbacks, but as time passes, many people try to compensate for these through various methods.
 
 It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using metric distances or affine-invariant distances, as this makes reconstruction and rendering faster. Although humans perceive the external world through relative feeling, everything in nature ultimately has its natural scale.
 
-*Conceived this blog on 23th Dec 24 and completed on 23th Dec 24*
+*Conceived this blog on 23th Dec 24 and completed on 23th Dec 24, Updated on 14th Jan 25*
