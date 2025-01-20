@@ -1,6 +1,7 @@
 # World Snapshot Field (WSF) Format Specification
-Version: 1.0
-Last Updated: 2025-01-09
+Version: 1.0;
+Last Updated: 2025-01-09;
+History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 ## Overview
 

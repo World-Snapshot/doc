@@ -5,7 +5,6 @@ Here we provide full news of World Snapshot:
 ## 2025
 
 - **Jan 18:** Blog "Pixel Grandfather Paradox" completed.
-
 - **Jan 3:** Blog "Time Flowing in Graphics" and "Relative be in All Things" completed.
 
 ## 2024

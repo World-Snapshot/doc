@@ -1,6 +1,7 @@
 # World Snapshot Video (WSV) Format Specification
-Version: 1.0
-Last Updated: 2025-01-09
+Version: 1.0;
+Last Updated: 2025-01-09;
+History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 ## Overview
 WSV (World Snapshot Video) is a collection of multi-frame WSG files, representing a single-perspective dynamic visualization scene/video file. For WSV files, the key challenge lies in how to process audio information that spans across time.

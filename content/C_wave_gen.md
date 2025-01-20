@@ -1,5 +1,7 @@
 # Learn Quantum Wave Function Generation (WaveGen)
 
+*"Whether God plays dice is unknown for me, but our world snapshot does play dice."*
+
 ## Overview
 
 World Snapshot aims to unify digital reality at the pixel level, and WaveGen is its sharpest weapon. We defined and discussed the forms of WSG, WSV, and WSF in sequence, but I never said we would train these three formats separately.

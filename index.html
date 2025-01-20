@@ -328,7 +328,7 @@
 
             <div class="nav-section">
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content/00_song.md">Preface</a>
+                    <a href="#" class="nav-link" data-md="content/A_song.md">Preface</a>
                 </div>
             </div>
 
@@ -338,7 +338,7 @@
                     Standard
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content/01_overview.md">Overview</a>
+                    <a href="#" class="nav-link" data-md="content/B_overview.md">Overview</a>
                     <a href="#" class="nav-link" data-md="standard/wsg_ver1.md">World Snapshot Graphics v1</a>
                     <a href="#" class="nav-link" data-md="standard/wsv_ver1.md">World Snapshot Video v1</a>
                     <a href="#" class="nav-link" data-md="standard/wsf_ver1.md">World Snapshot Fields v1</a>
@@ -351,9 +351,9 @@
                     Get Start
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content\02_wave_gen.md">Wave Function Generation</a>
+                    <a href="#" class="nav-link" data-md="content\C_wave_gen.md">Wave Function Generation</a>
                     <a href="#" class="nav-link" data-md="components.md">Best Practices</a>
-                    <a href="#" class="nav-link" data-md="content\04_advanced_features.md">Advanced Features</a>
+                    <a href="#" class="nav-link" data-md="content\E_advanced_features.md">Advanced Features</a>
                 </div>
             </div>
 
@@ -363,8 +363,8 @@
                     Materials
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content/06_news.md">All News</a>
-                    <a href="#" class="nav-link" data-md="content/08_doc_print.md">Doc Print</a>
+                    <a href="#" class="nav-link" data-md="content/F_news.md">All News</a>
+                    <a href="#" class="nav-link" data-md="content/G_doc_print.md">Doc Print</a>
                 </div>
             </div>
 
@@ -492,7 +492,7 @@
         // 初始化页面
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page') || 'content/00_song.md'; // 设置默认页面
+            const page = urlParams.get('page') || 'content/A_song.md'; // 设置默认页面
             loadMarkdown(page);
         });
 

@@ -1,6 +1,7 @@
 # World Snapshot Graphics (WSG) Format Specification
-Version: 1.0
-Last Updated: 2024-12-25
+Version: 1.0;
+Last Updated: 2024-12-25;
+History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 ## Overview
 WSG (World Snapshot Graphics) is a high-dimensional image format that extends traditional RGB images with additional channels to store rich metadata at the pixel level. Each pixel in a WSG file contains 256 channels of floating-point data.
