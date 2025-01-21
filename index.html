@@ -11,6 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
     <!-- 添加mermaid支持 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <!-- 添加锁定样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- 添加代码高亮支持 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -274,6 +276,65 @@
     }
 </style>
 
+<!--右侧目录栏的消失功能-->
+<style>
+    /* Update right sidebar styles */
+    .right-sidebar {
+        width: 260px;
+        background: #f8f9fa;
+        border-left: 1px solid #a2a9b1;
+        padding: 20px;
+        position: fixed;
+        top: 50px;
+        right: -260px; /* Start hidden */
+        bottom: 0;
+        overflow-y: auto;
+        transition: right 0.6s ease;
+        z-index: 99;
+    }
+
+    /* Add right sidebar trigger */
+    .right-sidebar-trigger {
+        position: fixed;
+        top: 50px;
+        right: 0;
+        width: 30px;
+        height: calc(100vh - 50px);
+        z-index: 98;
+    }
+
+    /* Show sidebar on hover */
+    .right-sidebar-trigger:hover + .right-sidebar:not(:empty),
+    .right-sidebar:not(:empty):hover,
+    .right-sidebar.active:not(:empty),
+    .right-sidebar.locked:not(:empty) {
+        right: 0;
+    }
+
+    /* Adjust main content when sidebar is locked */
+    .right-sidebar.locked ~ .main-content {
+        margin-right: 260px;
+    }
+
+    /* Lock button styles */
+    .right-lock-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        font-size: 16px;
+        padding: 5px;
+        z-index: 100;
+    }
+
+    .right-lock-button:hover {
+        color: #333;
+    }
+</style>
+
 
 <!--这是表格样式-->
 <style>
@@ -317,14 +378,14 @@
     <div class="container">
         <nav class="sidebar">
 
-            <!--取消注释的话，可以开启右导航栏功能，可以挑选一些目录章节放到右侧。
+
             <button class="sidebar-toggle" title="Move Blogs to right">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                     <line x1="12" y1="4" x2="12" y2="20"/>
                 </svg>
             </button>
-            -->
+
 
             <div class="nav-section">
                 <div class="nav-items">
@@ -398,7 +459,13 @@
 
         </nav>
 
+        <!-- Add this HTML before your right sidebar -->
+        <div class="right-sidebar-trigger"></div>
+
         <nav class="right-sidebar">
+            <button class="right-lock-button">
+                <i class="fas fa-lock"></i>
+            </button>
             <!-- 内容将由 JavaScript 动态添加 -->
         </nav>
 
@@ -512,7 +579,7 @@
                 loadMarkdown(e.state.page);
             } else {
                 const urlParams = new URLSearchParams(window.location.search);
-                const page = urlParams.get('page') || 'content/00_song.md';
+                const page = urlParams.get('page') || 'content/A_song.md';
                 loadMarkdown(page);
             }
         });
@@ -530,13 +597,23 @@
 
         toggleButton.addEventListener('click', () => {
             isRightSidebarActive = !isRightSidebarActive;
-            rightSidebar.classList.toggle('active');
-            mainContent.classList.toggle('shifted');
-
+            
             if (isRightSidebarActive) {
+                // 完全清空右侧栏
+                rightSidebar.innerHTML = '';
+                
+                // 添加锁定按钮
+                const lockButton = document.createElement('button');
+                lockButton.className = 'right-lock-button';
+                lockButton.innerHTML = '<i class="fas fa-lock"></i>';
+                rightSidebar.appendChild(lockButton);
+
+                // 添加博客内容
                 const clonedBlogsSection = blogsSection.cloneNode(true);
                 rightSidebar.appendChild(clonedBlogsSection);
                 blogsSection.style.display = 'none';
+                rightSidebar.classList.add('active');
+                mainContent.classList.add('shifted');
                 
                 // 为克隆的元素重新绑定事件
                 clonedBlogsSection.querySelectorAll('.nav-link').forEach(link => {
@@ -558,13 +635,99 @@
                         section.classList.toggle('collapsed');
                     });
                 });
+
+                // 重新绑定锁定按钮事件
+                lockButton.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('fa-lock-open')) {
+                        icon.classList.remove('fa-lock-open');
+                        icon.classList.add('fa-lock');
+                        rightSidebar.classList.add('locked');
+                    } else {
+                        icon.classList.remove('fa-lock');
+                        icon.classList.add('fa-lock-open');
+                        rightSidebar.classList.remove('locked');
+                        rightSidebar.classList.remove('active');
+                    }
+                });
             } else {
+                // 移动回左侧时完全清空右侧栏
                 rightSidebar.innerHTML = '';
                 blogsSection.style.display = 'block';
+                rightSidebar.classList.remove('active');
+                mainContent.classList.remove('shifted');
             }
         });
     });
 </script>
+
+
+<!-- 右侧目录是消失、悬停和锁定 -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rightSidebar = document.querySelector('.right-sidebar');
+        const rightLockButton = document.querySelector('.right-lock-button');
+        const rightSidebarTrigger = document.querySelector('.right-sidebar-trigger');
+        
+        // Function to check content and update visibility
+        const updateSidebarVisibility = () => {
+            const hasContent = rightSidebar.children.length > 1;
+            if (!hasContent) {
+                rightSidebarTrigger.style.display = 'none';
+                rightSidebar.style.display = 'none';
+                rightSidebar.classList.remove('locked', 'active');
+                const icon = rightLockButton.querySelector('i');
+                icon.classList.remove('fa-lock-open');
+                icon.classList.add('fa-lock');
+            } else {
+                rightSidebarTrigger.style.display = '';
+                rightSidebar.style.display = '';
+                // 确保初始状态为锁定
+                rightSidebar.classList.add('locked');
+                const icon = rightLockButton.querySelector('i');
+                icon.classList.remove('fa-lock-open');
+                icon.classList.add('fa-lock');
+            }
+        };
+        
+        // Add lock functionality
+        rightLockButton.addEventListener('click', function() {
+            if (rightSidebar.children.length <= 1) {
+                return; // Ignore lock clicks when there's no content
+            }
+            
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-lock-open')) {
+                icon.classList.remove('fa-lock-open');
+                icon.classList.add('fa-lock');
+                rightSidebar.classList.add('locked');
+            } else {
+                icon.classList.remove('fa-lock');
+                icon.classList.add('fa-lock-open');
+                rightSidebar.classList.remove('locked');
+                rightSidebar.classList.remove('active');
+            }
+        });
+
+        // Initial visibility check and set locked state
+        updateSidebarVisibility();
+
+        // Only show initial animation if sidebar has content
+        setTimeout(() => {
+            const hasContent = rightSidebar.children.length > 1;
+            if (hasContent) {
+                rightSidebar.classList.add('active');
+                // 确保初始动画后保持锁定状态
+                rightSidebar.classList.add('locked');
+            }
+        }, 100);
+
+        // Add observer to monitor content changes
+        const observer = new MutationObserver(updateSidebarVisibility);
+        observer.observe(rightSidebar, { childList: true });
+    });
+</script>
+
 
 <style>
     footer {

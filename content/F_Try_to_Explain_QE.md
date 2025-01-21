@@ -1,6 +1,6 @@
 # Try to Explain Quantum Entanglement and "Spooky Action at a Distance"
 
-While completing the World Snapshot project, I gained some insights, which I am publishing simultaneously. It is also part of a serious publication that is prohibited from being republished or submitted to any form of publisher or address except by me. It can be discussed or advertised on the Internet, and my name (Sen Fang / 房森) must be mentioned.
+While completing the World Snapshot project, I gained some insights, which I am publishing simultaneously. It is also part of a serious publication that is prohibited from being republished or submitted to any form of publisher or address except by me. Its content can be discussed or advertised on the Internet, and my name (Sen Fang / 房森) must be mentioned.
 
 Modern quantum mechanics has three fundamental problems that remain unsolved: 1. Why are measurement results random? 2. How is "spooky action at a distance, i.e. quantum entanglement" accomplished? 3. Is the wave function physical reality, or merely a mathematical tool?
 
