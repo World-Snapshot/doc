@@ -364,13 +364,76 @@
     }
     </style>
 
+<!--head的可折叠功能-->
+<style>
+    .header-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .header-dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 80px;  /* 增加最小宽度 */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        z-index: 1000;
+        border: 1px solid #a2a9b1;
+        border-radius: 3px;
+        top: 100%;
+        /* 修改定位方式，使下拉框居中 */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .header-dropdown:hover .header-dropdown-content {
+        display: block;
+    }
+    
+    .header-dropdown-btn {
+        color: #3366cc;
+        text-decoration: none;
+        font-size: 14px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        font-family: inherit;
+        /* 添加文本居中对齐 */
+        text-align: center;
+        width: 100%;
+    }
+    
+    .header-dropdown-content a {
+        color: #3366cc;
+        text-decoration: none;
+        padding: 4px 8px;
+        display: block;
+        font-size: 14px;
+        white-space: nowrap;
+        /* 添加文本居中对齐 */
+        text-align: center;
+    }
+    
+    .header-dropdown-content a:hover {
+        background-color: #f8f9fa;
+        text-decoration: underline;
+    }
+</style>
+
 </head>
 <body>
     <header class="header">
         <h1 class="header-title">World Snapshot</h1>
         <div class="header-links">
             <a href="https://world-snapshot.github.io" class="header-link">[Project Page]</a>
-            <a href="https://github.com/World-Snapshot" class="header-link">[Github]</a>
+            <div class="header-dropdown">
+                <button class="header-dropdown-btn">[Materials]</button>
+                <div class="header-dropdown-content">
+                    <a href="#" data-md="content/G_news.md">[All News]</a>
+                    <a href="#" data-md="content/H_doc_print.md">[Doc Print]</a>
+                </div>
+            </div>
             <a href="https://x.com/SenFang01" class="header-link">[Author X]</a>
         </div>
     </header>
@@ -425,17 +488,6 @@
                 </div>
                 <div class="nav-items">
                     <a href="#" class="nav-link" data-md="content\F_Try_to_Explain_QE.md">Try to Explain Quantum Entanglement</a>
-                </div>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-title">
-                    <span class="nav-toggle"></span>
-                    Materials
-                </div>
-                <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content/G_news.md">All News</a>
-                    <a href="#" class="nav-link" data-md="content/H_doc_print.md">Doc Print</a>
                 </div>
             </div>
 
@@ -542,17 +594,18 @@
             }
         }
 
-        // 为导航链接添加点击事件
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation(); // 阻止事件冒泡
-                
-                // 使用 currentTarget 而不是 target
-                const mdFile = e.currentTarget.getAttribute('data-md');
-                if (mdFile) {
-                    loadMarkdown(mdFile);
-                }
+        // 为所有具有data-md属性的链接添加点击事件
+        document.addEventListener('DOMContentLoaded', () => {
+            // 选择所有带有data-md属性的链接，包括导航栏和下拉菜单中的链接
+            document.querySelectorAll('a[data-md]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const mdFile = e.currentTarget.getAttribute('data-md');
+                    if (mdFile) {
+                        loadMarkdown(mdFile);
+                    }
+                });
             });
         });
 
