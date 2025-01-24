@@ -40,4 +40,4 @@ NeRF is somewhat like WSF under pure probability, though NeRF cannot transform t
 
 It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using metric distances or affine-invariant distances, as this makes reconstruction and rendering faster. Although humans perceive the external world through relative feeling, everything in nature ultimately has its natural scale.
 
-*Conceived this blog on 23th Dec 24 and completed on 23th Dec 24, Updated on 14th Jan 25*
+*Conceived this blog on 23th Dec 2024 and completed on 23th Dec 24, Updated on 14th Jan 2025*

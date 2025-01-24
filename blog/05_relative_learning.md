@@ -26,4 +26,4 @@ When we imagine a scene happening, is the picture in our minds really that much 
 
 Therefore, improving embodied intelligence capabilities lies in "relative learning". Relative learning is fundamental to embodied intelligence and world models. And "relative learning" depends on training on the world itself.
 
-*Conceived this blog on 1 Jan 25, Completed on 3th Jan 25*
+*Conceived this blog on 1 Jan 2025, Completed on 3th Jan 2025*

@@ -29,4 +29,4 @@ For example, when the model is training, it might see the Titanic hitting an ice
 
 Moreover, when we train, we can consider using the midpoint of each video, letting the model know what is the relative future and past. This way, we can give the model the concept of "past" Just as I think models are two-dimensional beings, the vast majority of generative models don't have the concept of "past" at all.
 
-*Conceived this blog on 24 Dec 24, Completed on 3th Jan 25*
+*Conceived this blog on 24th Dec 2024, Completed on 3th Jan 2025*

@@ -1,11 +1,11 @@
-# Pixel Grandfather Paradox
+# World Pixel Grandfather Paradox
 
 ## Origin: The Dimensional Journey of a Quantum Pixel
 In an image space constructed by a WaveGen generative model, a special world pixel was born. Unlike ordinary WSG256 value combinations, it not only was a quantum state described by complex wave functions but also was a conscious world pixel. This pixel possessed two essential qualities:
 - As a deterministic display unit output by the generative model
 - As a quantum state of probability wave superposition
 
-## Interaction with Wave Functions
+## Interaction with Wave Function
 When this quantum world pixel decided to travel back in time, it discovered it could interact directly with the latent space of the generative model. There, it witnessed an amazing sight:
 
 Each "world pixel" was composed of countless interweaving probability waves, these wave functions dancing in the latent space, waiting to be observed and collapsed into concrete images. It realized that it could not only travel through time but also sail through an ocean of wave functions.
@@ -147,4 +147,4 @@ The quantum pixel's final state might be:
 
 While this state defies intuition, it is possible within the framework of quantum mechanics. It demonstrates that at the quantum level, causal relationships can be fuzzy, and paradoxes can be reconciled through superposition states.
 
-*Conceived this blog on 18th Jan 25, Completed on 18th Jan 25*
+*Conceived this blog on 18th Jan 2025, Completed on 18th Jan 2025*

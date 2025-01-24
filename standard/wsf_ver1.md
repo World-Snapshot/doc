@@ -5,7 +5,7 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 ## Overview
 
-WSF (World Snapshot Fields) is a hybrid neural radiance field file synthesized from two or more angles of wsg/wsv files through 3D reconstruction methods. For WSF files, the key challenge lies in handling the massive number of pixels.
+WSF (World Snapshot Fields) is a hybrid neural radiance field file could synthesized from two or more angles of wsg/wsv files through 3D reconstruction methods. For WSF files, the key challenge lies in handling the massive number of pixels.
 
 ## Background
 

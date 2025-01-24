@@ -41,7 +41,7 @@ The particles themselves represent world-pixels or world-points positions in our
 
 Generative models based on world snapshots can achieve this at a native level, without needing to create a standard 3D space like [Tracking Everything (best paper)](https://omnimotion.github.io/). This is because each of our world snapshot graphics inherently contains 3D information and physical information. We also don't need to create very complex constraints or any additional calculations, because we are training the world itself, at the fragment level. It naturally has strong constraints and correlations, making our new method exceptionally concise.
 
-*Conceived this blog on 24th Dec 24, Completed on 25th Dec 24, Updated on 31th Dec 24*
+*Conceived this blog on 24th Dec 2024, Completed on 25th Dec 24, Updated on 31th Dec 2024*
 
 <!--
 <iframe src="demos/laplace_demon_demo.html" 
