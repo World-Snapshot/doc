@@ -154,3 +154,6 @@ gantt
 # Implementation follows...
 class WaveGen:
     pass
+
+
+*Please read blogs 07*

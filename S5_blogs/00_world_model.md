@@ -24,13 +24,15 @@ This makes sense, but he later seemed to expect an architecture more powerful th
 
 So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many researchers are looking for. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post.
 
+However, it's important to note that top researchers are actually pursuing two types of things: 1. Models beyond LLMs that can truly reason. 2. World generation models that can truly understand, interact with, and control. Many people are confused and can't distinguish the future direction, not knowing what they themselves are pursuing.
+
 **Note1:** I originally only learned about world models through LeCun's tweets, about two or three of them. Actually, I don't care about world models at all, I think it's a very broad concept. But when I recently conceived the WSG format, and then I revisited part of his published speeches. I was surprised - although he didn't provide the answer, but his definition (models that can predict future world states) was sufficient to describe WSG-based models, namely world snapshot models.
 
 **Note2:** I later discovered that world snapshot models also natively can predict the past world states.
 
 **Note3:** There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. As for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
 
-*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 26th Dec 2024*
+*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 24th Jan 2025*
 
 <!--
 <div style="background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 5px;">

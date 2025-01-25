@@ -6,17 +6,19 @@ Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video), **WSF** (
 
 Development and learning of WSG, WSV, and other formats, exploring WS principles and algorithms based on line, lighting, and shape representation.
 
-### Physics in WS
-
-For example, our WSG natively supports relative and absolute distances. We can create relative volume and predict relative mass through physics knowledge.
-
-Since most world parameters exist in basic units, we can natively calculate world instances rather than through models learning parts separately for interaction.
-
 ### Quantum Wave Function Generation
 
 I have specifically developed a new type of generative model based on quantum wave functions (abbreviated as WaveGen) to better model world information. This new generative model has many advantages - conceptually and theoretically, it is rooted in the fundamental principles of the universe, making it much more elegant than the denoising process of diffusion models. Its control over physical conditions is natively supported, making it more elegant than embedded approaches like ControlNet. 
 
 Personally, I hope its impact will surpass both of these predecessors, and hope it will serve as a bridge for communication between the AI and physics communities.
+
+### Physics in WS
+
+For example, our WSG natively supports relative and absolute distances. We can create relative volume and predict relative mass through physics knowledge.
+
+In WaveGen, the "mass" distribution of pixels is primarily manifested in two aspects: 1. Areas with higher probability density distribution of the wave function represent greater pixel "mass". 2. Features determine the physical properties of each pixel point. Areas with larger amplitude correspond to greater "mass", which affects kinetic energy calculations, where regions of greater "mass" require more energy when in motion. Therefore, overall, the mass distribution is determined by the quantum state superposition and probabilistic interpretation of the wave function, which influences the motion characteristics of pixels in the dynamic field. Time and other properties follow the same principle, supported by the model's theoretical framework.
+
+Since most world parameters exist in basic units, we can natively calculate world instances rather than through models learning parts separately for interaction.
 
 ### WS-Based World Generation Models
 

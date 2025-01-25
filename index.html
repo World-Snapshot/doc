@@ -430,8 +430,8 @@
             <div class="header-dropdown">
                 <button class="header-dropdown-btn">[Materials]</button>
                 <div class="header-dropdown-content">
-                    <a href="#" data-md="materials/01_news.md">[All News]</a>
-                    <a href="#" data-md="materials/02_doc_print.md">[Doc Print]</a>
+                    <a href="#" data-md="S6_materials/01_news.md">[All News]</a>
+                    <a href="#" data-md="S6_materials/02_doc_print.md">[Doc Print]</a>
                 </div>
             </div>
             <a href="https://x.com/SenFang01" class="header-link">[Author X]</a>
@@ -452,7 +452,7 @@
 
             <div class="nav-section">
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content/A_song.md">Preface</a>
+                    <a href="#" class="nav-link" data-md="S1_preface/01_song.md">Preface</a>
                 </div>
             </div>
 
@@ -462,10 +462,10 @@
                     Standard
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content/B_overview.md">Overview</a>
-                    <a href="#" class="nav-link" data-md="standard/wsg_ver1.md">World Snapshot Graphics v1</a>
-                    <a href="#" class="nav-link" data-md="standard/wsv_ver1.md">World Snapshot Video v1</a>
-                    <a href="#" class="nav-link" data-md="standard/wsf_ver1.md">World Snapshot Fields v1</a>
+                    <a href="#" class="nav-link" data-md="S2_standard/01_overview.md">Overview</a>
+                    <a href="#" class="nav-link" data-md="S2_standard/02_wsg_ver1.md">World Snapshot Graphics v1</a>
+                    <a href="#" class="nav-link" data-md="S2_standard/03_wsv_ver1.md">World Snapshot Video v1</a>
+                    <a href="#" class="nav-link" data-md="S2_standard/04_wsf_ver1.md">World Snapshot Fields v1</a>
                 </div>
             </div>
 
@@ -475,9 +475,9 @@
                     Get Start
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content\C_wave_gen.md">Wave Function Generation</a>
-                    <a href="#" class="nav-link" data-md="components.md">Best Practices</a>
-                    <a href="#" class="nav-link" data-md="content\E_advanced_features.md">Advanced Features</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/01_wave_gen.md">Wave Function Generation</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/02_best_practices.md">Best Practices</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/03_advanced_features.md">Advanced Features</a>
                 </div>
             </div>
 
@@ -487,7 +487,7 @@
                     Physical Thoughts
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="content\F_Try_to_Explain_QE.md">Try to Explain Quantum Entanglement</a>
+                    <a href="#" class="nav-link" data-md="S4_physical_thoughts/01_try_to_explain_quantum_entanglement.md">Try to Explain Quantum Entanglement</a>
                 </div>
             </div>
 
@@ -497,15 +497,15 @@
                     Blogs
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="blog/08_plato_cave_allegory.md">08 Plato's Cave Allegory</a>
-                    <a href="#" class="nav-link" data-md="blog/07_light.md">07 Tensors are Basis of Light</a>
-                    <a href="#" class="nav-link" data-md="blog/06_grandfather_paradox.md">06 Pixel Grandfather Paradox</a>
-                    <a href="#" class="nav-link" data-md="blog/05_relative_learning.md">05 Relative be in All Things</a>
-                    <a href="#" class="nav-link" data-md="blog/04_laplace_demon.md">04 Create Laplace Demon</a>
-                    <a href="#" class="nav-link" data-md="blog/03_time_in_graphics.md">03 Time Flowing in Graphics</a>
-                    <a href="#" class="nav-link" data-md="blog/02_cv_rebirth.md">02 Computer Vision's Rebirth</a>
-                    <a href="#" class="nav-link" data-md="blog/01_best_paper.md">01 Rethink Best Papers</a>
-                    <a href="#" class="nav-link" data-md="blog/00_world_model.md">00 Discuss Real World Models</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/08_plato_cave_allegory.md">08 Plato's Cave Allegory</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/07_light.md">07 Tensors are Basis of Light</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/06_grandfather_paradox.md">06 Pixel Grandfather Paradox</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/05_relative_learning.md">05 Relative be in All Things</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/04_laplace_demon.md">04 Create Laplace Demon</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/03_time_in_graphics.md">03 Time Flowing in Graphics</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/02_cv_rebirth.md">02 Computer Vision's Rebirth</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/01_best_paper.md">01 Rethink Best Papers</a>
+                    <a href="#" class="nav-link" data-md="S5_blogs/00_world_model.md">00 Discuss Real World Models</a>
                 </div>
             </div>
 
@@ -622,7 +622,7 @@
         // 初始化页面
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page') || 'content/A_song.md'; // 设置默认页面
+            const page = urlParams.get('page') || 'S1_preface/01_song.md'; // 设置默认页面
             loadMarkdown(page);
         });
 
@@ -632,7 +632,7 @@
                 loadMarkdown(e.state.page);
             } else {
                 const urlParams = new URLSearchParams(window.location.search);
-                const page = urlParams.get('page') || 'content/A_song.md';
+                const page = urlParams.get('page') || 'S1_preface/01_song.md';
                 loadMarkdown(page);
             }
         });
