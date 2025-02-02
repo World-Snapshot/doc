@@ -26,6 +26,12 @@ Just by changing the data loading suffix from .png to .wsg in text2img models, i
 
 Then wsg has dozens or hundreds of properties, which previously might have required countless encoders or multimodal fusion methods, but now doesn't need them at all. You input text and can output information in dozens to hundreds of formats.
 
+### WS-Based Movie Generation Models
+
+When the generated video length increases from 1 minute to 120 minutes, the attention mechanism used in traditional diffusion video models would cause their computational or storage requirements to increase by 200,000 times, which is unacceptable.
+
+I hope that WavGen, based on linear attention, can make an attempt to explore the field of movie generation, which will create a massive new trillion-dollar global market. Meanwhile, the existing film industry will be upgraded.
+
 ### WS-Based Fine-tuning of Generative Models
 
 Theoretically, most of the existing flourishing pre-trained generative models don't need to be retrained. They only need to be fine-tuned on WSG format files of certain scale to generate world segments.
