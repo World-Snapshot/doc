@@ -30,15 +30,17 @@ Then wsg has dozens or hundreds of properties, which previously might have requi
 
 When the generated video length increases from 1 minute to 120 minutes, the attention mechanism used in traditional diffusion video models would cause their computational or storage requirements to increase by 200,000 times, which is unacceptable.
 
-I hope that WavGen, based on linear attention, can make an attempt to explore the field of movie generation, which will create a massive new trillion-dollar global market. Meanwhile, the existing film industry will be upgraded.
+But WavGen, based on linear attention, can make an attempt to explore the field of movie generation, which will create a massive new trillion-dollar global market. Meanwhile, the existing film industry will be upgraded.
 
 ### WS-Based Fine-tuning of Generative Models
 
-Theoretically, most of the existing flourishing pre-trained generative models don't need to be retrained. They only need to be fine-tuned on WSG format files of certain scale to generate world segments.
+Theoretically, most of the existing flourishing pre-trained generative models don't need to be retrained. They only need to be fine-tuned on WSG format files of certain scale to generate world segments (WSV).
 
 For instance, the latest version of diffusion models generates content that is absolutely very close to reality. After fine-tuning, it can attach various physical properties or additional attributes to the generated content.
 
 The more training it receives, the better the generated additional properties should be. Moreover, it won't affect the original generative capabilities (provided that your training data is equally refined). The additional new attribute generation capability depends on the quality and quantity of our new WSG data.
+
+However, world snapshot models trained on VAE, GAN, Diffusion and other models don't have the superiority of WavGen, because WaveGen is inherently a model designed to learn probability distributions of 3D and 4D universal space. Fine-tuning solutions are just temporary choices to save costs.
 
 ### WSG, WSV, WSF Data Collection
 
@@ -104,6 +106,10 @@ Moreover, the Gaussian field has great potential to apply related methods to our
 ### WS-Based Autonomous Driving
 
 If a model trains on WSV files, it might learn to understand the existing world, like relative and absolute distances. If so, vision-based autonomous driving might be greatly enhanced because it has learned and stored radar distance knowledge.
+
+Since our model can use probabilities (quantum superposition states) to represent the distribution of the world, we don't need to visualize predicted future world scenarios, which greatly reduces computational cost. For example, when we see someone leave a room, we know there's a probability they went to the kitchen or left the house, without needing to visualize it in our brain.
+
+Therefore, we can design a model that only deals with probabilities, considering strategies across different worldlines. We can then apply previously conceived strategies as the environment changes.
 
 ### WS-Based Medical Image Processing
 

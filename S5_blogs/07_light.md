@@ -12,6 +12,10 @@ In conventional optics, diffraction limits determine the smallest focal point. A
 
 This number is astounding - a square meter image is roughly the same parameter size as a 200B large language model. And cameras were invented nearly 200 years ago. We can say each photo greatly reduces redundant information, sampled by cameras for humans and AI models. Therefore, I can say original RGB images are already a type of world representation. (My have an additional thought: perhaps "vision tokens" aren't very important)
 
+Therefore, I believe when computational power is sufficient, there's no need to use VAE to reduce the dimensionality of real images, although this might be why some image generation models are so smooth. At least WaveGen shouldn't need it much - even every pixel in the distance is valuable data, like a fish pond where we should try to reach the muddy bottom.
+
+I know this will weaken WaveGen's overall performance, but I don't mind. I pursue perfection in design, even if the results might be exactly the opposite.
+
 ## Optical Tracking Is Not Important
 
 After developing and defining "world pixels", we can consider the importance of accompanying optical properties.
@@ -25,6 +29,16 @@ Tensors can effectively capture essential visual features without detailed light
 
 We can add appropriate optical properties to RGB three-channel tensor flows with paths to replace graphics-based Optical Tracking components, implementing much more concise AI-based optical simulation. Previous work didn't try this thoroughly, and they didn't actually use AI to build fully optical tracking. True AI optical tracking starts here.
 
+## The Human Eye is an Optical Interpreter
+
+What is the color of objects, and what is the essence of color? Color is the perception of electromagnetic waves of different wavelengths on human cone cells. For example, green light is just electromagnetic waves with wavelengths between 492-577 nanometers, and other species may perceive it differently.
+
+In the past, training world information was conducted through images composed of three primary colors. The main reason for previously using RGB three channels to a large extent was that this is a format that can be easily read by human eyes, meaning that human eyes are a limited optical interpreter.
+
+Computer vision based entirely on RGB and other few channels is, in a sense, very limited learning, as we have ignored too much valuable information. This is also why 3D vision is becoming increasingly popular. WavGen may also have valuable information that hasn't been noticed, but it provides a convenient platform, a new perspective.
+
+Perhaps it's the newly supported potential and kinetic energy calculations, which can support pixel-level momentum conservation, or perhaps it's the naturally convenient multi-modal fusion, or formula-level time support, or virtual-real interaction calculations, or perhaps it's highlighting the value of AI optics...
+
 So, for virtual worlds and world snapshot models, I can say: tensors are the foundation of light.
 
-*Conceived this blog on 22th Jan 2025, Completed on 23th Jan 2025, Updated on 24th Jan 2025*
+*Conceived this blog on 22th Jan 2025, Completed on 23th Jan 2025, Updated on 7th Feb 2025*
