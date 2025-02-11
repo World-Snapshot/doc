@@ -28,6 +28,6 @@ When a model reads graphics, it will read a pixel as a basic tensor with 3 value
 
 Since there aren't many models that directly process the color values of each pixel, and won't notice, damage, or adjust these basic units, most models should be able to train world snapshot graphics with minimal modifications. At most, the most basic tensor flow between the entire input and output needs to be adjusted.
 
-We provide specific standards for WSG, WSV and WSF in next section. We also provide wsg maker (img2wsg converter), wsg reader, and wsv, wsf player.
+We provide specific standards for WSG, WSV and WSF in next section. We also provide wsg maker (img2wsg converter), wsg reader, and wsv, wsf player at [this link](https://github.com/World-Snapshot/wsg).
 
 *Please read blogs 00*

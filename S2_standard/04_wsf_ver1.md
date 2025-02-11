@@ -29,6 +29,37 @@ How should we train this kind of data that combines virtual and real, particles 
 
 In quantum physics, a [wave function](https://en.wikipedia.org/wiki/Wave_function) (or wavefunction) is a mathematical description of the quantum state of an isolated quantum system. In one common form, it indicates that the square of the modulus of a position-dependent wave function is the probability density of measuring a particle at a given position. The integral of the square of the wave function's modulus over all degrees of freedom of the system must equal 1, a condition called normalization. Since the wave function is complex-valued, only its relative phase and relative magnitude can be measured; its value alone cannot tell us the magnitude or direction of measurable observables. One must apply quantum operators (whose eigenvalues correspond to possible sets of measurement results) to the wave function ψ and calculate the statistical distributions of measurable quantities.
 
+The time-dependent Schrödinger wave function in 3D spherical coordinates can be expressed as:
+
+`ψ(r,θ,φ,t) = A * exp(i(k·r - ωt)) * cos(θ) / √r`
+
+Then we encode wave parameters (k, ω, A) directly from text input through a neural network. The spatial coordinates (r,θ,φ) serve as sampling points during wave function evaluation, while time t acts as a conditional parameter for controlling temporal evolution, particularly crucial for video generation. So where:
+
+- `A`: Amplitude (encoded from text)
+- `k`: Wave number (encoded from text)
+- `ω`: Angular frequency (encoded from text)
+- `r`: Radial distance `√(x² + y² + z²)`
+- `θ`: Polar angle `arctan(√(x² + y²)/z)`
+- `φ`: Azimuthal angle `arctan(y/x)`
+- `t`: Time parameter (user-specified)
+
+<br>
+<details>
+<summary>Here is another explanation using the Cartesian coordinate</summary>
+
+The time-dependent Schrödinger wave function in 3D cartesian coordinates can be expressed as:
+
+`ψ(x,y,z,t) = A * exp(i(k_x·x + k_y·y + k_z·z - ωt))`
+
+where:
+- A: Amplitude (encoded from text)
+- k_x, k_y, k_z: Wave vector components (encoded from text)
+- ω: Angular frequency (encoded from text)
+- x, y, z: Spatial coordinates (sampling points)
+- t: Time parameter (user-specified)
+
+</details>
+
 When applied to image generation, it exhibits some excellent properties:
 
 <details>
@@ -70,7 +101,7 @@ When applied to image generation, it exhibits some excellent properties:
 </details>
 
 <details>
-<summary>Main Application Scenarios:</summary>
+<summary>Magic Control</summary>
 
 1. Image Editing
 
@@ -103,16 +134,7 @@ When applied to image generation, it exhibits some excellent properties:
 * Light and shadow effects: using potential field guidance
 </details>
 
-<details>
-<summary>Potential Challenges:</summary>
-
-* Numerical stability of wave function evolution
-* Precise control of boundary conditions
-* Mapping text features to wave function parameters
-* Optimization of computational efficiency
-</details>
-
-If we can ensure that quantum mechanical probability distribution calculations (i.e., predictions of superposition probability of pixel states) are faster than 3DGS's Gaussian calculations, we will be faster than 3DGS.
+This excites me, and I realize that we can completely abandon the 3*3 calculation division, making all world pixels capable of transforming between virtual and real states. Then we should consider how to combine this idea with data:
 
 ## Method
 
