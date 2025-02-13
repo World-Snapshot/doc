@@ -24,7 +24,7 @@ This makes sense, but he later seemed to expect an architecture more powerful th
 
 So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many researchers are looking for. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post.
 
-However, it's important to note that top researchers are actually pursuing several types of things: 1. Models beyond LLMs that can truly reason. 2. New models that can truly understand, interact with, and control (which can be divided into two major categories: generation and understanding - the former being 3D information-rich world generation, and the latter being embodied intelligence, automatic driving and action output of VLM/Agent). 3. Sustainable learning model. My work can only address part of the second problem: generating a more reasonable, editable, and explicit world.
+However, it's important to note that top researchers are actually pursuing several types of things: 1. Models beyond LLMs that can truly reason. 2. New models that can truly understand, interact with, and control (which can be divided into two major categories: generation and understanding - the former being 3D information-rich world generation, and the latter being embodied intelligence, spatial understanding, automatic driving and action output of VLM/Agent). 3. Sustainable learning model. My work can only address part of the second problem: generating a more reasonable, editable, and explicit world.
 
 Many people are confused and can't distinguish the future direction, they don't even know which category their work belongs in.
 

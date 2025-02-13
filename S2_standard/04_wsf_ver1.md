@@ -29,36 +29,53 @@ How should we train this kind of data that combines virtual and real, particles 
 
 In quantum physics, a [wave function](https://en.wikipedia.org/wiki/Wave_function) (or wavefunction) is a mathematical description of the quantum state of an isolated quantum system. In one common form, it indicates that the square of the modulus of a position-dependent wave function is the probability density of measuring a particle at a given position. The integral of the square of the wave function's modulus over all degrees of freedom of the system must equal 1, a condition called normalization. Since the wave function is complex-valued, only its relative phase and relative magnitude can be measured; its value alone cannot tell us the magnitude or direction of measurable observables. One must apply quantum operators (whose eigenvalues correspond to possible sets of measurement results) to the wave function ψ and calculate the statistical distributions of measurable quantities.
 
-The time-dependent Schrödinger wave function in 3D spherical coordinates can be expressed as:
+The time-dependent Schrödinger wave function in 3D cartesian coordinates with attenuation can be expressed as:
 
-`ψ(r,θ,φ,t) = A * exp(i(k·r - ωt)) * cos(θ) / √r`
+ψ(x,y,z,t) = A · e<sup>i(k<sub>x</sub>·x + k<sub>y</sub>·y + k<sub>z</sub>·z - ωt)</sup> · e<sup>-(x/σ<sub>x</sub>)² -(y/σ<sub>y</sub>)² -(z/σ<sub>z</sub>)²</sup>
 
-Then we encode wave parameters (k, ω, A) directly from text input through a neural network. The spatial coordinates (r,θ,φ) serve as sampling points during wave function evaluation, while time t acts as a conditional parameter for controlling temporal evolution, particularly crucial for video generation. So where:
+Then we encode part parameters directly from text input through a neural network. The spatial coordinates serve as sampling points during wave function evaluation, while time t acts as a conditional parameter for controlling temporal evolution, particularly crucial for video generation. So where:
 
-- `A`: Amplitude (encoded from text)
-- `k`: Wave number (encoded from text)
-- `ω`: Angular frequency (encoded from text)
-- `r`: Radial distance `√(x² + y² + z²)`
-- `θ`: Polar angle `arctan(√(x² + y²)/z)`
-- `φ`: Azimuthal angle `arctan(y/x)`
-- `t`: Time parameter (user-specified)
-
-<br>
-<details>
-<summary>Here is another explanation using the Cartesian coordinate</summary>
-
-The time-dependent Schrödinger wave function in 3D cartesian coordinates can be expressed as:
-
-`ψ(x,y,z,t) = A * exp(i(k_x·x + k_y·y + k_z·z - ωt))`
-
-where:
 - A: Amplitude (encoded from text)
-- k_x, k_y, k_z: Wave vector components (encoded from text)
+- k<sub>x</sub>, k<sub>y</sub>, k<sub>z</sub>: Wave vector components (encoded from text)
 - ω: Angular frequency (encoded from text)
+- σ<sub>x</sub>, σ<sub>y</sub>, σ<sub>z</sub>: Attenuation factors (encoded from text)
 - x, y, z: Spatial coordinates (sampling points)
 - t: Time parameter (user-specified)
 
+The attenuation term is not inherent in the wave function. The attenuation terms allow us to control the spatial extent of the wave function in each direction, enabling the generation of various shapes like spheres, ellipsoids, or more complex geometric forms based on the text description.
+
+Additionally, the above formula does not consider the center of the wave function. Since we have decay around a center, we must establish a center, so the formula becomes:
+
+ψ(x,y,z,t) = A · e<sup>i(k<sub>x</sub>·(x-x<sub>c</sub>) + k<sub>y</sub>·(y-y<sub>c</sub>) + k<sub>z</sub>·(z-z<sub>c</sub>) - ωt)</sup> · e<sup>-((x-x<sub>c</sub>)/σ<sub>x</sub>)² -((y-y<sub>c</sub>)/σ<sub>y</sub>)² -((z-z<sub>c</sub>)/σ<sub>z</sub>)²</sup>
+
+- x<sub>c</sub>, y<sub>c</sub>, z<sub>c</sub>: Center position of the wave function (encoded from text)
+
+<!--
+
+<details>
+<summary>Here is another expression using the classical spherical coordinate</summary>
+
+The time-dependent Schrödinger wave function in 3D spherical coordinates with attenuation can be expressed as:
+
+ψ(r,θ,φ,t) = A · e<sup>i(k·r - ωt)</sup> · e<sup>-(r/σ<sub>r</sub>)²</sup> · e<sup>-(θ/σ<sub>θ</sub>)²</sup> · e<sup>-(φ/σ<sub>φ</sub>)²</sup>
+
+- A: Amplitude (encoded from text)
+- k: Wave number (encoded from text)
+- ω: Angular frequency (encoded from text)
+- σ<sub>r</sub>, σ<sub>θ</sub>, σ<sub>φ</sub>: Attenuation factors (encoded from text)
+- r: Radial distance `√(x² + y² + z²)`
+- θ: Polar angle `arctan(√(x² + y²)/z)`
+- φ: Azimuthal angle `arctan(y/x)`
+- t: Time parameter (user-specified)
+
+In spherical coordinates, the formula for modifying the center is:
+
+ψ(r,θ,φ,t) = A · e<sup>i(k·(r-r<sub>c</sub>) - ωt)</sup> · e<sup>-((r-r<sub>c</sub>)/σ<sub>r</sub>)²</sup> · e<sup>-((θ-θ<sub>c</sub>)/σ<sub>θ</sub>)²</sup> · e<sup>-((φ-φ<sub>c</sub>)/σ<sub>φ</sub>)²</sup>
+
+- r<sub>c</sub>, θ<sub>c</sub>, φ<sub>c</sub>: Center position in spherical coordinates (encoded from text)
 </details>
+
+-->
 
 When applied to image generation, it exhibits some excellent properties:
 
@@ -134,7 +151,7 @@ When applied to image generation, it exhibits some excellent properties:
 * Light and shadow effects: using potential field guidance
 </details>
 
-This excites me, and I realize that we can completely abandon the 3*3 calculation division, making all world pixels capable of transforming between virtual and real states. Then we should consider how to combine this idea with data:
+This excites me, and I realize that we can completely abandon the 3x3 or 5x5 calculation division, making all world pixels capable of transforming between virtual and real states. Then we should consider how to combine this idea with data:
 
 ## Method
 
@@ -147,6 +164,8 @@ When a particular viewpoint is observed, we collapse the pixel areas along the l
 When we change viewpoints, we should collapse again because different viewpoints should have different colors and depths. However, the xyz coordinates and most properties of the same points should remain consistent. During reconstruction, we can consider keeping some data unchanged to reduce computational costs.
 
 In essence, WSF should be a mixed virtual-real field that computes in real-time based on the observer effect. WS rendering is similar to explicit point cloud rendering and can use rasterization, which theoretically should be quite fast. For optimization, we can consider reusing points that have already been quantum collapsed.
+
+In this way, we have roughly conceived the formation of WSF.
 
 **Note 1:** Existing quantum GANs, quantum diffusion models, and quantum generative models all use existing generative models to explore applications in the quantum domain. Some attempt to generate complex mazes or structures, unrelated to image and scene generation. Others involve "wavelet diffusion" and "wavelet transforms" in the frequency domain, which are unrelated to the properties of quantum waves and their collapse. Unlike previous approaches, we are the first work to focus on image generation through quantum wave functions. 
 

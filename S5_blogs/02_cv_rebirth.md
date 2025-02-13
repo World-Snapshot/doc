@@ -10,13 +10,15 @@ Development and learning of WSG, WSV, and other formats, exploring WS principles
 
 I have specifically developed a new type of generative model based on quantum wave functions (abbreviated as WaveGen) to better model world information. This new generative model has many advantages - conceptually and theoretically, it is rooted in the fundamental principles of the universe, making it much more elegant than the denoising process of diffusion models. Its control over physical conditions is natively supported, making it more elegant than embedded approaches like ControlNet. 
 
-Personally, I hope its impact will surpass both of these predecessors, and hope it will serve as a bridge for communication between the AI and physics communities.
+Personally, I hope its impact will surpass both of these predecessors (More broadly, hope it is to unify all methods and any form of AI generation from 1D to 4D), and hope it will serve as a bridge for communication between the AI and physics communities.
 
 ### Physics in WS
 
 For example, our WSG natively supports relative and absolute distances. We can create relative volume and predict relative mass through physics knowledge.
 
 In WaveGen, the "mass" distribution of pixels is primarily manifested in two aspects: 1. Areas with higher probability density distribution of the wave function represent greater pixel "mass". 2. Features determine the physical properties of each pixel point. Areas with larger amplitude correspond to greater "mass", which affects kinetic energy calculations, where regions of greater "mass" require more energy when in motion. Therefore, overall, the mass distribution is determined by the quantum state superposition and probabilistic interpretation of the wave function, which influences the motion characteristics of pixels in the dynamic field. Time and other properties follow the same principle, supported by the model's theoretical framework.
+
+We use multiple sets of wave functions to represent the physical world distribution, with their outputs serving as high-dimensional features for decoding. I believe that after continuous training, sufficient wave functions in the latent space will become fitted to real space, or at least abstractly fitted to real space. At this point, a wave function can represent an entity or a part of it. It's similar to how humans can determine the boundaries of the world with the simplest points and lines. This is somewhat like grid learning hidden in latent space, though of course the underlying world may be very abstract.
 
 Since most world parameters exist in basic units, we can natively calculate world instances rather than through models learning parts separately for interaction.
 
