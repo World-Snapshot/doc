@@ -4,7 +4,7 @@
 
 Yann LeCun often says that large language models are not world models, and humanity needs something new to reach the next level. Indeed, large language models often make mistakes in the most basic reasoning, and perhaps super-alignment is a direction to enhance Agent intelligence. But LLMs are indeed not world models; in my view, they are just two-dimensional beings.
 
-Fei-Fei Li has also tried to create model-based spatial intelligence to make some improvements. This path has potential but isn't elegant enough. Although data is finetuned simply, it primarily serves the model. Of course, newly developed spatial methods will always be valuable experience and wealth for reference.
+Fei-Fei Li has also tried to create model-based spatial intelligence to make some improvements. Both the image generation model and the spatial understanding model are studied. Although model and data is finetuned simply to construct the spatial, it primarily serves the model. Of course, newly developed spatial methods will always be valuable experience and wealth for reference.
 
 Some early works had "world model" in their names, but they were just beneficial attempts with agents and scenarios - these attempts ahead of their time. Because there were no LLMs, agents, or robots trained in excellent simulation environments back then. So from today's perspective, those works were just prototypes that touched the boundaries of hybrid agents and artificial environments.
 
@@ -22,7 +22,7 @@ Some estimates say it's 3 bits per second, but that doesn't matter - it's an ord
 
 This makes sense, but he later seemed to expect an architecture more powerful than Transformer to achieve this. But now I believe that perhaps we should start with the data itself. The existing architecture can still exert powerful capabilities.
 
-So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many researchers are looking for. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post.
+So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many researchers are looking for. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post and [Get Start: WaveGen](https://world-snapshot.github.io/doc/index.html?page=S3_get_start/01_wave_gen.md).
 
 However, it's important to note that top researchers are actually pursuing several types of things: 1. Models beyond LLMs that can truly reason. 2. New models that can truly understand, interact with, and control (which can be divided into two major categories: generation and understanding - the former being 3D information-rich world generation, and the latter being embodied intelligence, spatial understanding, automatic driving and action output of VLM/Agent). 3. Sustainable learning model. My work can only address part of the second problem: generating a more reasonable, editable, and explicit world.
 

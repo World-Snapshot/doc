@@ -1,5 +1,7 @@
 # The Comparison of WaveGen and Related Work
 
+*"Wave is all the world needs."*
+
 ## Overview
 
 Here we provide a summary of WaveGen's advantages and experimental results to serve as a helpful summary.
