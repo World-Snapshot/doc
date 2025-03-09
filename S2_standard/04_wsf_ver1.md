@@ -7,7 +7,9 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 WSF (World Snapshot Fields) is a hybrid neural radiance field file could synthesized from two or more angles of wsg/wsv files through 3D reconstruction methods. For WSF files, the key challenge lies in handling the massive number of pixels.
 
-## Background
+## Difference
+
+In previous works:
 
 NeRF is an implicit representation where each point in space has a color and probability, without concept particles. It's not easily editable.
 
