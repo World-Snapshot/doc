@@ -1,6 +1,6 @@
 # The Comparison of WaveGen and Related Work
 
-*"Wave is all the world needs."*
+*"Wave is all things those worlds need."*
 
 ## Overview
 
@@ -127,7 +127,7 @@ gantt
 
 ## 5. Application Scenarios
 
-| Application | WaveGen | Diffusion | GAN | Point Cloud | NeRF | 3DGS |
+| Application | WaveGen Model | Diffusion | GAN Model | Point Cloud | NeRF | 3DGS |
 |-------------|---------|-----------|-----|-------------|------|------|
 | Image Generation | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | 3D Reconstruction | ✓ | ✗ | △ | ✓ | ✓ | ✓ |
