@@ -20,4 +20,4 @@ For example, when a WSV video player starts reading pixels randomly, there will 
 
 I use redundant distributed storage algorithms to handle this.
 
-*Please read blogs 03 and 04*
+*Please read blogs "03 Time Flowing in Graphics" and "04 Create Laplace Demon"*

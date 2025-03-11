@@ -30,4 +30,4 @@ Since there aren't many models that directly process the color values of each pi
 
 We provide specific standards for WSG, WSV and WSF in next section. We also provide wsg maker (img2wsg converter), wsg reader, and wsv, wsf player at [this link](https://github.com/World-Snapshot/wsg).
 
-*Please read blogs 00*
+*Please read blogs "00 Discuss Real World Models"*

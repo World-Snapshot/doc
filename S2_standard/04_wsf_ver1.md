@@ -141,4 +141,4 @@ In this way, we have roughly conceived the formation of WSF.
 
 **Note 1:** Existing quantum GANs, quantum diffusion models, and quantum generative models all use existing generative models to explore applications in the quantum domain. Some attempt to generate complex mazes or structures, unrelated to image and scene generation. Others involve "wavelet diffusion" and "wavelet transforms" in the frequency domain, which are unrelated to the quantum waves and their collapse. Unlike previous approaches, we are the first work to focus on image generation through quantum wave functions. 
 
-*Please read blogs 01, 05 and 06*
+*Please read blogs "01 Rethink Best Papers", "05 Relative be in All Things" and "06 Pixel Grandfather Paradox"*

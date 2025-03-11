@@ -1,6 +1,6 @@
 # Discuss Real World Models
 
-*"I now define the frame of the System of the World."*
+*"I now define the frame of the System of the World Models."  --Sen Fang*
 
 ## What is Real the World Models
 
@@ -38,22 +38,25 @@ Many people are confused and can't distinguish the future direction, they don't 
 
 I combine people's opinions to make the following definition, a world snapshot model or ideal world model should generate:
 
-- **Spatial sequence (X,Y,Z):** For modeling geometric space
-- **Time sequence (t):** Generate dynamic, continuous content with temporal flow
+- **Spatial sequence (x,y,z):** For modeling geometric space
+- **Time sequence (t):** Generate dynamic, static, continuous, discontinuous content with temporal flow (now, past, future)
 - **Dense representation:** Texture, lighting, rendering process, as many physical meanings and properties as possible. And all these properties need to be controllable
 - **Semantic instances:** The environment is not a whole, but broken down into specific objects, enabling object-level control and recombination
-- **World heart or world core:** In a core space, using some high-dimensional method to represent the probability distribution of the world, then modeling everything's spatiotemporal distribution by the core. After model, it then output the specific content or sample. *Our method uses Quantum Waves to create the heart of world.*
+- **World heart or world core:** In a core space, using some high-dimensional method to represent the probability distribution of the world, then modeling everything's spatiotemporal distribution by the core. After model, it then output the specific content, object or sample. *WaveGen uses [Quantum Waves](https://en.wikipedia.org/wiki/Wave_function) to create the heart of world.*
+- **Physical constraint:** In the core space, the abstract representation of objects should be constrained. In our work, this is equivalent to using formulas to convert natural distributions into relative energy and relative density based on probability, which allows for further constraints. *We use the '[Principle of Least Action](https://en.wikipedia.org/wiki/Action_principles)' for constraint.*
 - **RIVE:** The internal information of the model's main components is <b>R</b>easonable, <b>I</b>nterpretable, <b>V</b>isualizable, and <b>E</b>ditable.
 - **Bidirectional training and inference:** The main components can pass information to each other, the model can be used for world generation and understanding, and thus can be plugged into a larger complex model as a module.
 - **All living animals have posture information:** Waves have their own propagation directions, for example, perhaps in the world core space, there is a moving rectangular probability wave representing the movement of a car. But for more detailed animals, we need to identify their joints.
 
 Models that conform to these definitions (including but not limited to) will be world snapshot models or ideal world models.
 
-**Note3:** Regarding the world core, I will explain it in detail later in the text. Simply put, we should use formulas or methods that include parameters (x, y, z, t, ...) to model a spacetime. The specific carrier we use is probability waves, while others might also adopt something like deformable meshes as the world core, which similarly falls within the scope of world snapshot models.
+**Note3:** Regarding the world core, I will explain it in detail later in the text. Simply put, before output final content, we should use formulas or methods that include parameters (x, y, z, t, ...) to model a spacetime. The specific carrier we use is probability waves, while others might also adopt something like deformable meshes as the world core, which similarly falls within the scope of world snapshot models.
 
-**Note4:** There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. Time has polluted the concept, therefore, as for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
+**Note4:** Regarding the physical constraint, I will explain it in detail later in the text. As of 2018, <strong style="color: #666666">all known physical systems</strong> can be explained using the [Principle of Least Action](https://en.wikipedia.org/wiki/Action_principles). ([Cosimo Bambi](https://scholar.google.com/citations?user=W9EMTqIAAAAJ&hl=en), 2018, [Introduction to General Relativity](https://link.springer.com/book/10.1007/978-981-13-1090-4?fbclid=IwAR1nBCT3gYYPl9bs0D8Zi9-S-41iKKHDK0bUvxcD8EUgWNGhUoksQtWykOQ), p. 12)
 
-*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 24th Jan 2025*
+**Note5:** There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. Time has polluted the concept, therefore, as for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
+
+*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 9th March 2025*
 
 <!--
 <div style="background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 5px;">

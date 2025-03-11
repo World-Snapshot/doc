@@ -1,6 +1,6 @@
 # Learn Quantum Wave Function Generation (WaveGen)
 
-*"God plays dice, our world snapshot does play dice too."*
+*"God plays dice, our world snapshot does play dice too."  --Sen Fang*
 
 ## Overview
 
@@ -9,6 +9,49 @@ World Snapshot aims to unify digital reality at the pixel level, and [WaveGen](h
 In theory, WaveGen can directly train a continuous world field (WSF). When we fix the angle, it becomes WSV, and when we take a specific frame from it, we get WSG image generation. Therefore, we will try to directly generate a dynamic world scene, which wave collapses according to viewing angles and frame numbers, and then export the format we want.
 
 ## Background
+
+According to Fourier series, multiple cosine functions superimposed can represent any curve with n bends. This also applies in 3D and 4D spaces, just as multiple 3D waves can represent any sandbox with various peaks. In the last section (WSF), we discussed the heart of the world, which is a space that represents the real world through multiple sets of wave functions.
+
+<details>
+<summary>For a forest scene that needs to be represented, it may require 700-800 sets of wave functions to describe it well.</summary>
+
+For a small forest scene (approximately 100m × 100m):
+- Large trees (about 20-30): 15-20 wave function sets per tree
+- Terrain variations: 10-15 wave function sets for basic terrain
+- Shrubs: 3-5 wave function sets per shrub
+- Ground vegetation: 1-2 wave function sets per square meter for main variations
+Rough estimate:
+
+Trees: 20 trees × 20 sets = 400 wave function sets
+Terrain: 15 wave function sets
+Shrubs: 50 clusters × 4 sets = 200 wave function sets
+Ground surface: about 100 wave function sets
+
+This equals approximately 700-800 wave function sets. With fractal properties and hierarchical representation, this number could potentially be optimized down to 300-400 sets while maintaining the main visual features.
+</details>
+
+<details>
+<summary>For a house that needs to be represented, a total of approximately 45-50 sets of wave functions are needed.</summary>
+
+For a typical living room (approximately 20 square meters):
+- 4 walls + ceiling + floor: about 24 wave functions (edges and corners)
+- One set of sofas: about 8 wave functions
+- One coffee table: about 4 wave functions
+- One TV cabinet: about 4 wave functions
+- 5-6 small objects: about 5-6 wave functions
+This totals approximately 45-50 sets of wave functions.
+Important trade-offs:
+
+For more precise detail description: might need 100+ wave function sets
+For rough shapes only: 20-30 sets might be sufficient
+If considering surface textures: each surface might require an additional 5-10 wave function sets
+
+This estimation is based on each major edge/contour needing at least one wave function, with curved or complex shapes requiring multiple superimposed wave functions.
+</details>
+
+Text as input, multiple sets of wave functions as output: each set of wave functions contains at least information about the real part, imaginary part, amplitude, phase, etc. As of now (March 11, 2025), I'm still unclear about their specific functions. Ideally, whether we manually set a core space similar to the real world, or it naturally uses waves to construct and reconstruct real scenes through learning, both are what we hope for.
+
+However, if after learning, the model has its own highly abstract method of representing the world in its mind, we may have to accept this as well. It's like how we ask LLMs to think in English, but they insist on thinking in tokens, strange characters, or tensor flows. Therefore, I'm still unclear about what scenes exist in the world's core space.
 
 ## Idea
 
@@ -90,4 +133,4 @@ At the WSG level, I hope we can generate a perfect photo of a world scene. At th
 
 I hope AI can generate a happy world without fatigue, without regret, only happiness and dreams coming true. When users enter it, they can even live a happy life forever. I mean: <strong style="color: #666666">Hope humans will have the ability to create the subordinate universe from now.</strong>
 
-*Please read blogs 07*
+*Please read blogs "07 Tensors are Basis of Light"*

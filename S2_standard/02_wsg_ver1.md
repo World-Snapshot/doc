@@ -343,4 +343,4 @@ Version format: MAJOR.MINOR.PATCH
 - Performance benchmarks
 - Compatibility testing
 
-*Please read blogs 01 and 02*
+*Please read blogs "01 Rethink Best Papers" and "02 Computer Vision's Rebirth"*

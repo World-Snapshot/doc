@@ -1,6 +1,6 @@
 # The Comparison of WaveGen and Related Work
 
-*"Wave is all things those worlds need."*
+*"Wave is all things those worlds need."  --Sen Fang*
 
 ## Overview
 
