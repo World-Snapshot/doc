@@ -33,11 +33,11 @@ In quantum physics, a [wave function](https://en.wikipedia.org/wiki/Wave_functio
 
 The time-dependent Schrödinger wave function in 3D cartesian coordinates can be expressed as:
 
-ψ(x,y,z,t) = A · e<sup>i(k<sub>x</sub>·x + k<sub>y</sub>·y + k<sub>z</sub>·z - ωt)</sup>
+$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t)}$
 
 - A: Amplitude (encoded from text)
-- k<sub>x</sub>, k<sub>y</sub>, k<sub>z</sub>: Wave vector components (encoded from text)
-- ω: Angular frequency (encoded from text)
+- $k_x$, $k_y$, $k_z$: Wave vector components (encoded from text)
+- $\omega$: Angular frequency (encoded from text)
 - x, y, z: Spatial coordinates (sampling points)
 - t: Time parameter (user-specified)
 

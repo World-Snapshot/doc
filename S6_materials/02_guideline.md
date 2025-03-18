@@ -19,3 +19,6 @@ For training strategies, we know there are broadly two categories: self-supervis
 I considered using the seq2seq concept (since our images contain pose information, it like leaves have veins, with stronger constraints), but it doesn't seem very compatible with RNN. I'm also considering MSE as my backup/mixed training strategy.
 
 This sets the tone for the entire new model.
+
+## Doubt
+

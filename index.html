@@ -20,6 +20,22 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23eef0f2'/%3E%3Ctext x='16' y='26' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif' font-size='26' font-weight='500' text-anchor='middle' fill='%23202122'%3EW%3C/text%3E%3C/svg%3E">
     <!-- 为 Safari 浏览器添加图标 -->
     <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23eef0f2'/%3E%3Ctext x='16' y='26' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif' font-size='26' font-weight='500' text-anchor='middle' fill='%23202122'%3EW%3C/text%3E%3C/svg%3E">
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+
     <style>
         /* 保持之前的所有样式 */
         * {
@@ -433,6 +449,8 @@
     }
 </style>
 
+
+
 </head>
 <body>
     <header class="header">
@@ -490,9 +508,10 @@
                 </div>
                 <div class="nav-items">
                     <a href="#" class="nav-link" data-md="S3_get_start/01_wave_gen.md">Wave Function Generation</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/02_advantages.md">Advantages Comparison</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/03_best_practices.md">Best Practices</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/04_advanced_features.md">Advanced Features</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/02_controlwave.md">ControlWave</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/03_advantages.md">Advantages Comparison</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/04_best_practices.md">Best Practices</a>
+                    <a href="#" class="nav-link" data-md="S3_get_start/05_advanced_features.md">Advanced Features</a>
                 </div>
             </div>
 
@@ -502,7 +521,9 @@
                     Physical Thoughts
                 </div>
                 <div class="nav-items">
+                <!--
                     <a href="#" class="nav-link" data-md="S4_physical_thoughts/01_try_to_explain_quantum_entanglement.md">Try to Explain Quantum Entanglement</a>
+                -->
                 </div>
             </div>
 
@@ -593,8 +614,54 @@
                 }
                 const text = await response.text();
                 
-                // 渲染内容
-                document.getElementById('content').innerHTML = md.render(text);
+                // 预处理数学公式 - 保存到占位符
+                const mathExpressions = [];
+                let counter = 0;
+                
+                // 替换块级公式
+                let processedText = text.replace(/\$\$([\s\S]*?)\$\$/g, function(match, formula) {
+                    const placeholder = `MATHBLOCK_${counter++}`;
+                    mathExpressions.push({
+                        placeholder: placeholder,
+                        original: match,
+                        formula: formula,
+                        isBlock: true
+                    });
+                    return placeholder;
+                });
+                
+                // 替换行内公式
+                processedText = processedText.replace(/\$([\s\S]*?)\$/g, function(match, formula) {
+                    const placeholder = `MATHINLINE_${counter++}`;
+                    mathExpressions.push({
+                        placeholder: placeholder,
+                        original: match,
+                        formula: formula,
+                        isBlock: false
+                    });
+                    return placeholder;
+                });
+                
+                // 渲染 Markdown
+                let htmlContent = md.render(processedText);
+                
+                // 恢复数学公式
+                mathExpressions.forEach(item => {
+                    if (item.isBlock) {
+                        htmlContent = htmlContent.replace(
+                            item.placeholder, 
+                            `$$${item.formula}$$`
+                        );
+                    } else {
+                        htmlContent = htmlContent.replace(
+                            item.placeholder, 
+                            `$${item.formula}$`
+                        );
+                    }
+                });
+                
+                // 更新DOM
+                document.getElementById('content').innerHTML = htmlContent;
                 
                 // 初始化 Mermaid
                 mermaid.init(undefined, document.querySelectorAll('.mermaid'));
@@ -603,6 +670,15 @@
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightBlock(block);
                 });
+                
+                // 触发 MathJax 渲染
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    try {
+                        await window.MathJax.typesetPromise();
+                    } catch (e) {
+                        console.error('MathJax rendering error:', e);
+                    }
+                }
                 
                 // 更新标题
                 const firstH1 = document.querySelector('.markdown-body h1');

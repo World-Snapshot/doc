@@ -1,0 +1,29 @@
+{
+    "waveFunctions": [
+      {
+        "id": 0,
+        "name": "默认波函数",
+        "amplitude": 1.0,
+        "kx": 1.0,
+        "ky": 0.5,
+        "kz": 0.3,
+        "omega": 2.0,
+        "sigmaX": 1.5,
+        "sigmaY": 1.5,
+        "sigmaZ": 1.5,
+        "centerX": 0.0,
+        "centerY": 0.0,
+        "centerZ": 0.0,
+        "velocityX": 0.2,
+        "velocityY": 0.0,
+        "velocityZ": 0.0,
+        "color": "#4c6ef5",
+        "visible": true
+      }
+    ],
+    "metadata": {
+      "description": "默认波函数参数",
+      "created": "2025-03-15T12:00:00Z",
+      "version": "1.0"
+    }
+  }

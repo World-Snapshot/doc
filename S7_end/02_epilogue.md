@@ -8,4 +8,4 @@ I also admit that I was unfamiliar with many concepts before, such as point clou
 
 I am also grateful that wisdom and inspiration have favored me, during that first BOOM week, endless knowledge poured into my mind, countless inspirations emerged, and I couldn't sleep without writing them down. That feeling was even painful. Fortunately, I completed my mission.
 
-I hope this project will contribute something to human development.
+I just hope this path is the correct road leading to the future.

@@ -90,7 +90,7 @@ Or we can let Agents explore in WS.
 
 ### WS-Based Simulation Training
 
-Perhaps wsv can serve as a simulation of the real world, and scene creation is convenient. If with 1 billion different scenes, we will have 1 billion non-artificial natural simulation scenes.
+WSF can serve as a simulation of the real world, and scene creation of WaveGen is convenient. If generating 1 billion different scenes, we will have 1 billion non-artificial natural simulation scenes.
 
 ### Audio Processing in WS
 

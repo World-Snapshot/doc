@@ -1,0 +1,49 @@
+{
+    "waveFunctions": [
+      {
+        "id": 0,
+        "name": "自由粒子波函数",
+        "amplitude": 1.0,
+        "kx": 2.0,
+        "ky": 0.0,
+        "kz": 0.0,
+        "omega": 2.0,
+        "sigmaX": 2.0,
+        "sigmaY": 2.0,
+        "sigmaZ": 2.0,
+        "centerX": -1.5,
+        "centerY": 0.0,
+        "centerZ": 0.0,
+        "velocityX": 0.5,
+        "velocityY": 0.0,
+        "velocityZ": 0.0,
+        "color": "#4c6ef5",
+        "visible": true
+      },
+      {
+        "id": 1,
+        "name": "干涉波函数",
+        "amplitude": 1.0,
+        "kx": -2.0,
+        "ky": 0.0,
+        "kz": 0.0,
+        "omega": 2.0,
+        "sigmaX": 2.0,
+        "sigmaY": 2.0,
+        "sigmaZ": 2.0,
+        "centerX": 1.5,
+        "centerY": 0.0,
+        "centerZ": 0.0,
+        "velocityX": -0.5,
+        "velocityY": 0.0,
+        "velocityZ": 0.0,
+        "color": "#e74c3c",
+        "visible": true
+      }
+    ],
+    "metadata": {
+      "description": "包含两个波函数的参数集",
+      "created": "2025-03-15T12:30:00Z",
+      "version": "1.0"
+    }
+  }
