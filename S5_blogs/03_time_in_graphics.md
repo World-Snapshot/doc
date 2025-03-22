@@ -18,7 +18,7 @@ The World Snapshot Model generates videos composed of countless world frames. Or
 
 World Snapshot Video can theoretically infinitely approach the frame rate of the real world, although in actual use it falls far short of this frame rate. However, in design, we should try to consider how World Snapshot combines with real properties, as they are so similar even in their smallest discontinuities.
 
-I suddenly became a bit curious whether someone have studied if our universe is made up of frame by frame. It sounds a bit like a new 'string theory', namely 'frame theory'. As we know, [Zhuangzi](https://en.wikipedia.org/wiki/Zhuang_Zhou), [Plato](https://en.wikipedia.org/wiki/Plato), [Descartes](https://en.wikipedia.org/wiki/René_Descartes), [Maya](https://en.wikipedia.org/wiki/Maya_(religion)), and the ["brain in a vat theory"](https://en.wikipedia.org/wiki/Brain_in_a_vat) imagined that human being in the virtual universe is possible.
+I suddenly became a bit curious whether someone have studied if our universe is made up of frame by frame ([Then I found out that someone had.](https://en.wikipedia.org/wiki/Holographic_principle)). It sounds a bit like a new 'string theory', namely 'frame theory'. As we know, [Zhuangzi](https://en.wikipedia.org/wiki/Zhuang_Zhou), [Plato](https://en.wikipedia.org/wiki/Plato), [Descartes](https://en.wikipedia.org/wiki/René_Descartes), [Maya](https://en.wikipedia.org/wiki/Maya_(religion)), and the ["brain in a vat theory"](https://en.wikipedia.org/wiki/Brain_in_a_vat) imagined that human being in the virtual universe is possible.
 
 ## Infusing Time Properties into Graphics
 

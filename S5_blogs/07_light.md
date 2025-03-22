@@ -14,7 +14,7 @@ This number is astounding - a square meter image is roughly the same parameter s
 
 Therefore, I believe when computational power is sufficient, there's no need to use VAE to reduce the dimensionality of real images, although this might be why some image generation models are so smooth. At least WaveGen shouldn't need it much - even every pixel in the distance is valuable data, like a fish pond where we should try to reach the muddy bottom.
 
-I know this will weaken WaveGen's overall performance, but I don't mind. I pursue perfection in design, even if the results might be exactly the opposite.
+However, the pixel decoding layer can also use some compression techniques, because this does not affect the upper limit of the model, we can adjust the compression rate at any time, or change the generation method.
 
 ## Optical Tracking Is Not Important
 
