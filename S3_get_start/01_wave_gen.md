@@ -110,6 +110,8 @@ The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Cente
 
 ## Idea
 
+### Model Structure
+
 Based on the theory above, we can consider creating a prototype of the model. The structure I've conceived is as follows:
 
 - **Encoded Text Input and Time input** (Time point or range)
@@ -130,7 +132,21 @@ Based on the theory above, we can consider creating a prototype of the model. Th
 <br>
 - **Decode features through pixel network to render the final image** (we can also reuse text input for more control)
 
-Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model named  as the foundation, because flow-based model theoretically supports precise bidirectional generation.
+
+As stated in "00 Discuss Real World Models", the main part of this structure should be bidirectional, where information can be exchanged mutually. The problems that need to be solved include (but are not limited to):
+
+- In Core Space, how should the high-dimensional features of the wave function be utilized, what information do they possess, especially in direct relation to pixel decoders, how should they work together
+- How should Core Space accommodate the principle of least action? What is physics in CV? To what extent should we control reality? What shortcomings of existing models should we target?
+- What do we use to understand the high-dimensional features/representations of the world, how do we understand high-dimensional features, how do we control high-dimensional features, and to what extent?
+
+## Further Approach
+
+### Core Space: the birth of non-pure probabilistic AI models
+
+
+### Wave Decoder
+
+Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation, because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
 
 ## Implementation
 

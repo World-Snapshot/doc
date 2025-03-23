@@ -2,6 +2,8 @@
 
 Here I write down my design creation thoughts to help readers better understand why I designed the new model this way. It will help future researchers quickly get started with, use, and improve this model.
 
+This Guideline Memo can be considered as our motivation and what we should do. The main text is telling you how to do it.
+
 ## Overview
 
 First, I want to train the entire world, with the key being making the data closer to the world's reality. To train the world itself, I created WSG.
@@ -22,11 +24,19 @@ This sets the tone for the entire new model.
 
 ## Idea
 
-### Why Not Use Grid/Mesh and Decay Methods
+### Why Not Use Grid/Mesh as Core Space and Decay Methods
 
 Grid/Mesh is suitable for importing into existing software rendering pipelines, but it is not suitable as the simplest expression method: 1. For a basic wave unit, only about a dozen parameters are needed for implementation, while grids require more parameters. 2. Waves are suitable as carriers for various calculations or information; for core space, we hope it is a mathematical incarnation or expression form. 3. Waves can carry some invariants related to pixels, and are suitable for becoming functional execution methods, such as essentially serving as a physics engine. Therefore, grid can only serve as a derived form of wave space. Of course, I look forward to better work to improve the core space, such as perhaps using pure mathematics and abstract topological information to create a complete space.
 
 Regarding decay, the wave function actually comes with a spherical harmonic function, but I removed it. This is because I think we should use a basic wave and then carve out any shape, rather than generating various shaped probability clouds from the beginning. These two methods should be equivalent; I just find it more convenient to handle. In addition, I have also tried using various functions or SDF (Signed Distance Field) methods for decay, but I feel they are not as natural as spherical harmonic functions.
+
+### The significance and development direction of core space
+
+The core space/heart of the world is actually a world representation after training. According to different directions, one can see different scenes, resulting in output similar to a two-dimensional foil. Then we can successfully match and learn between abstract two-dimensional output and images. Therefore, the core space is a dimensionality reducer, performing conversions between two-dimensional and three-dimensional world representations.
+
+Information in a three-dimensional space isn't as abundant as we imagine; to store this information, we only need the surface that envelops this three-dimensional space (just like all information swallowed by a black hole adheres to its surface, called the black hole horizon). In a video where the camera continuously moves, it can be viewed as continuous observation of a three-dimensional space. Our camera is like processing the world as a space on a spherical surface. We use WSG training, which constructs this two-dimensional/three-dimensional world representation through as much information as possible from the three-dimensional space.
+
+As described in one [paper](https://link.springer.com/content/pdf/10.1023/A:1026654312961.pdf) of the most cited in the field of physics, three-dimensional space + one-dimensional time and two-dimensional space + one-dimensional time are completely dual (can be substituted for each other). Roughly speaking, our attempt is to construct such a converter through wave space.
 
 ### How to decode or render pixels in real time?
 
@@ -34,11 +44,30 @@ For how to implement decoding generation at the pixel level. I have considered u
 
 Therefore, for our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation, because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
 
+### How do we successfully create physics and causality?
+
+For the final mile of the CV physical generation model marathon, we should understand what problem we're facing. We are facing the state of mutation that occurs at the moment of explosion. We are facing the problem of causality/state.
+Manifolds represent low-dimensional structures in high-dimensional space, capable of smoothly and continuously describing the state space of complex systems. In physical systems, points on the manifold typically exhibit continuous smooth state transitions as parameters change continuously, because most physical systems are well-posed, satisfying physical law constraints such as energy conservation and mass conservation.
+
+However, when a physical system is at a critical state, even small parameter changes can cause dramatic changes in system state, a phenomenon called mutation. When mutations occur, the system state exhibits discontinuous jumps on the data manifold, which is precisely the embodiment of specific physical law constraints. Mutations in physical systems are not random but are strictly constrained by precisely described theories such as catastrophe theory or critical state theory.
+
+This is how we use waves to control the world, using a unified multi-perspective 2/3D representation to record the world. Then we use 2D/3D multi-perspective images to connect. The shattering of a cup represents the splitting of one wave and the generation of multiple waves; we record and properly create the unstable points of this system, thus enabling the use of physical laws as constraints. Changes occur only when a wave disappears or is interacted with, and through this, various behavioral rules and effects are learned—this is causality.
+
+### How do we use the principle of least action to organize the core space?
+
+In the core space, we can calculate the volume of waves and simulate relative mass. But in the core space, with thousands of waves, some representing matter, others representing materials or other elements, how do we calculate such complex actions? And whose relationships should we calculate? It's like chaos.
+
+For this abstract space, I hypothesize that wave functions representing static worlds or materials are relatively stationary, and only moving wave functions need to be considered. For these moving wave functions, we then apply the principle of least action for verification, greatly reducing complexity.
+
+In fact, physics itself isn't difficult to master. As the blog "" states, we can easily master physics, just as LLMs naturally master different rules of code and human language. We adopt the principle of minimizing action for the final mile of the marathon, to eliminate locally reasonable but actually absurd situations like "floating chairs."
+
+Because we will abandon tokens and adopt the images themselves plus WSG, even tiny detailed absurdities might be excluded. This is also why image generation improved from the second half of 2024 to March 2025; they used flow models or prototypes of WSG (optical flow), which had already eliminated small absurdities. (I believe adding complexity to manifolds/representations can make high-dimensional manifolds more capable of representing the world.)
+
 ## Question and discussion
 
 ### What is the next generation of entertainment for humans?
 
-Current diffusion models are like monopolistic enterprises. New generative models need to find their own areas that diffusion models cannot do or cannot do well in order to carve out a path. Otherwise, mature community environments like ComfyUI will destroy them. WaveGen aims to seamlessly process content from 2D to 4D, hoping it can become a complete generation pipeline like 3D rendering to 2D, but completely AI-based.
+Current diffusion models are like monopolistic enterprises. New generative models need to find their own areas that diffusion models cannot do or cannot do well in order to carve out a path. Otherwise, mature community environments like ComfyUI will defeat and conquer them. WaveGen aims to seamlessly process content from 2D to 4D, hoping it can become a complete generation pipeline like 3D rendering to 2D, but completely AI-based.
 
 It can create personal metaverse-like experiences, but whether it can reach the level of popularity depicted in the movie ["Ready Player One"](https://en.wikipedia.org/wiki/Ready_Player_One_(film)) for gaming remains unknown. Perhaps it could first achieve success as a film production base, where we generate many virtual actors performing in WSF, and then adjust camera angles to shoot films. This approach might reach trillion-dollar industry scale more quickly.
 

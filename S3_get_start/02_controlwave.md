@@ -28,6 +28,8 @@ Using images to reconstruct wave space is quite simple - we just need to operate
 
 ## Basic Generation (Rendering)
 
+### Multi-layer output and semantic area control
+
 ## How to use image input for world reconstruction
 
 ## How to control the core space
