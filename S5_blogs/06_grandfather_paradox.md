@@ -147,4 +147,8 @@ The quantum pixel's final state might be:
 
 While this state defies intuition, it is possible within the framework of quantum mechanics. It demonstrates that at the quantum level, causal relationships can be fuzzy, and paradoxes can be reconciled through superposition states.
 
-*Conceived this blog on 18th Jan 2025, Completed on 18th Jan 2025*
+**Note1:** This blog is the reason I completely conceived ControlWave. We can achieve reverse generation, fully controlling a certain high-dimensional probability space, thereby achieving unlimited control conditions as input, and then obtaining numerous possible results close to reality. I just need to implement a bidirectional matching model.
+
+Then I noticed flow models, and I found that flow models have to work with diffusion, because only diffusion supports conditional input. Actually, flow models themselves perform better than diffusion; they're just more troublesome to apply. Since I've now found a better method, I want to liberate flow models from diffusion models and evolve them. Flow models combined with WSG and core space will be a perfect match.
+
+*Conceived this blog on 18th Jan 2025, Completed on 18th Jan 2025, Updated on 26th Mar 2025*

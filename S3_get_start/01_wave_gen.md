@@ -132,12 +132,7 @@ Based on the theory above, we can consider creating a prototype of the model. Th
 <br>
 - **Decode features through pixel network to render the final image** (we can also reuse text input for more control)
 
-
-As stated in "00 Discuss Real World Models", the main part of this structure should be bidirectional, where information can be exchanged mutually. The problems that need to be solved include (but are not limited to):
-
-- In Core Space, how should the high-dimensional features of the wave function be utilized, what information do they possess, especially in direct relation to pixel decoders, how should they work together
-- How should Core Space accommodate the principle of least action? What is physics in CV? To what extent should we control reality? What shortcomings of existing models should we target?
-- What do we use to understand the high-dimensional features/representations of the world, how do we understand high-dimensional features, how do we control high-dimensional features, and to what extent?
+As stated in "00 Discuss Real World Models", the main part of this structure should be bidirectional, where information can be exchanged mutually.
 
 ## Further Approach
 

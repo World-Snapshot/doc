@@ -135,9 +135,10 @@ gantt
 | Dynamic Scenes | ✓ | △ | △ | △ | △ | △ |
 | Real-time Rendering | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ |
 
+<!--
 ## 6. Limitations and Challenges
 - High theoretical complexity
 - Requires deep understanding of quantum mechanics
 - High requirements for parameter tuning
 - Potential computational overhead
-"""
+-->

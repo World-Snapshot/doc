@@ -30,8 +30,14 @@ Using images to reconstruct wave space is quite simple - we just need to operate
 
 ### Multi-layer output and semantic area control
 
-## How to use image input for world reconstruction
-
 ## How to control the core space
 
 ## How to control the pixel network
+
+Manifolds represent low-dimensional structures in high-dimensional space, capable of smoothly and continuously describing the state space of complex systems. They can also be understood as distributions in high-dimensional space, and most generative models today are learning to transform one distribution into another. In this context, we can imagine a scenario where using prompts to generate images is like searching within this space, while visually creating a core space is finding ways to make this space explicitly visible and manipulable.
+
+We can imagine that we think the Earth is flat because it's too large, and we think the scenes we see are two-dimensional planes because they exist on the surface of an immensely vast latent high-dimensional space. We search this manifold through viewpoints and prompts by moving along its surface. Therefore, videos with continuously changing camera positions are our best training data, as they can depict a complete world.
+
+The key to controlling the pixel layer is the reverse process.
+
+### How to use image input for world reconstruction

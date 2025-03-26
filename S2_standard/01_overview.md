@@ -30,4 +30,10 @@ Since there aren't many models that directly process the color values of each pi
 
 We provide specific standards for WSG, WSV and WSF in next section. We also provide wsg maker (img2wsg converter), wsg reader, and wsv, wsf player at [this link](https://github.com/World-Snapshot/wsg).
 
+## Supplement
+
+I found theoretical support on March 21, 2025: In a highly-cited physics paper titled ["The Large-N Limit of Superconformal Field Theories and Supergravity"](https://link.springer.com/content/pdf/10.1023/A:1026654312961.pdf), it mentions that a (d+1)-dimensional gravity theory (such as supergravity in anti-de Sitter space AdS) can be completely described by a d-dimensional conformal field theory (CFT). More simply generalized: an (n+1)-dimensional space under appropriate conditions can be represented by an n-dimensional space.
+
+This is similar to a hologram, where three-dimensional images can actually be reproduced through a two-dimensional surface. AdS/CFT elevates this concept to the level of physical theory, providing a concrete implementation of the Holographic Principle, which suggests that <strong style="color: #666666">all physical phenomena occurring in three-dimensional space (such as gravity, particle motion, etc.) can be "encoded" in field theory on a two-dimensional boundary.</strong> That is, information about a system can be encoded on its boundary, and this is a method supported by physical theory to create a model of the ideal world.
+
 *Please read blogs "00 Discuss Real World Models"*

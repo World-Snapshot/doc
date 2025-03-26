@@ -2,13 +2,13 @@
 
 Here I write down my design creation thoughts to help readers better understand why I designed the new model this way. It will help future researchers quickly get started with, use, and improve this model.
 
-This Guideline Memo can be considered as our motivation and what we should do. The main text is telling you how to do it.
+This Guideline Memo can be considered as our motivation and what we should do. The main text just tell you how to do it.
 
 ## Overview
 
 First, I want to train the entire world, with the key being making the data closer to the world's reality. To train the world itself, I created WSG.
 
-Then, I hope to accelerate training efficiency, as training a real world is too resource-intensive (not those fake world models: i.e., video generation models). Therefore, I considered using quantum wave functions - their mathematics is elegant and is nearly capable of truly describing the world, countless physics papers also said it's a complete way of describing the world.
+Then, I hope to accelerate training efficiency, as training a real world is too resource-intensive (not those fake/non-ideal world models: e.g., video generation models). Therefore, I considered using quantum wave functions - their mathematics is elegant and is nearly capable of truly describing the world, countless physics papers also said it's a complete way of describing the world.
 
 Next, I want to create a model that can unify 1D, 2D, 3D, 4D, and other dimensions, because training a world naturally means training the all dimension, and the new principle inherently allows for it. I'm designing a completely new model from top to bottom, just like Mendel's peas.
 
@@ -24,7 +24,15 @@ This sets the tone for the entire new model.
 
 ## Idea
 
-### Why Not Use Grid/Mesh as Core Space and Decay Methods
+And then there were some problems that bothered me. The problems that need to be solved include (but are not limited to):
+
+- How to create the core space, what is the basic unit, what should be in it, and how to implement it?
+- In Core Space, how should the high-dimensional features of the wave function be utilized, what information do they possess, especially in direct relation to pixel decoders, how should they work together
+- How should Core Space accommodate the principle of least action? What is physics in CV? To what extent should we control reality? What shortcomings of existing models should we target?
+- What do we use to understand the high-dimensional features/representations of the world, how do we understand high-dimensional features, how do we control high-dimensional features, and to what extent?
+- ...
+
+### Why Not Use Grid/Mesh as the Basic Unit of Core Space? & Decay Methods Selection?
 
 Grid/Mesh is suitable for importing into existing software rendering pipelines, but it is not suitable as the simplest expression method: 1. For a basic wave unit, only about a dozen parameters are needed for implementation, while grids require more parameters. 2. Waves are suitable as carriers for various calculations or information; for core space, we hope it is a mathematical incarnation or expression form. 3. Waves can carry some invariants related to pixels, and are suitable for becoming functional execution methods, such as essentially serving as a physics engine. Therefore, grid can only serve as a derived form of wave space. Of course, I look forward to better work to improve the core space, such as perhaps using pure mathematics and abstract topological information to create a complete space.
 
@@ -36,7 +44,11 @@ The core space/heart of the world is actually a world representation after train
 
 Information in a three-dimensional space isn't as abundant as we imagine; to store this information, we only need the surface that envelops this three-dimensional space (just like all information swallowed by a black hole adheres to its surface, called the black hole horizon). In a video where the camera continuously moves, it can be viewed as continuous observation of a three-dimensional space. Our camera is like processing the world as a space on a spherical surface. We use WSG training, which constructs this two-dimensional/three-dimensional world representation through as much information as possible from the three-dimensional space.
 
-As described in one [paper](https://link.springer.com/content/pdf/10.1023/A:1026654312961.pdf) of the most cited in the field of physics, three-dimensional space + one-dimensional time and two-dimensional space + one-dimensional time are completely dual (can be substituted for each other). Roughly speaking, our attempt is to construct such a converter through wave space.
+As described in one [paper](https://link.springer.com/content/pdf/10.1023/A:1026654312961.pdf) of the most cited in the field of physics, three-dimensional space + one-dimensional time and two-dimensional space + one-dimensional time are completely dual (can be substituted for each other). It mentions that a (d+1)-dimensional gravity theory (such as supergravity in anti-de Sitter space AdS) can be completely described by a d-dimensional conformal field theory (CFT). More simply generalized: an (n+1)-dimensional space under appropriate conditions can be represented by an n-dimensional space.
+
+This is similar to a hologram, where three-dimensional images can actually be reproduced through a two-dimensional surface. AdS/CFT elevates this concept to the level of physical theory, providing a concrete implementation of the Holographic Principle, which suggests that <strong style="color: #666666">all physical phenomena occurring in three-dimensional space (such as gravity, particle motion, etc.) can be "encoded" in field theory on a two-dimensional boundary.</strong> That is, information about a system can be encoded on its boundary, and this is a method supported by physical theory to create a model of the ideal world.
+
+Roughly speaking, our attempt is to construct such a converter through wave space.
 
 ### How to decode or render pixels in real time?
 
@@ -46,12 +58,11 @@ Therefore, for our generative model, we should choose one that is fastest (becau
 
 ### How do we successfully create physics and causality?
 
-For the final mile of the CV physical generation model marathon, we should understand what problem we're facing. We are facing the state of mutation that occurs at the moment of explosion. We are facing the problem of causality/state.
-Manifolds represent low-dimensional structures in high-dimensional space, capable of smoothly and continuously describing the state space of complex systems. In physical systems, points on the manifold typically exhibit continuous smooth state transitions as parameters change continuously, because most physical systems are well-posed, satisfying physical law constraints such as energy conservation and mass conservation.
+In my view, CV physical generation models are already excellent, they're just missing the final mile of the marathon (they don't handle mutation states like explosions well, and they struggle with causality/state problems). Manifolds represent low-dimensional structures in high-dimensional space, capable of smoothly and continuously describing the state space of complex systems. In physical systems, points on the manifold typically exhibit continuous smooth state transitions as parameters change continuously, because most physical systems are well-posed, satisfying physical law constraints such as energy conservation and mass conservation.
 
 However, when a physical system is at a critical state, even small parameter changes can cause dramatic changes in system state, a phenomenon called mutation. When mutations occur, the system state exhibits discontinuous jumps on the data manifold, which is precisely the embodiment of specific physical law constraints. Mutations in physical systems are not random but are strictly constrained by precisely described theories such as catastrophe theory or critical state theory.
 
-This is how we use waves to control the world, using a unified multi-perspective 2/3D representation to record the world. Then we use 2D/3D multi-perspective images to connect. The shattering of a cup represents the splitting of one wave and the generation of multiple waves; we record and properly create the unstable points of this system, thus enabling the use of physical laws as constraints. Changes occur only when a wave disappears or is interacted with, and through this, various behavioral rules and effects are learned—this is causality.
+This is a advantage how we use waves to control the world, using a unified multi-perspective 2/3D representation to record the world. Then we use 2D/3D multi-perspective images to connect. 1. The shattering of a cup represents the splitting of one wave and the generation of multiple waves: we record and properly create the unstable points of this system by Wave aggregation and splitting, thus enabling the use of physical laws as constraints. 2. Changes occur only when a wave disappears or is interacted with, and through this, various behavioral rules and effects are learned—this is causality.
 
 ### How do we use the principle of least action to organize the core space?
 
@@ -59,9 +70,9 @@ In the core space, we can calculate the volume of waves and simulate relative ma
 
 For this abstract space, I hypothesize that wave functions representing static worlds or materials are relatively stationary, and only moving wave functions need to be considered. For these moving wave functions, we then apply the principle of least action for verification, greatly reducing complexity.
 
-In fact, physics itself isn't difficult to master. As the blog "" states, we can easily master physics, just as LLMs naturally master different rules of code and human language. We adopt the principle of minimizing action for the final mile of the marathon, to eliminate locally reasonable but actually absurd situations like "floating chairs."
+In fact, physics itself isn't difficult to master. As the blog "05 Relative be in All Things" states, we can easily master physics, just as LLMs naturally master different rules of code and human language. We adopt the "Principle of Least Action" for the final mile of the marathon, to eliminate locally reasonable but actually absurd situations like "floating chairs."
 
-Because we will abandon tokens and adopt the images themselves plus WSG, even tiny detailed absurdities might be excluded. This is also why image generation improved from the second half of 2024 to March 2025; they used flow models or prototypes of WSG (optical flow), which had already eliminated small absurdities. (I believe adding complexity to manifolds/representations can make high-dimensional manifolds more capable of representing the world.)
+<strong style="color: #666666">Reasons for the recent improvement in physical understanding:</strong> Because some works abandon tokens and adopt the images themselves like flow-based model, even tiny detailed absurdities might be excluded. Some works used prototypes of WSG (add optical flow/depth), which had already eliminated small absurdities, adding complexity to manifolds/representations can make high-dimensional manifolds more capable of representing the world.
 
 ## Question and discussion
 
