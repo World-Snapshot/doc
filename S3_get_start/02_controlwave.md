@@ -1,5 +1,7 @@
 # ControlWave
 
+*"Wave is all things those worlds need."*
+
 ## Overview
 
 ControlWave is a WebUI that makes WaveGen more convenient to control. Unlike [ControlNet](https://github.com/lllyasviel/ControlNet?tab=readme-ov-file), WaveGen natively supports various controls and doesn't require training additional neural blocks like ControlNet does. Therefore, this is just a WebUI.

@@ -74,6 +74,17 @@ In fact, physics itself isn't difficult to master. As the blog "05 Relative be i
 
 <strong style="color: #666666">Reasons for the recent improvement in physical understanding:</strong> Because some works abandon tokens and adopt the images themselves like flow-based model, even tiny detailed absurdities might be excluded. Some works used prototypes of WSG (add optical flow/depth), which had already eliminated small absurdities, adding complexity to manifolds/representations can make high-dimensional manifolds more capable of representing the world.
 
+### Module Structure and Training Method?
+
+The wave space is like a "black and white space," while the pixel layer is a "colored space"; semantic IDs, identity information, and advanced features may be lost during the conversion process; whether wave function parameters (frequency, amplitude, etc.) can effectively encode this information remains uncertain. This part should be input again during the decoding process, like the same white model, but different designers have different rendering approaches.
+
+Then we have two modules: text to wave space + wave space to pixels. A convenient training strategy is to develop the two modules using two flow models. Within the larger framework, we can either train these two modules in two separate stages, or complete them in a single-stage training. Considering there is no direct text-to-wave space dataset, single-stage end-to-end training is the most reasonable choice:
+
+- Advantages: End-to-end optimization ensures high coordination between the two modules; wave space naturally forms representations beneficial for final pixel generation; the training process is streamlined without intermediate checkpoints; avoids uncertainty in intermediate representations; only requires text-image pair data, which is already widely available.
+- Disadvantages: The wave space may not be as interpretable or controllable; difficult to isolate and debug problems in specific modules.
+
+If we are very fortunate and discover that the wave space naturally forms an orderly space that can be understood by humans, then we can export it to various 3D formats through the following methods: 1. Wave function analysis extraction: sample wave function amplitude values, extract iso-surfaces; use Marching Cubes algorithm to convert to mesh. 2. Probability cloud to point cloud: generate point clouds based on spatial probability density defined by wave functions. 3. Direct 3DGS mapping: map wave function parameters directly to 3D Gaussian bodies. 4. Mixed representation converter: train specialized networks to convert wave space parameters to specific 3D formats.
+
 ## Question and discussion
 
 ### What is the next generation of entertainment for humans?
