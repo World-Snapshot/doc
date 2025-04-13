@@ -32,6 +32,8 @@ Just as GPT destroyed dozens of NLP downstream tasks, <strong style="color: #666
 
 However, as generation models that made great contributions before, they still have potential in the future WSG era, or more precisely, any generation model will shine through WSG.
 
+**Note1:** On April 9, 2025, I suddenly realized that ControlNet is based on several parameter-based controls, while we implement dozens of conditional controls through different WSG channels. RGB colors themselves are actually 3 types of conditional controls (3 color lights), and an image itself is the result of being controlled by these 3 types of light. This means that ControlNet's parameter-based conditional control and our data structure-based conditional control are essentially the same, except that we have separated it out. As Blog 07 mentioned, conditions are hidden within the model. Using more code blocks for conditional control is actually the same as controlling in parallel through channels. This is also why IC-Light is able to work.
+
 ## Point Cloud, NeRF, 3DGS, and WSF
 
 Existing point cloud and Gaussian models are in some sense prototypes of WSG, except they didn't combine it with probability or the image itself, which makes it a bit cumbersome. In the future, point cloud and Gaussian-related technologies can be integrated into WS-related model methods. This is very promising.
@@ -40,4 +42,4 @@ NeRF is somewhat like WSF under pure probability, though NeRF cannot transform t
 
 It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using metric distances or affine-invariant distances, as this makes reconstruction and rendering faster. Although humans perceive the external world through relative feeling, everything in nature ultimately has its natural scale.
 
-*Conceived this blog on 23th Dec 2024 and completed on 23th Dec 24, Updated on 14th Jan 2025*
+*Conceived this blog on 23th Dec 2024 and completed on 23th Dec 24, Updated on 9th Apr 2025*

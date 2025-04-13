@@ -12,7 +12,7 @@ Some early works had "world model" in their names, but they were just beneficial
 
 Finally, some works of big company or famous lab, despite extensive promotion and contributions, are merely better image generation models or architectures. There is no fundamental change in their essence, so they are no different from image generation ten years ago, just with better results.
 
-However, some works are quite nonsensical - they're clearly doing Text2Motion or Text2Pose, yet claim to be world models. Where is the "world" in this? Would changing the engine or other visualization environments affect their human pose generation? It would be better to call themselves human model, embodied intelligence rather than world models. City modeling and 3DGS are more qualified to call themselves world models than these works.
+However, some works are quite nonsensical - they're clearly doing Text2Motion or Text2Pose, yet claim to be world models. Where is the "world" in this? Would changing the engine or other visualization environments affect their human pose generation? It would be better to call themselves human model, embodied intelligence rather than world models. City modeling and 3DGS are more qualified to call themselves world models than these works. (see Note6)
 
 ## Complex Information's World Representation
 
@@ -26,7 +26,7 @@ This makes sense, but he later seemed to expect an architecture more powerful th
 
 So, my proposed "World Snapshot Graphics (.wsg)" seems to be the answer many researchers are looking for. LeCun almost reached the periphery of the thin veil, but unfortunately he hoped to develop a new algorithm. Of course, the development of new algorithms based on WSG is still necessary. This can be seen in the next blog post and Standard.
 
-However, it's important to note that top researchers are actually pursuing several types of things: 1. Models beyond LLMs that can truly reason. 2. New models that can truly understand, interact with, and control (which can be divided into two major categories: generation and understanding - the former being 3D information-rich world generation, and the latter being embodied intelligence, spatial understanding, automatic driving and action output of VLM/Agent). 3. The sustainable learning of model. My work can only address the second problem: generating or understanding a more reasonable, editable, and explicit world.
+However, it's important to note that <strong style="color: #666666">top researchers are actually pursuing several types of things:</strong> 1. Models beyond LLMs that can truly reason. 2. New models that can truly understand, interact with, and control (which can be divided into two major categories: generation and understanding - the former being 3D information-rich world generation, and the latter being embodied intelligence, spatial understanding, automatic driving and action output of VLM/Agent). 3. The sustainable learning of model. 4. Truly memorize and use part of knowledge. My work can only address the second problem: generating or understanding a more reasonable, editable, and explicit world.
 
 Many people are confused and can't distinguish the future direction, they don't even know which category their work belongs in.
 
@@ -56,7 +56,9 @@ Models that conform to these definitions (including but not limited to) will be 
 
 **Note5:** There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. Time has polluted the concept, therefore, as for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
 
-*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 9th March 2025*
+**Note6:** April 10, 2025: Some researchers believe that world models should have strong capabilities, allowing them to interact with the world based on knowledge in their minds. They are actually envisioning what embodied intelligence (Agent/LLM+Robot) could achieve if it truly understood the world. What they're thinking about is the result of combining world models with some intelligent models. However, this concept is not an ideal world model; it combines LLMs, robotics, and world models—it's an bigger engineering composite.
+
+*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 10th April 2025*
 
 <!--
 <div style="background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 5px;">
