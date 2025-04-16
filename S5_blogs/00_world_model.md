@@ -32,7 +32,7 @@ Many people are confused and can't distinguish the future direction, they don't 
 
 **Note1:** I originally only learned about world models through LeCun's tweets, about two or three of them. Actually, I don't care about world models at all, I think it's a very broad concept. But when I recently conceived the WSG format, and then I revisited part of his published speeches. I was surprised - although he didn't provide the answer, but his definition (models that can predict future world states) was consistent with one of the natures of the WSG-based models, namely world snapshot models.
 
-**Note2:** I later discovered that world snapshot models also natively can predict the past world states.
+**Note2:** I later discovered that world snapshot models also natively can predict the past world states. 
 
 ## Definition
 
@@ -48,7 +48,7 @@ I combine people's opinions to make the following definition, a world snapshot m
 - **Bidirectional training and inference:** The main components can pass information to each other, the model can be used for world generation and understanding, and thus can be plugged into a larger complex model as a module.
 - **All living animals have posture information:** Waves have their own propagation directions, for example, perhaps in the world core space, there is a moving rectangular probability wave representing the movement of a car. But for more detailed animals, we need to identify their joints.
 
-Models that conform to these definitions (including but not limited to) will be world snapshot models or ideal world models.
+Models that conform to these definitions (including but not limited to) will be world snapshot models or ideal world models. For definitions, I referenced some online posts (such as [this link](https://zhuanlan.zhihu.com/p/17003931453)), and I enriched concepts of world core, physical constraint, RIVE, and creature information based on them. In fact, these definitions are all manifestations of my "encoding all information onto the boundary" approach.
 
 **Note3:** Regarding the world core, I will explain it in detail later in the text. Simply put, before output final content, we should use formulas or methods that include parameters (x, y, z, t, ...) to model a spacetime. The specific carrier we use is probability waves, while others might also adopt something like deformable meshes as the world core, which similarly falls within the scope of world snapshot models.
 
@@ -56,7 +56,7 @@ Models that conform to these definitions (including but not limited to) will be 
 
 **Note5:** There is an ancient fable: blind men said that the elephant is like a pillar, the elephant is like a pig, the elephant is like a snake - they only grasped part of the thing. Today's researchers are the same, they all explain the world model through their own work, but you can only know the truth by having a broader insight. Time has polluted the concept, therefore, as for me personally, <strong style="color: #666666">I prefer to call my model a world snapshot model</strong>. If when everyone in the future agrees that world snapshot models are the true world models, I don't mind formally calling it a world model.
 
-**Note6:** April 10, 2025: Some researchers believe that world models should have strong capabilities, allowing them to interact with the world based on knowledge in their minds. They are actually envisioning what embodied intelligence (Agent/LLM+Robot) could achieve if it truly understood the world. What they're thinking about is the result of combining world models with some intelligent models. However, this concept is not an ideal world model; it combines LLMs, robotics, and world models—it's an bigger engineering composite.
+**Note6:** April 10, 2025: Some researchers/papers believe that world models should have strong capabilities, allowing them to interact with the world based on knowledge in their minds. They are actually envisioning what embodied intelligence (Agent/LLM+Robot) could achieve if it truly understood the world. What they're thinking about is the result of combining world models with some intelligent models. However, this concept is not an ideal world model; it combines LLMs, robotics, and world models—it's an bigger engineering composite. For example, someone believes that world models can make decisions, which is not our definition of world snapshot model or ideal world model.
 
 *Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 10th April 2025*
 

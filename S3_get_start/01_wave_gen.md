@@ -155,6 +155,14 @@ This core ("world core" or "heart of the world") can be viewed as world represen
 
 In my WaveGen, the focus is more on using text to control this "world core" or "heart of the world" to utilize its generative capabilities. In the future, people could develop something like ControlWave to try controlling this "world core" through other methods. Currently, the reconstruction capability might be relatively weak and needs exploration.
 
+### Sen Fang Initialization
+
+Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. <strong style="color: #666666">I call this concept "Sen Fang Initialization."</strong>
+
+For the wave core space, I initially conceived it as a carrier for virtual-real conversion, later it evolved into a representation recording multi-perspective views of the world, and later still it became a carrier of physical rules. However, this concept can also be applied to other generative models (other generative models can also have core spaces), and it doesn't necessarily have to be a wave space (other 3D generative models might use meshes). Furthermore, core space is <strong style="color: #666666">a method of 3D/4D initialization that accelerates and optimizes the generation process by providing valuable multi-dimensional information.</strong>
+
+This method actually has strong universality and can be applied to almost all AI domains. Therefore, Sen Fang Initialization deserves to be proclaimed and discussed separately here.
+
 ### Connections to previous work
 
 WaveGen's "world core" is an expandable superposition of complex waves that can simulate the world, with extremely free and expandable expressiveness. It's almost like a genius creation. Its characteristics are difficult to summarize:

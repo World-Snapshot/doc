@@ -87,6 +87,14 @@ If we are very fortunate and discover that the wave space naturally forms an ord
 
 ## Question and discussion
 
+### Sen Fang Initialization
+
+Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. <strong style="color: #666666">I call this concept "Sen Fang Initialization."</strong>
+
+For the wave core space, I initially conceived it as a carrier for virtual-real conversion, later it evolved into a representation recording multi-perspective views of the world, and later still it became a carrier of physical rules. However, this concept can also be applied to other generative models (other generative models can also have core spaces), and it doesn't necessarily have to be a wave space (other 3D generative models might use meshes). Furthermore, core space is <strong style="color: #666666">a method of 3D/4D initialization that accelerates and optimizes the generation process by providing valuable multi-dimensional information.</strong>
+
+This method actually has strong universality and can be applied to almost all AI domains. Therefore, Sen Fang Initialization deserves to be proclaimed and discussed separately here.
+
 ### What is the next generation of entertainment for humans?
 
 Current diffusion models are like monopolistic enterprises. New generative models need to find their own areas that diffusion models cannot do or cannot do well in order to carve out a path. Otherwise, mature community environments like ComfyUI will defeat and conquer them. WaveGen aims to seamlessly process content from 2D to 4D, hoping it can become a complete generation pipeline like 3D rendering to 2D, but completely AI-based.
