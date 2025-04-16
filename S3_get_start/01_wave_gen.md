@@ -157,11 +157,13 @@ In my WaveGen, the focus is more on using text to control this "world core" or "
 
 ### Sen Fang Initialization
 
-Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. <strong style="color: #666666">I call this concept "Sen Fang Initialization."</strong>
+Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. <strong style="color: #666666">If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. I call this concept "Sen Fang Initialization."</strong>
 
 For the wave core space, I initially conceived it as a carrier for virtual-real conversion, later it evolved into a representation recording multi-perspective views of the world, and later still it became a carrier of physical rules. However, this concept can also be applied to other generative models (other generative models can also have core spaces), and it doesn't necessarily have to be a wave space (other 3D generative models might use meshes). Furthermore, core space is <strong style="color: #666666">a method of 3D/4D initialization that accelerates and optimizes the generation process by providing valuable multi-dimensional information.</strong>
 
 This method actually has strong universality and can be applied to almost all AI domains. Therefore, Sen Fang Initialization deserves to be proclaimed and discussed separately here.
+
+**Note:** When we train a conversion model, as the predicted output approaches the correct result—similar to how the generation path in flow models becomes more direct—the model begins to optimize the initialization output. From this perspective, it's as if the starting point is approaching the endpoint, and the generation pressure shifts to the initialization model. Looking at it this way, it's like the latent space has been divided into two parts, with the minimum path we need remaining constant. However, this initialization method allows us to control and create underlying constraints, which in some situations, we absolutely need.
 
 ### Connections to previous work
 
