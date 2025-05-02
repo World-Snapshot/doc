@@ -72,7 +72,7 @@ For this abstract space, I hypothesize that wave functions representing static w
 
 In fact, physics itself isn't difficult to master. As the blog "05 Relative be in All Things" states, we can easily master physics, just as LLMs naturally master different rules of code and human language. We adopt the "Principle of Least Action" for the final mile of the marathon, to eliminate locally reasonable but actually absurd situations like "floating chairs."
 
-<strong style="color: #666666">Reasons for the recent improvement in physical understanding:</strong> Because some works abandon tokens and adopt the images themselves like flow-based model, even tiny detailed absurdities might be excluded. Some works used prototypes of WSG (add optical flow/depth), which had already eliminated small absurdities, adding complexity to manifolds/representations can make high-dimensional manifolds more capable of representing the world.
+<strong style="color: #666666">Reasons for the recent improvement of Video-Gen models in physical understanding:</strong> Because some works abandon tokens and adopt the images themselves like flow-based model, even tiny detailed absurdities might be excluded. Some works used prototypes of WSG (add optical flow/depth), which had already eliminated small absurdities, adding complexity to manifolds/representations can make high-dimensional manifolds more capable of representing the world.
 
 ### Module Structure and Training Method?
 
@@ -84,6 +84,45 @@ Then we have two modules: text to wave space + wave space to pixels. A convenien
 - Disadvantages: The wave space may not be as interpretable or controllable; difficult to isolate and debug problems in specific modules.
 
 If we are very fortunate and discover that the wave space naturally forms an orderly space that can be understood by humans, then we can export it to various 3D formats through the following methods: 1. Wave function analysis extraction: sample wave function amplitude values, extract iso-surfaces; use Marching Cubes algorithm to convert to mesh. 2. Probability cloud to point cloud: generate point clouds based on spatial probability density defined by wave functions. 3. Direct 3DGS mapping: map wave function parameters directly to 3D Gaussian bodies. 4. Mixed representation converter: train specialized networks to convert wave space parameters to specific 3D formats.
+
+### How to Implement Controllable Generation with Fixed Partial Results?
+
+There are approximately two approaches to implementing controllable generation with fixed partial results:
+
+1. Having the model generate the remaining results based on partial channel results. For this approach:
+  - We could either convert it back to wave space and then forward reason through text describing the results. This is somewhat similar to existing flow model applications that keep the background unchanged while replacing the subject, although without our stringent material detail generation requirements, and they achieve similar effects through black-box-like parameters.
+  - Or train the model to have this capability, but this is obviously very difficult, as there are many possible permutations when conditions mutually control each other.
+
+2. Reverse-engineer the results, then forward reason, relying on the inherent properties of flow models to operate in high-dimensional space to achieve similar effects.
+
+We plan to choose the second method. We're considering encoding as many domains as possible—such as materials, physics, etc.—as controllable domains into the wave. This information can all be reflected in the solution of the wave function; when reconstructing the wave space from multiple perspectives of the wave, we only need to separate certain spectra.
+
+Pose and lighting are still uncertainties. 1. It seems that in the process of restoring real images to wave space, the shape of the wave can achieve similar pose control functionality. As in the previous question, ControlWave controls controllable generation not through ControlNet training, but through information recorded in wave space, just as we need OpenPose pose JSON files rather than pose visualization images. We need to build in some such preprocessing/extraction models. 2. Lighting information needs to work with different angles, which requires further consideration on how to create engine-like light sources.
+
+### How to Implement Real-time Pixel-Level Preview?
+
+For real-time output during preview, we can first generate RGB and then generate other channels, but this must ensure consistency between preview and exported images. Three methods can implement this:
+
+1. Separate generation modes: Split into ordinary three-channel generation and full generation (during export) modes. (Preview and export results may not be consistent, need to ensure a good technique)
+
+2. Single-process interrupted generation: Generate RGB, then pause and continue generating remaining channels when needed. (Requires saving intermediate states, increases memory requirements, needs model interruption/recovery design)
+
+3. Viewpoint-driven phased generation: Determine phases based on camera position activity during preview, first generate RGB, then generate other channels after input is complete. (Complex dependencies, not elegant unless there's a very good method)
+
+I think the first method is better. We can record the random seed used in preview mode to ensure consistency between user preview and export experiences.
+
+**Is it better to add preview mode before Unet generation or before ODE decoding?** If we generate the complete velocity field, then decode three channels first, and then decode the complete field, we can save approximately 3/256 of the original time. However, ODE itself can be parallelized, but if we exceed the boundary, then the time saved is substantial.
+
+The preview mode we need goes from wave image to pixel level, and the first half of this path also requires unet to spend time generating the velocity field. If we increase RGB channels to 256, the calculation amount of each unet layer increases quadratically, while parameters and memory grow linearly.
+
+Therefore, we should try to record the unet's random seed in preview mode, ensuring that the generated velocity field CHW is consistent between 3 channels and 256 channels. That is, when the user operates, starts previewing, first generates a 3-channel velocity field, then performs ODE decoding. If they like it, they export, using the fixed random seed recorded during preview to generate a 256-channel velocity field, then perform ODE decoding.
+
+**How to make the Unet model capable of switching the generated velocity field between 3 channels and 256 channels?**
+I believe that perhaps after training, the model's generation of 'rgb' and 'rgbxxx' will not affect each other. For example, if we want to generate RGB and RGBD, if I add a unet output velocity field setting, under fixed randomness, these two results should be the same, with D acting as an additional annotation. A text generating a duck under fixed randomness, and a text generating a duck and its corresponding depth map, should be distinguishable by the model, because each channel has its meaning.
+
+Therefore, for method one, we only need to set the velocity field shapes for preview and export modes. During export, use fixed randomness to generate again.
+
+
 
 ## Question and discussion
 

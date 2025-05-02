@@ -67,9 +67,9 @@ $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t
 
 We encode these parameters directly from text input through a neural network:
 
-- A: Amplitude (encoded from text)
-- $k_x$, $k_y$, $k_z$: Wave vector components (encoded from text)
-- $\omega$: Angular frequency (encoded from text)
+- A: Amplitude (generated from text)
+- $k_x$, $k_y$, $k_z$: Wave vector components (generated from text)
+- $\omega$: Angular frequency (generated from text)
 - x, y, z: Spatial coordinates (sampling points)
 - t: Time parameter (user-specified)
 
@@ -86,9 +86,9 @@ Where $D(\hat{r})$ is a directional decay function that depends on the unit vect
 $D(\hat{r}) = d_0 \cdot \exp(-(\hat{r} \cdot \mathbf{S} \cdot \hat{r})) \cdot (1 + \sum_{l,m} w_{l,m} \cdot Y_{l}^{m}(\theta, \phi))$
 
 With parameters:
-- $d_0$: Base decay rate (encoded from text)
-- $\mathbf{S}$: Diagonal matrix with axis scaling factors (encoded from text)
-- $w_{l,m}$: Spherical harmonic weights (encoded from text)
+- $d_0$: Base decay rate (generated from text)
+- $\mathbf{S}$: Diagonal matrix with axis scaling factors (generated from text)
+- $w_{l,m}$: Spherical harmonic weights (generated from text)
 - $Y_{l}^{m}$: Spherical harmonic functions
 - $\theta, \phi$: Polar and azimuthal angles of the direction vector $\hat{r}$
 
@@ -104,9 +104,9 @@ Where $\hat{r}$ is now the unit vector from center to point $(x,y,z)$:
 
 $\hat{r} = \frac{(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)}{||(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)||}$
 
-- $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$: Initial center position of the wave function at t=0 (encoded from text)
+- $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$: Initial center position of the wave function at t=0 (generated from text)
 
-The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Center}_x + v_x \cdot t$; $C(t)_y = \text{Center}_y + v_y \cdot t$; $C(t)_z = \text{Center}_z + v_z \cdot t$. Where $v_x$, $v_y$, $v_z$ are the velocity components encoded from the text for each time step.
+The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Center}_x + v_x \cdot t$; $C(t)_y = \text{Center}_y + v_y \cdot t$; $C(t)_z = \text{Center}_z + v_z \cdot t$. Where $v_x$, $v_y$, $v_z$ are the velocity components generated from the text for each time step.
 
 ## Idea
 
@@ -114,7 +114,7 @@ The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Cente
 
 Based on the theory above, we can consider creating a prototype of the model. The structure I've conceived is as follows:
 
-- **Encoded Text Input and Time input** (Time point or range)
+- **Generated from Text Input and Time input** (Time point or range)
 <br>
 ↓
 <br>
@@ -136,12 +136,14 @@ As stated in "00 Discuss Real World Models", the main part of this structure sho
 
 ## Further Approach
 
-### Core Space: the birth of non-pure probabilistic AI models
-
-
 ### Wave Decoder
 
 Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation, because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
+
+
+
+### Core Space: the birth of non-pure probabilistic AI models
+
 
 ## Implementation
 

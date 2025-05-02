@@ -244,11 +244,19 @@
             background-color: transparent;
         }
 
-    /* 最小化调整黑点符号位置 */
-    .markdown-body ul {
-        padding-left: 40px; /* 与主内容区域保持一致的内边距 */
-        margin-left: 0;     /* 移除左边距 */
-    }
+
+
+        /* Unordered lists style */
+        .markdown-section ul, .html-section ul {
+            padding-left: 40px; /* Consistent with main content padding */
+            margin: 1em 0;      /* Same margin as paragraphs */
+        }
+
+        /* Ordered lists style */
+        .markdown-section ol, .html-section ol {
+            padding-left: 40px; /* Consistent with main content padding */
+            margin: 1em 0;      /* Same margin as paragraphs */
+        }
 
     </style>
 
@@ -375,6 +383,13 @@
     .markdown-body ul {
         margin: 1em 0;  /* Same margin as paragraphs */
         padding-left: 40px;
+    }
+
+    /* Ordered lists style */
+    .markdown-body ol {
+        padding-left: 0; /* Remove default padding */
+        margin: 1em 0 1em 16px; /* Keep vertical margins, add left margin to match paragraph indentation */
+        list-style-position: outside; /* Keep numbers outside of content flow */
     }
 
     .markdown-body th,

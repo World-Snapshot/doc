@@ -1,5 +1,7 @@
 # Computer Vision's Rebirth
 
+<!--*"The best research is like water, which nourishes all things without contention."*-->
+
 Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video), **WSF** (World Snapshot Fields) and **WaveGen** (Quantum Wave Function Generation) may promote the birth of some new areas:
 
 ### Computer Graphics in WS
