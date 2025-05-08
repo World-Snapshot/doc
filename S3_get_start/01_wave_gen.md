@@ -108,6 +108,39 @@ $\hat{r} = \frac{(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)}{||(x
 
 The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Center}_x + v_x \cdot t$; $C(t)_y = \text{Center}_y + v_y \cdot t$; $C(t)_z = \text{Center}_z + v_z \cdot t$. Where $v_x$, $v_y$, $v_z$ are the velocity components generated from the text for each time step.
 
+### Add Information Systems
+
+In order to facilitate the editing of information in the high-dimensional wave space, we should encode the information of the WSG domain that is suitable for control into the waves: 1. It is more convenient than text input/control. 2. And it should be reflected in the solutions of each wave function: the information of matter, semantics and partial material properties should be correlated. 3. The integrated wave information should also be easy to separate: during reverse reasoning, the image can be restored to the wave, and the image can be regenerated after editing. However, if it is returned as a text description, it is inconvenient to separate and control.
+
+The enhanced wave function with dynamic information systems can be expressed as:
+
+$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r}) \cdot M(\mathcal{I})$
+
+Where $M(\mathcal{I})$ is a modulation function that encodes a sparse set of information values, and $\mathcal{I} = \{(s_1, v_1), (s_2, v_2), ..., (s_k, v_k)\}$ represents a set of position-value pairs, with $s_i$ being the system position (1-256) and $v_i$ being the corresponding value.
+
+The modulation function is defined as:
+
+$M(\mathcal{I}) = 1 + \sum_{(s,v) \in \mathcal{I}} \epsilon \cdot \sin(\omega_{\text{base}} \cdot s \cdot t + \phi(v))$
+
+Where:
+- $\epsilon$ is a small constant modulation depth (e.g., 0.001)
+- $\omega_{\text{base}}$ is the base frequency spacing between systems
+- $\phi(v)$ is a phase encoding function that maps the value $v$ to a phase offset
+
+During training, the model learns:
+1. Which information positions are relevant for different types of content, and which positions are useful.
+2. The appropriate value ranges for each position based on training data
+3. How to map textual descriptions to meaningful information values
+
+For extraction, we use a frequency analysis technique that identifies which frequency bands contain significant energy, then decodes the corresponding position-value pairs. This allows us to precisely reconstruct the original sparse information set from the wave function.
+
+The extractable information domains (subsets of positions that contain related information) automatically emerge during training, forming logical groupings such as:
+- Material properties (e.g., positions 76-82 might encode reflectivity, texture, etc.)
+- Semantic attributes (e.g., positions 105-120 might encode object categories, sizes, etc.)
+- Temporal behaviors (e.g., positions 150-160 might encode motion patterns, velocities, etc.)
+
+This dynamic architecture enables the wave function to adapt to different domains and use cases without requiring manual specification of information ranges.
+
 ## Idea
 
 ### Model Structure
@@ -118,7 +151,7 @@ Based on the theory above, we can consider creating a prototype of the model. Th
 <br>
 ↓
 <br>
-- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$)
+- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains)
 <br>
 ↓
 <br>

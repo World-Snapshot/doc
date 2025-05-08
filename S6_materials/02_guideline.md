@@ -162,3 +162,4 @@ ControlNet represents parameter-based controllable generation, while ControlWave
 - **TLDR:** The principle of least action is the underlying principle of the world and can explain all known physical systems. Therefore, as long as we conform to the principle of least action, we hold the key to making models understand physics.
 - **TLDR:** The breaking and merging of waves can represent a cup shattering or cars colliding, representing moments of sudden change in otherwise smoothly evolving systems. This is the final mile that visual models need to complete.
 - **TLDR:** WaveGen is a type of wave-based model that, just as waves on the surface are driven by ocean currents below, is based on flow models. The World Snapshot Model is an ideal world model implemented through WaveGen. ControlWave utilizes the data characteristics of the world model itself to control the world.
+- **TLDR:** All the pixels of our work exhibit wave-particle duality.
