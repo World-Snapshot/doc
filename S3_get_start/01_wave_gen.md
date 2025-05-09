@@ -171,11 +171,24 @@ As stated in "00 Discuss Real World Models", the main part of this structure sho
 
 ### Wave Decoder
 
-Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation, because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
+Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation (rectified flow model, [official](https://github.com/gnobitab/RectifiedFlow/tree/main)/[the version I am using](https://github.com/lqiang67/rectified-flow/tree/main)), because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
+
+### Sen Fang Initialization 
+
+The rectified flow model generates a velocity field in some way, which is the process of transferring a distribution to another distribution. The initial distribution is usually a randomly generated Gaussian noise distribution. If we plan to use the flow model for decoding, we can actually take advantage of this and align the different perspectives of the generated wave core space with this initial distribution. All processes from one distribution to another can be regarded as countless distributions. Our wave space enables the model to "advance a few steps ahead" or set the starting point at a certain point in the process, thereby accelerating the generation process (Previously, single-step generation was usually aimed at accelerating the process of recovering from noise, but we directly recover from a meaningful certain "image").
+
+This process is a kind of Sen Fang initialization. The wave space used as the initialization can control the movement of the perspective, and it can also utilize the information inherent in the wave space, and even be utilized in different generation models. Therefore, as long as some generation models use random initialization as the starting point, this method can be used. That is to say, Sen Fang initialization is helpful for almost all generation models (Accelerate + Enhance the ability to understand the space; Of course, if one wants to fully understand the space, it would be best to start by initializing it using the wave space method, and then make some adjustments based on the data from the camera). More information can be found in the discussion of this section or in the Guidelines of the Materials.
+
+### Core Space: Mechanism and usage method
 
 
 
-### Core Space: the birth of non-pure probabilistic AI models
+### Core Space: Non-pure probabilistic AI models
+
+
+
+### Core Space: Create causal interaction
+
 
 
 ## Implementation
@@ -194,7 +207,7 @@ In my WaveGen, the focus is more on using text to control this "world core" or "
 
 Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. <strong style="color: #666666">If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. I call this concept "Sen Fang Initialization."</strong>
 
-For the wave core space, I initially conceived it as a carrier for virtual-real conversion, later it evolved into a representation recording multi-perspective views of the world, and later still it became a carrier of physical rules. However, this concept can also be applied to other generative models (other generative models can also have core spaces), and it doesn't necessarily have to be a wave space (other 3D generative models might use meshes). Furthermore, core space is <strong style="color: #666666">a method of 3D/4D initialization that accelerates and optimizes the generation process by providing valuable multi-dimensional information.</strong>
+For the wave core space, I initially conceived it as a carrier for virtual-real conversion, later it evolved into a representation recording multi-perspective views of the world, and later still it became a carrier of physical rules. However, this concept can also be applied to other generative models (other generative models can also have core spaces), and it doesn't necessarily have to be a wave space (other 3D generative models might use meshes). Furthermore, core space is <strong style="color: #666666">a method of 3D/4D Sen Fang Initialization that accelerates and optimizes the generation process by providing valuable multi-dimensional information.</strong>
 
 This method actually has strong universality and can be applied to almost all AI domains. Therefore, Sen Fang Initialization deserves to be proclaimed and discussed separately here.
 
