@@ -163,3 +163,7 @@ ControlNet represents parameter-based controllable generation, while ControlWave
 - **TLDR:** The breaking and merging of waves can represent a cup shattering or cars colliding, representing moments of sudden change in otherwise smoothly evolving systems. This is the final mile that visual models need to complete.
 - **TLDR:** WaveGen is a type of wave-based model that, just as waves on the surface are driven by ocean currents below, is based on flow models. The World Snapshot Model is an ideal world model implemented through WaveGen. ControlWave utilizes the data characteristics of the world model itself to control the world.
 - **TLDR:** All the pixels of our work exhibit wave-particle duality.
+- **TLDR:** All estimation tasks in Computer Vision can be regarded as inferring WSG from RGB.
+- **TLDR:** The latent space of WaveGen has the characteristics of being Reasonable, Interpretable, Visualizable, and Editable. Unlike all the previous works: the parameter latent space of previous models only has the simplest I/O interface.
+
+在计算机视觉中，所有的估计任务可以被看作是从图像推出WSG，所有条件生成任务可以被看作是固定部分结果的WSG生成，所有重建任务可以看作是通过已知图像获得WSG集合
