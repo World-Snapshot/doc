@@ -218,6 +218,43 @@
             font-family: 'Linux Libertine','Georgia','Times',serif;
         }
 
+        /* 标题锚点链接样式 */
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            position: relative;
+            scroll-margin-top: 70px; /* 70px = 50px头部高度 + 20px额外间距 */
+        }
+
+        .markdown-body .header-link {
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            text-decoration: none;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .markdown-body h1:hover .header-link,
+        .markdown-body h2:hover .header-link,
+        .markdown-body h3:hover .header-link,
+        .markdown-body h4:hover .header-link,
+        .markdown-body h5:hover .header-link,
+        .markdown-body h6:hover .header-link {
+            opacity: 1;
+        }
+
+        .markdown-body .header-link:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+
         .markdown-body p {
             margin: 1em 0;
             line-height: 1.6;
@@ -684,6 +721,8 @@
                 
                 // 更新DOM
                 document.getElementById('content').innerHTML = htmlContent;
+                // 为标题添加锚点链接
+                addHeaderLinks();
                 
                 // 初始化 Mermaid
                 mermaid.init(undefined, document.querySelectorAll('.mermaid'));
@@ -903,6 +942,41 @@
         const observer = new MutationObserver(updateSidebarVisibility);
         observer.observe(rightSidebar, { childList: true });
     });
+
+
+    // 为标题添加锚点链接的函数
+    function addHeaderLinks() {
+        // 生成slug的函数
+        function generateSlug(text) {
+            return text
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '') // 移除特殊字符
+                .replace(/\s+/g, '-')     // 空格替换为连字符
+                .replace(/-+/g, '-')      // 多个连字符合并为一个
+                .trim('-');               // 移除首尾连字符
+        }
+
+        // 为所有标题添加ID和链接
+        const headers = document.querySelectorAll('.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6');
+        
+        headers.forEach(header => {
+            const text = header.textContent;
+            const slug = generateSlug(text);
+            
+            // 设置ID
+            header.id = slug;
+            
+            // 创建链接元素
+            const link = document.createElement('a');
+            link.href = `#${slug}`;
+            link.className = 'header-link';
+            link.innerHTML = '#';
+            
+            // 将链接插入到标题中
+            header.appendChild(link);
+        });
+    }
+
 </script>
 
 

@@ -17,7 +17,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 6: Reserved for future essential
 - 7: Reserved for future essential
 
-### Quantum Phase Field [8-15] (Necessary)
+### Quantum Phase Field [8-15] (Optional)
 - 8: Phase value (0-1) - 像素状态叠加表示
 - 9: Gradient magnitude - 状态转换梯度强度 
 - 10: Direction field - 8方向编码
@@ -39,7 +39,7 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 - 34: Depth confidence
 - 35-37: Surface normal vector (X,Y,Z)
 - 38: Curvature
-- 39: Edge distance
+- 39: Edge （False 0 True 1）
 
 ### Advanced Geometry [40-47] (Optional - AI推断)
 - 40: Surface roughness map

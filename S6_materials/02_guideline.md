@@ -151,7 +151,7 @@ For example, in terms of helping embodied intelligence, our most concise concept
 ## TLDR of Project Page
 
 - **TLDR:** Requirements for implementing an ideal world model: 1. Encode all information to the boundary. 2. Conform to conformal symmetry. Follow this rule, video (2D+time) generation models and world (3D+time) generation models will be equivalent.
-- **TLDR:** WaveGen like a single-step noiseless diffusion model, a flow-based spatially conditioned generative model, a 3DGS model that separates attributes from spatial information, a model that fuses NeRF and point clouds, an AI optical engine for rendering 3D white model to 2D animation video (Cel shading/toon shading).
+- **TLDR:** WaveGen similar like a single-step noiseless diffusion model, a flow-based spatially conditioned generative model, a 3DGS model that separates attributes from spatial information, a model that fuses NeRF and point clouds, an AI optical engine for rendering 3D white model to 2D animation video (Cel shading/toon shading).
 - **TLDR:** Definition of an ideal world model: 1. Spatial sequence 2. Time sequence 3. Dense representation 4. Semantic instances 5. World core 6. Physical constraint 7. RIVE, Reasonable, Interpretable, Visualizable, and Editable. 8. Bidirectional training and inference 9. All living animals have posture information.
 - **TLDR:** The method to make vision models understand physics is to create a core space and implement constraints within it.
 ControlNet represents parameter-based controllable generation, while ControlWave represents data-based controllable generation, the second type of GenAI controllable generation mastered by humans.
@@ -163,7 +163,5 @@ ControlNet represents parameter-based controllable generation, while ControlWave
 - **TLDR:** The breaking and merging of waves can represent a cup shattering or cars colliding, representing moments of sudden change in otherwise smoothly evolving systems. This is the final mile that visual models need to complete.
 - **TLDR:** WaveGen is a type of wave-based model that, just as waves on the surface are driven by ocean currents below, is based on flow models. The World Snapshot Model is an ideal world model implemented through WaveGen. ControlWave utilizes the data characteristics of the world model itself to control the world.
 - **TLDR:** All the pixels of our work exhibit wave-particle duality.
-- **TLDR:** All estimation tasks in Computer Vision can be regarded as inferring WSG from RGB.
+- **TLDR:** In Computer Vision before 2025, all estimation tasks can be regarded as deriving WSG from images, all conditional generation tasks can be seen as generating WSG with fixed partial results, and all reconstruction tasks can be considered as obtaining WSG sets through known images.
 - **TLDR:** The latent space of WaveGen has the characteristics of being Reasonable, Interpretable, Visualizable, and Editable. Unlike all the previous works: the parameter latent space of previous models only has the simplest I/O interface.
-
-在计算机视觉中，所有的估计任务可以被看作是从图像推出WSG，所有条件生成任务可以被看作是固定部分结果的WSG生成，所有重建任务可以看作是通过已知图像获得WSG集合
