@@ -16,6 +16,8 @@ Therefore, I believe when computational power is sufficient, there's no need to 
 
 However, the pixel decoding layer can also use some compression techniques, because this does not affect the upper limit of the model, we can adjust the compression rate at any time, or change the generation method.
 
+**Note:** On June 14, 2025, I originally intended to not use VAE at all because its randomness would ruin the accuracy of our bidirectional reasoning (it cause that we couldn't achieve 100% accuracy on all estimation tasks. If we abandon the VAE, the RF + Unet structure can enable our world snapshot model to achieve an accuracy rate of nearly 100% on thousands of tasks. Once I have 10,000 GPUs available, I will give it a try), but without using VAE, it would be almost impossible to train. I had to give in temporarily.
+
 ## Optical Tracking Is Not Important
 
 After developing and defining "world pixels", we can consider the importance of accompanying optical properties.
