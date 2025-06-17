@@ -9,10 +9,10 @@ WSG (World Snapshot Graphics) is a high-dimensional image format that extends tr
 
 Generally speaking:
 
-1. I set -1 as the mask area, representing non-existence. 0 represents False, and 1 represents existence or True. WSG should be able to be read and trained in the NPZ format, as this is the most common format for AI and it has a strong compression capability for repeat number (eg., -1.)
+1. I set -1 as the mask area, representing non-existence. 0 represents False, and 1 represents existence or True. WSG should be able to be read and trained in the NPZ format, as this is the most common format for AI and it has a strong compression capability for repeat number (eg., -1.) If a value represents a range and includes -1, it should be emphasized. During training, special adjustments are made to avoid masking this area.
 2. The indentation relationship represents the loop/subordinate relationship.
 3. Regarding the optional format standards, we have not conducted in-depth trials and do not have corresponding WSG file samples. They are merely recommended. We may calibrate them in future WSG minor version updates.
-4. For the channels that are very significant for the original data, we need to normalize them in advance to prevent any interference with them during future training. Although in general, we will restore them back to their original state when generating the final results.
+4. For the channels that are very significant for the original data, we could normalize them in advance to prevent any interference with them during future training. Although in general, we will restore them back to their original state when generating the final results.
 
 ## Format Core Domain [0-31]
 ### Essential Visual [0-7] (Necessary)
@@ -38,7 +38,7 @@ Generally speaking:
 
 **Note:** Initially, I planned to encode some information into the frequency of the wave using the frequency modulation method. This way, we wouldn't need the additional 253 channels for initialization, and the information would be closely integrated with the wave. However, 1. We ourselves need to initialize a tensor that is the same as the expected output result. At least after our reverse reasoning, we still have 256 channels. 2. If we want to change the results of the bidirectional reasoning more quickly, it would be best if we could directly input and directly modify the specific values that have not been encoded. 3. Placing the initialization information of the wave (instead of the function solution, the solution should be initialized and placed in the first four channels) into the additional channels helps us to reconstruct the wave world. 4. Encoding all the information into Wave itself will make Wave Encoder might be very difficult to train. We not only increased the burden on the Wave generator, but also increased the burden on the pixel decoder. 5. But, the drawback of new method (The method of placing all the information into an additional channel) is that 3D information is transformed into 2D information, which is prone to being obscured and confused, and it is difficult to handle the changes after interaction. Therefore, I plan to encode some invariant quantities into the waves as a double safeguard.
 
-**Note:** For the time being, I have only designated this one domain as being capable of being encoded, because other information is not generated along with the wave function. If the wave core space is not clean, you cannot accurately encode the corresponding properties into specific waves; artificial contamination will occur.
+**Note:** For the time being, I have only designated this domain and PBR domain as being capable of being encoded, because other information is not generated along with the wave function. If the wave core space is not clean, you cannot accurately encode the corresponding properties into specific waves; artificial contamination will occur.
 
 ### Core Extension [16-31] (Optional)
 - 16: WSG version
@@ -123,7 +123,7 @@ Reserved for future geometry data
     - 122: Secondary Joint weight (0-1, influence strength)
 - 123-125: Reserved for future object properties
 
-## Physics Properties [126-142] (Optional)
+## Physics Properties [126-142] (Necessary)
 - 126: Object volume (normalized, 0-1)
 - 127: Object mass/weight (normalized, 0-1) 
 - 128: Material density (normalized, 0-1)
@@ -147,7 +147,7 @@ Direct from ShapeNet
 134-142: Reserved for when we have additional physics datasets
 
 ## Material Properties Domain [143-174]
-### PBR Material [143-154] (Necessary)
+### PBR Material [143-154] (Necessary) (Encodable control domain)
 
 - 143: Basecolor - 基础颜色贴图
 - 144: Diffuse - 漫反射贴图
@@ -166,7 +166,7 @@ Direct from ShapeNet
 - 155-174: Reserved for future material properties
 
 ## Sound Properties Domain [175-206]
-### Video Original Audio [175-184] (Necessary - 视频原始音频)
+### Video Original Audio [175-184] (Necessary - 视频原始音频,没有就算了)
 - 175: Mel frequency band 1 (0-300Hz) - 低频能量，语音基频
 - 176: Mel frequency band 2 (300-700Hz) - 第一共振峰区域
 - 177: Mel frequency band 3 (700-1200Hz) - 第二共振峰区域  
@@ -177,7 +177,7 @@ Direct from ShapeNet
 - 182: Pitch Contour (音调轮廓) - 基频变化趋势
 - 183-184: Reserved for original audio
 
-### Video Description Audio [185-194] (Optional - 视频描述音频)
+### Video Description Audio [185-194] (Necessary - 视频描述音频)
 - 185: Mel frequency band 1 (0-300Hz) - 描述语音低频
 - 186: Mel frequency band 2 (300-700Hz) - 描述语音第一共振峰
 - 187: Mel frequency band 3 (700-1200Hz) - 描述语音第二共振峰
@@ -190,6 +190,8 @@ Direct from ShapeNet
 
 ### Audio Extension [195-206]
 Reserved for future audio properties
+
+**Note:** We use two sets of audio systems to carry out the process of encoding information into images. Because I believe that audio is the intersection of CV and NLP, audio is the manifestation of text in space. Moreover, even if audio is distorted, it can still be recognized, and its robustness may be better than text encoding.
 
 ## Technical Details
 
@@ -204,7 +206,6 @@ Version format: MAJOR.MINOR.PATCH
 - RGB channels must remain viewable in standard image viewers (need develop a trick)
 - Channel expansion must maintain backward compatibility
 - Maintain consistent units across all files
-
 
 
 
