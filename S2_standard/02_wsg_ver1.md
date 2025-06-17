@@ -13,6 +13,7 @@ Generally speaking:
 2. The indentation relationship represents the loop/subordinate relationship.
 3. Regarding the optional format standards, we have not conducted in-depth trials and do not have corresponding WSG file samples. They are merely recommended. We may calibrate them in future WSG minor version updates.
 4. For the channels that are very significant for the original data, we could normalize them in advance to prevent any interference with them during future training. Although in general, we will restore them back to their original state when generating the final results.
+5. Since the npz format requires the same data type, considering the storage issue, I decided to use float16 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Integers that cannot be normalized are excluded. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG.
 
 ## Format Core Domain [0-31]
 ### Essential Visual [0-7] (Necessary)
@@ -20,7 +21,7 @@ Generally speaking:
 - 1: Green component (0-255, float)
 - 2: Blue component (0-255, float)
 - 3: Alpha value (0-1.0)
-- 4: Reserved for future essential
+- 4: Grayscale image
 - 5: Reserved for future essential
 - 6: Reserved for future essential
 - 7: Reserved for future essential
@@ -149,6 +150,8 @@ Direct from ShapeNet
 ## Material Properties Domain [143-174]
 ### PBR Material [143-154] (Necessary) (Encodable control domain)
 
+Dataset: [MatSynth](https://gvecchio.com/matsynth/)
+
 - 143: Basecolor - 基础颜色贴图
 - 144: Diffuse - 漫反射贴图
 - 145: Normal - 法线贴图（采用OpenGL标准，Y轴向上）
@@ -169,7 +172,7 @@ Direct from ShapeNet
 ### Video Original Audio [175-184] (Necessary - 视频原始音频,没有就算了)
 - 175: Mel frequency band 1 (0-300Hz) - 低频能量，语音基频
 - 176: Mel frequency band 2 (300-700Hz) - 第一共振峰区域
-- 177: Mel frequency band 3 (700-1200Hz) - 第二共振峰区域  
+- 177: Mel frequency band 3 (700-1200Hz) - 第二共振峰区域
 - 178: Mel frequency band 4 (1200-2000Hz) - 第三共振峰区域
 - 179: Mel frequency band 5 (2000-3500Hz) - 高频辅音区域
 - 180: Mel frequency band 6 (3500-8000Hz) - 超高频细节
