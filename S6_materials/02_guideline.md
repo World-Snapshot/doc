@@ -124,7 +124,22 @@ I believe that perhaps after training, the model's generation of 'rgb' and 'rgbx
 
 Therefore, for method one, we only need to set the velocity field shapes for preview and export modes. During export, use fixed randomness to generate again.
 
+### How to observe the core space of the wave during training?
 
+We know that a key step in the process is that, after observing the wave space based on the camera coordinates, the wave space needs to provide a cross-section of the superposition of the observed wave functions. Then the question is how to obtain the cross-section of the solution: 
+
+There are basically two methods,
+
+1. We can use the plane where the camera is located, which is the plane perpendicular to the line of sight, to calculate the superimposed wave function solutions of each point and obtain a plane. 
+2. I can also obtain the first point on the line of sight, just like a point cloud, obtain the first point, then calculate the result, and then return to the observed perspective plane. 
+
+Compared with the latter, the former lacks spatial information. Of course, I can roughly calculate the relative distance within the wave function space, or provide the relative depth in other channels. But this actually becomes Method Two. If we completely do not use explicit spatial information in the first three channels, the model may naturally increase the intensity of the wave, or form a long-tailed distribution through wave attenuation. In this way, each wave is "radiating" and "emitting light". At this time, we observe a somewhat blurry scene. 
+
+If I adopt method two, I must calculate the plane of this solution based on the obtained point cloud, relative depth, and absolute depth. Finally, there will be world coordinates, and then it is convenient to constrain the shape of this wave. Then I suddenly realized that at some point the wave might be 0, so I added a predicted constant term. 
+
+For Option One: Quantum waves and spatial waves actually have their own distinct characteristics. Initially, I wanted to use quantum waves because I liked their shape and their more free expression method. Method 1 is indeed more in line with our physical intuition, but if we cannot obtain the appropriate boundary, it's like being shortsighted in our observation. We won't be able to observe anything meaningful. In this case, when we visualize, we can observe that almost all objects are emitting some kind of radiation, which may affect our judgment of their actual size. Some adjustments are needed. Of course, the model may adapt on its own, but this is not conducive to our future unification of all computer vision reconstruction fields, because the wave space is rather chaotic.
+
+Regarding Option Two: I initially had some doubts because we used point clouds and depth as constraints, which might not align with our concept. However, after some consideration, we aim to create a good shape in the future and standardization is about the wave world. If we use some methods similar to 3D Mesh generation, we should also be able to train a good wave world. Therefore, this can only be regarded as a choice of training strategy. (The preferred method should be point clouds, followed by scalar depth with world coordinates, then relative/scalar depth. Real-world measured 3D optical flow should also be fine, but the data is difficult to obtain.)
 
 ## Question and discussion
 

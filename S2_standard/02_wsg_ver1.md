@@ -13,7 +13,7 @@ Generally speaking:
 2. The indentation relationship represents the loop/subordinate relationship.
 3. Regarding the optional format standards, we have not conducted in-depth trials and do not have corresponding WSG file samples. They are merely recommended. We may calibrate them in future WSG minor version updates.
 4. For the channels that are very significant for the original data, we could normalize them in advance to prevent any interference with them during future training. Although in general, we will restore them back to their original state when generating the final results.
-5. Since the npz format requires the same data type, considering the storage issue, I decided to use float16 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Integers that cannot be normalized are excluded. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG.
+5. Since the npz format requires the same data type, considering the storage issue, I decided to use float16 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG.
 
 ## Format Core Domain [0-31]
 ### Essential Visual [0-7] (Necessary)
@@ -49,10 +49,11 @@ Generally speaking:
 
 ## Depth and Spatial Geometry Domain [32-63]
 ### Basic Depth & Normals [32-40] (Necessary)
-- 32: Absolute depth value (meters)
-- 33: Absolute depth confidence (In fact, only a very small number of jobs offer this, and we are not using it for the time being.)
-- 34: Relative depth value (0-1)
-- 35: Relative depth confidence (In fact, only a very small number of jobs offer this, and we are not using it for the time being.)
+
+- 32: Relative depth value (0-1)
+- 33: Relative depth confidence (In fact, only a very small number of jobs offer this, and we are not using it for the time being.)
+- 34: Absolute depth value (meters)
+- 35: Absolute depth confidence (In fact, only a very small number of jobs offer this, and we are not using it for the time being.)
 - 36-38: Surface normal vector (X,Y,Z)
 - 39: Curvature (For a sphere, each of its positions has a curvature. It's somewhat like the 3D version of a boundary.)
 - 40: Edge （False -1, True 1; -1 indicates the area of the mask, and this area is not taken into consideration at all.）
@@ -60,9 +61,13 @@ Generally speaking:
 ### Motion Geometry (optical flow and point cloud)[41-56] (Necessary)
 - 41: optical flow dx
 - 42: optical flow dv
-- 43: cloud point z
+- 43: cloud point x
+- 44: cloud point y
+- 45: cloud point z
 
-**Note:** For the point cloud, we convert the world coordinates xy into the normalized position of the pixels in this image, and mark the normalized position of z for this pixel. I considered using 3D optical flow and point clouds with motion directions, but our camera movement and the speed of our wave space already include this information as an alternative.
+**Note:** For the point cloud, we convert the world coordinates xy into the normalized position of the pixels in this image, and mark the normalized position of z for this pixel. 
+
+**Note:** I considered using 3D optical flow and point clouds with motion directions, but our camera movement and the speed of our wave space already include this information as an alternative.
 
 ### Geometry Extension [57-63]
 Reserved for future geometry data

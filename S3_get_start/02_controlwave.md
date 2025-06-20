@@ -15,7 +15,7 @@ ControlWave is mainly divided into two parts, one concerning the core space and 
 
 As mentioned in the previous unit about the generation process, our wave core space file will consist of multiple sets of wave function parameters. It will be a file similar to JSON/NPZ. Then, "Calculate wave function field and probability cloud in 3D space" is essentially a process of getting the WSF file.
 
-- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains)
+- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains; Constant offset term C)
 <br>
 ↓
 <br>

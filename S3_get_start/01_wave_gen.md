@@ -135,11 +135,31 @@ During training, the model learns:
 For extraction, we use a frequency analysis technique that identifies which frequency bands contain significant energy, then decodes the corresponding position-value pairs. This allows us to precisely reconstruct the original sparse information set from the wave function.
 
 The extractable information domains (subsets of positions that contain related information) automatically emerge during training, forming logical groupings such as:
-- Material properties (e.g., positions 76-82 might encode reflectivity, texture, etc.)
-- Semantic attributes (e.g., positions 105-120 might encode object categories, sizes, etc.)
-- Temporal behaviors (e.g., positions 150-160 might encode motion patterns, velocities, etc.)
+- Material properties (e.g., positions 143-174 might encode reflectivity, texture, etc.)
+- Semantic attributes (e.g., positions 175-206 might encode object categories, descriptions, etc.)
 
 This dynamic architecture enables the wave function to adapt to different domains and use cases without requiring manual specification of information ranges.
+
+### Add a Constant
+
+Since waves have oscillations, it is difficult to determine their specific boundaries and how they radiate to the surrounding environment. At certain moments, the value might be 0, so it is necessary to generate a constant when generating wave parameters, which serves as the intermediate value when the wave function oscillates.
+
+The complete time-dependent wave function in 3D cartesian coordinates with all enhancements can be expressed as:
+
+$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r}) \cdot M(\mathcal{I}) + C$
+
+Where:
+- $A$: Amplitude (generated from text)
+- $k_x, k_y, k_z$: Wave vector components (generated from text)
+- $\omega$: Angular frequency (generated from text) 
+- $\text{Center}_x, \text{Center}_y, \text{Center}_z$: Center position (generated from text)
+- $D(\hat{r})$: Directional decay function
+- $M(\mathcal{I})$: Information modulation function
+- $x, y, z$: Spatial coordinates
+- $t$: Time parameter
+- $C$: Constant offset term (generated from text) - serves as the baseline value around which the wave oscillates
+
+The constant $C$ ensures that the wave function maintains a meaningful baseline value even when the oscillatory components approach zero, providing better control over the wave's spatial extent and environmental interaction. A more in-depth exploration of the constant term can be found in [Guideline](https://github.com/World-Snapshot/doc/index.html?page=S6_materials/02_guideline.md#how-to-observe-the-core-space-of-the-wave-during-training).
 
 ## Idea
 
@@ -151,7 +171,7 @@ Based on the theory above, we can consider creating a prototype of the model. Th
 <br>
 ↓
 <br>
-- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains)
+- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains; Constant offset term C)
 <br>
 ↓
 <br>
@@ -171,7 +191,7 @@ As stated in "00 Discuss Real World Models", the main part of this structure sho
 
 ### Wave Decoder
 
-Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation ([rectified flow model](https://github.com/gnobitab/RectifiedFlow/tree/main)/[official](https://github.com/lqiang67/rectified-flow/tree/main), it is said that this idea originated from Prof. Liu.), because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
+Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation ([rectified flow model](https://github.com/gnobitab/RectifiedFlow/tree/main)/[official](https://github.com/lqiang67/rectified-flow/tree/main)), because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
 
 **Note:** On June 14, 2025, I originally intended to not use VAE at all because its randomness would ruin the accuracy of our bidirectional reasoning (it cause that we couldn't achieve 100% accuracy on all estimation tasks. If we abandon the VAE, the RF + Unet structure can enable our world snapshot model to achieve an accuracy rate of nearly 100% on thousands of tasks. Once I have 10,000 GPUs available, I will give it a try), but without using VAE, it would be almost impossible to train. I had to give in temporarily.
 
@@ -183,15 +203,29 @@ This process is a kind of Sen Fang initialization. The wave space used as the in
 
 ### Core Space: Mechanism and usage method
 
+In reality, the entire world is divided into active and inactive parts, such as the environment and movable objects or animals. For movable objects or animals, in fact, they only undergo a relatively low-frequency change: for example, a car only twists the steering wheel when turning, and changes the transmission when accelerating; when humans operate their bodies, they may control larger body parts at a very low frequency, such as raising their hands or taking steps, and these are just one operation.
 
+Therefore, I believe that in order to save computing power and improve the effect, the frequency of the wave core space can be somewhat different from that of the outside world. For example, the evolution of the internal world is 8Hz, while the outside can be observed infinitely, and even 30Hz to 120Hz, or even 3000Hz, as long as the decoding ability of your decoder can keep up, or parallel decoding is possible. (Our design enables us to perform parallel decoding. Within the range of 8Hz, you can parallelly achieve 10,000 FPS, because the evolution of the wave space within the 8Hz operation interval is fixed.)
 
-### Core Space: Non-pure probabilistic AI models
+To elaborate further, the movement of the wave is determined by the current speed v at the moment. Then, its various properties change approximately every 0.125 seconds. When we observe from the outside, we can observe it multiple times. This method has solved the problem in the field of Computer Vision where previous generation models had difficulty changing the frame rate. It's that easy, lol. But, the more important significance here is that we have addressed the consumption of dynamic modeling similar to 3D + time, just like the VAE of the next era.
 
-
+This also demonstrates the superiority of the wave space and its powerful ability to represent the world. Some visual generation models attempt to forcibly obtain the representation of the world, but it might take several billion more resources to achieve the same effect as ours. Currently, major companies are running headlong down the wrong path, as this is the only effective approach available before 2025.
 
 ### Core Space: Create causal interaction
 
+At this point, we can notice an interesting phenomenon. The control frequencies of good keyboards and mice are all above 1000Hz, and the reverse inference from the decoding device in the outside world to the wave space is also faster than the wave space itself. At this time, we discover that we can control the evolution of the wave space in real time and create causal generation!
 
+For instance, if we manipulate the wave function representing the shape of a car (a cube), and change it at a frequency of 1000 Hz, and if our wave space is generated and evolved based on the previous frame (of course we do), the model will generate cars that avoid our driving route; or if we use the decoder for reverse reasoning and convert the human body into a wave, then humans can enter the two-dimensional world, the world of the snapshot model, and interact with it. For example, you can interact your arm with the water in the video. I call this the game mode. Humans control the protagonist, and the model is responsible for creating feedback based on real-world experiences.
+
+Furthermore, if we regard external videos as control, for instance, we observe the surrounding vehicles and update their status in real time to the wave space, just as the real world is playing a game. At this point, the wave space will generate the causal path of one of the vehicles based on these externally controlled vehicles. At this time, an autonomous driving mode is completed. Of course, the same principle applies to robots. Theoretically, we can completely load the concept of what a person is like (from the knowledge of World Snapshot Models) into a robot. If a robot precisely replicates all the behaviors of a human in any given video, then with the assistance of LLMs (large language models), it can be regarded as a being that is even closer to a human.
+
+This is the implementation method of the real-time, causal model. Many top researchers in the past have been advocating this idea, but there was no good way to achieve it. At least I have taken a big step forward.
+
+### Core Space: Non-pure probabilistic AI models
+
+I plan to use the PLA Loss (Principle of Least Action) to impose constraints on the physical properties within the wave space. However, the splitting and merging of the wave space itself can theoretically solve extreme cases, and my annotation of the world itself can also make the world more reasonable.
+
+If possible, I will attempt to transform the physical information domain into encoded information and integrate it into the waves to strengthen the constraints. Nevertheless, the wave space is a controllable non-probabilistic space. This is an unprecedented method to change the potential space of the model. However, I won't forcibly enable the strict physical mode for it.
 
 ## Implementation
 
