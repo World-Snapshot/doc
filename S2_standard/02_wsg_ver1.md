@@ -58,16 +58,16 @@ Generally speaking:
 - 39: Curvature (For a sphere, each of its positions has a curvature. It's somewhat like the 3D version of a boundary.)
 - 40: Edge （False -1, True 1; -1 indicates the area of the mask, and this area is not taken into consideration at all.）
 
-### Motion Geometry (optical flow and point cloud)[41-56] (Necessary)
+### Motion Geometry (2D optical flow and point cloud)[41-56] (Necessary)
 - 41: optical flow dx
 - 42: optical flow dv
 - 43: cloud point x
 - 44: cloud point y
 - 45: cloud point z
 
-**Note:** For the point cloud, we convert the world coordinates xy into the normalized position of the pixels in this image, and mark the normalized position of z for this pixel. 
+**Note:** We will use the world coordinates consistent with the point cloud (currently based on VGGT). If we use xy to locate pixels and z to obtain depth, this actually overlaps with the scalar depth function. It would be better for us to directly record the world coordinates of xyz here. This approach is equivalent to directly transferring the knowledge of VGGT.
 
-**Note:** I considered using 3D optical flow and point clouds with motion directions, but our camera movement and the speed of our wave space already include this information as an alternative.
+**Note:** I considered using 3D optical flow with motion directions, but our camera movement and the speed of our wave space already include this information as an alternative.
 
 ### Geometry Extension [57-63]
 Reserved for future geometry data
@@ -111,7 +111,9 @@ Reserved for future geometry data
 
 ### Human segmentation (Sapiens) [103-110] (Optional)
 
-- 103-110: Reserved for future
+- 103: class value
+
+- 104-110: Reserved for future
 
 
 ## Object/Animal Information [111-125] (Necessary)
@@ -200,6 +202,43 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 Reserved for future audio properties
 
 **Note:** We use two sets of audio systems to carry out the process of encoding information into images. Because I believe that audio is the intersection of CV and NLP, audio is the manifestation of text in space. Moreover, even if audio is distorted, it can still be recognized, and its robustness may be better than text encoding.
+
+## Abstract Information Domain [207-255]
+
+### Wireless Sensing Domain [207-255]
+
+#### LiDAR Point Cloud [207-210] (Necessary)
+207: LiDAR Present Flag (-1=mask, 0=no_lidar, 1=lidar_active)
+208: Point Coordinate X (相机坐标系X, 米为单位)
+209: Point Coordinate Y (相机坐标系Y, 米为单位)
+210: Point Coordinate Z (相机坐标系Z, 米为单位)
+
+#### mmWave Radar Point Cloud [211-216] (Necessary)
+211: mmWave Present Flag (-1=mask, 0=no_radar, 1=radar_active)
+212: Point Coordinate X (相机坐标系X, 米为单位)
+213: Point Coordinate Y (相机坐标系Y, 米为单位)
+214: Point Coordinate Z (相机坐标系Z, 米为单位)
+215: Doppler Velocity (多普勒速度d, 原始单位)
+216: Signal Intensity (信号强度I, 原始单位)
+
+#### WiFi CSI Processed [217-235] (Necessary)
+217: WiFi Present Flag (-1=mask, 0=no_wifi, 1=wifi_active)
+218: CSI PCA Feature 1 (第一主成分)
+219: CSI PCA Feature 2 (第二主成分)
+220: CSI PCA Feature 3 (第三主成分)
+221: CSI PCA Feature 4 (第四主成分)
+222: CSI PCA Feature 5 (第五主成分)
+223: CSI PCA Feature 6 (第六主成分)
+224: Spatial Influence Weight (该像素的WiFi影响权重)
+225: Movement Detection (运动检测概率)
+226: Presence Confidence (人体存在置信度)
+227-235: Reserved for WiFi extension
+
+236-255: Reserved for future wireless sensing expansion
+
+**Note:**: WiFi CSI Compression Method(3, 114, 10), 复数 → **压缩**: 6个PCA主成分 + 空间权重分配到像素
+
+
 
 ## Technical Details
 

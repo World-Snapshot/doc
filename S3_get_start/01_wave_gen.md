@@ -1,6 +1,6 @@
 # Learn Quantum Wave Function Generation (WaveGen)
 
-*"God plays dice, our world snapshot does play dice too."*
+*"God plays dice, our world snapshot does play dice too." -- SF*
 
 ## Overview
 

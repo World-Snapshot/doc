@@ -1,5 +1,7 @@
 # The Comparison of WaveGen and Related Work
 
+*“The edifice of Computer Vision has been completed, with only two black clouds remaining - ‘quadratic growth’ and ‘logical physical consistency’. Future generations will only need to increase data and computing power.” -- This is what the big companies say.*
+
 ## Overview
 
 Here we provide a summary of WaveGen's advantages and experimental results to serve as a helpful summary.

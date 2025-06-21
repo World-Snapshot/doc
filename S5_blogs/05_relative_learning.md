@@ -1,6 +1,6 @@
 # Relative in All Things
 
-*"NLP is the soul, Robotics is the body, and CV is the world."*
+*"NLP is the soul, Robotics is the body, and CV is the world." -- SF*
 
 ## Does the Creation of the World require Human Intervention
 

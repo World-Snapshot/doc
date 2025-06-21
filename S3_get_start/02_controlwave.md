@@ -1,7 +1,7 @@
 # ControlWave
 
 <!--*"Wave is all things those worlds need."*-->
-*"I suspect that waves are the most suitable core of the world."*
+*"I suspect that waves are the most suitable core of the world." -- SF*
 
 ## Overview
 

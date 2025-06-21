@@ -37,7 +37,7 @@ What is the color of objects, and what is the essence of color? Color is the per
 
 In the past, training world information was conducted through images composed of three primary colors. The main reason for previously using RGB three channels to a large extent was that this is a format that can be easily read by human eyes, meaning that human eyes are a limited optical interpreter.
 
-Computer vision based entirely on RGB and other few channels is, in a sense, very limited learning, as we have ignored too much valuable information. This is also why 3D vision is becoming increasingly popular. WavGen may also have valuable information that hasn't been noticed, but it provides a convenient platform, a new perspective.
+Computer vision based entirely on RGB and other few channels is, in a sense, very limited learning, as we have ignored too much valuable information. This is also why 3D vision is becoming increasingly popular. WavGen may also have valuable information that hasn't been noticed, but it provides a convenient platform, a new perspective. (Or to put it more simply, if the model is to understand space information, the depth map could even be everything it needs. A single-channel, extremely simple image is all that is needed! In the information of the world, even RGB might be the least important information. The majority of the 253 channels in WSG are more important than this RGB type.)
 
 Perhaps it's the newly supported potential and kinetic energy calculations, which can support pixel-level momentum conservation, or perhaps it's the naturally convenient multi-modal fusion, or formula-level time support, or virtual-real interaction calculations, or perhaps it's highlighting the value of AI optics...
 

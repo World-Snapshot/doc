@@ -1,6 +1,6 @@
 # Discuss Real World Models
 
-*"I now define the frame of the System of the World Models."*
+*"I now define the frame of the System of the World Models." -- SF*
 
 ## What is Real the World Models
 
