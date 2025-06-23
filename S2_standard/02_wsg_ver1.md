@@ -58,18 +58,21 @@ Generally speaking:
 - 39: Curvature (For a sphere, each of its positions has a curvature. It's somewhat like the 3D version of a boundary.)
 - 40: Edge （False -1, True 1; -1 indicates the area of the mask, and this area is not taken into consideration at all.）
 
-### Motion Geometry (2D optical flow and point cloud)[41-56] (Necessary)
+### Motion Geometry (2D optical flow, point cloud, depth)[41-56] (Necessary)
 - 41: optical flow dx
 - 42: optical flow dv
 - 43: cloud point x
 - 44: cloud point y
 - 45: cloud point z
+- 46: cloud point confident
+- 47: world depth z
+- 48: world depth confident
 
 **Note:** We will use the world coordinates consistent with the point cloud (currently based on VGGT). If we use xy to locate pixels and z to obtain depth, this actually overlaps with the scalar depth function. It would be better for us to directly record the world coordinates of xyz here. This approach is equivalent to directly transferring the knowledge of VGGT.
 
 **Note:** I considered using 3D optical flow with motion directions, but our camera movement and the speed of our wave space already include this information as an alternative.
 
-### Geometry Extension [57-63]
+### Geometry Extension [49-63]
 Reserved for future geometry data
 
 ## Pose and Human Information Domain [64-95]
