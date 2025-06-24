@@ -121,18 +121,25 @@ Reserved for future geometry data
 
 ## Object/Animal Information [111-125] (Necessary)
 - 111: Object UUID (encoded identifier)
-    - 112: Vertex ID (find this vertex based on xy coordinates, then mark which vertex it is)
-        - 113: Vertex UV coordinates U (0-1)
-        - 114: Vertex UV coordinates V (0-1)
-    - 115: Face ID (which face this pixel belongs to)
-- 116: Primary Joint ID (joint with highest influence on this vertex)
-    - 117: Primary Joint weight (0-1, influence strength)
-    - 118: Joint position X (normalized)
-    - 119: Joint position Y (normalized)
-    - 120: Joint position Z (normalized)
-- 121: Secondary Joint ID (second highest influence, -1 if none)
-    - 122: Secondary Joint weight (0-1, influence strength)
+- 112: Class Value
+    - 113: Vertex ID (find this vertex based on xy coordinates, then mark which vertex it is)
+        - 114: Vertex UV coordinates U
+        - 115: Vertex UV coordinates V
+        - 116: position Z
+        - 117: skinning_weights_value (influence strength)
+    - 118: Face ID (which face this pixel belongs to)
+    - 119: Joint ID (joint with highest influence on this vertex)
+        - 120: Joint position Z
+    - 121: Bone ID
+        - 122: skinning_weights_value (influence strength)
 - 123-125: Reserved for future object properties
+
+**Note:** In accordance with the usual requirements, for all pixels that contain information, at least an ID should be provided. It is also advisable to include information such as Class ID.
+
+**Note:** Apart from normalizing the position of the pixel when searching for it, generally we do not perform any additional processing on any values.
+
+**Note:** We respectively search for the weight values from the "skinning_weights_row" (vertex index) and "skinning_weights_col" (bone index), and then place them in the corresponding pixels. These are the necessary indices, just like key names, and the corresponding values are in the "skinning_weights_value" (weight value).
+
 
 ## Physics Properties [126-142] (Necessary)
 - 126: Object volume (normalized, 0-1)
