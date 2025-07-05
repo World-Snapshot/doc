@@ -94,14 +94,30 @@ Reserved for future geometry data
     - 78-87: the value of betas/epression
 - 88: bbox: If the vertex is set to 1, then the absence of a vertex is naturally -1.
 - 89: bbox_mmdet: If the vertex is set to 1, then the absence of a vertex is naturally -1.
-- 90: vertices (vf system): If the vertex is set to 1, then the absence of a vertex is naturally -1.
-- 91-94: Reserved for future
+- 90: vertices (vf system) id
+- 91: vertices (vf system) x: it is actually the coordinates that have been calibrated based on the predicted translation information.
+- 92: vertices (vf system) y: it is actually the coordinates that have been calibrated based on the predicted translation information.
+- 93: vertices (vf system) z: it is actually the coordinates that have been calibrated based on the predicted translation information.
+- 94: Reserved for future
 
 **Note:** I utilized the bbox_mmdet and bbox information from Meta dir, but did not use focal and princpt, as these two elements will be provided by user.
 
 **Note:** For 3D Mesh human models, each joint has a rotation angle. Then we use keypoint ID plus xyz rotation angles, and four channels can store this information. However, since the rotation angles do not reflect the spatial information in the image, we cannot find the corresponding pixels. We can only store this information for each pixel in the entire human body area. (This allows the model to have some sensitivity to the human body area and the large amount of information enrichment is also helpful for the already difficult 3D posture training.) If the positions of people overlap, the pixel area of this part should be given to the person with the smaller ID because this is the person that the model is most likely to detect first.
 
-**Note:** The final rendering mainly uses the bbox (SMPLer-X box), while bbox_mmdet seems to represent smaller body areas. When saving, I should use the bbox box. Additionally, I did not store the face meshes because for SMPL, the connection relationship of its face meshes is fixed.
+**Note:** The final rendering mainly uses the bbox (SMPLer-X box), while bbox_mmdet seems to represent smaller body areas. When saving, I use the bbox_mmdet box. Additionally, I did not store the face meshes because for SMPL, the connection relationship of its face meshes is fixed.
+
+**More Explain:** First of all, regarding the key points, it is different from DWpose. Since it uses 3D rotation angles to represent the human body, it cannot correspond to pixels. DWpose finds corresponding key points based on xy coordinates and then stores z coordinates, but for SMPLer-X, according to the standard, we will store a piece of information throughout this area, rather than storing a certain joint point at a certain pixel. Then for pixels that obtain information in the corresponding channel, they will be marked which person they belong to, that is, person id.
+
+For the value of each key point, we found that one pixel cannot store it completely, so we can store key point 0 and its rotation angle xyz in the first pixel, store the second key point in the second pixel, and store it evenly in the area like this. For:
+
+- 77: betas: 0 expression: 1
+- 78-87: the value of betas/expression
+
+They follow the same logic. Betas and expression can be regarded as two types of data, each type of data has 10 values.
+
+Then for the box vertices, if a certain pixel belongs to the box vertices, the corresponding channel is changed to 1. In this way, the model only needs to look at the corresponding channel of the entire image, and it is easy to find four points or 8 points, knowing that they are some squares.
+
+Then for the vertices, we first find the corresponding pixel according to xy, and then put xyz into the channels 90 to 92 that we require, only put it in the corresponding single pixel, so that it has a connection with the spatial relationship. The model only needs to check the channels 90 to 92 of all pixels, and if it finds valid information, then it is a vertex.
 
 ### 3D skeletal human (Mediapipe Pose) [95-102] (Necessary)
 
@@ -112,11 +128,13 @@ Reserved for future geometry data
 
 - 99-102: Reserved for future
 
-### Human segmentation (Sapiens) [103-110] (Optional)
+### Human segmentation [103-110] (Optional)
 
-- 103: class value
+- 103: class value (Sapiens)
 
-- 104-110: Reserved for future
+- 104: class value (Medical)
+
+- 105-110: Reserved for future
 
 
 ## Object/Animal Information [111-125] (Necessary)
@@ -218,30 +236,30 @@ Reserved for future audio properties
 ### Wireless Sensing Domain [207-255]
 
 #### LiDAR Point Cloud [207-210] (Necessary)
-207: LiDAR Present Flag (-1=mask, 0=no_lidar, 1=lidar_active)
-208: Point Coordinate X (相机坐标系X, 米为单位)
-209: Point Coordinate Y (相机坐标系Y, 米为单位)
-210: Point Coordinate Z (相机坐标系Z, 米为单位)
+- 207: LiDAR Present Flag (-1=mask, 0=no_lidar, 1=lidar_active)
+- 208: Point Coordinate X (相机坐标系X, 米为单位)
+- 209: Point Coordinate Y (相机坐标系Y, 米为单位)
+- 210: Point Coordinate Z (相机坐标系Z, 米为单位)
 
 #### mmWave Radar Point Cloud [211-216] (Necessary)
-211: mmWave Present Flag (-1=mask, 0=no_radar, 1=radar_active)
-212: Point Coordinate X (相机坐标系X, 米为单位)
-213: Point Coordinate Y (相机坐标系Y, 米为单位)
-214: Point Coordinate Z (相机坐标系Z, 米为单位)
-215: Doppler Velocity (多普勒速度d, 原始单位)
-216: Signal Intensity (信号强度I, 原始单位)
+- 211: mmWave Present Flag (-1=mask, 0=no_radar, 1=radar_active)
+- 212: Point Coordinate X (相机坐标系X, 米为单位)
+- 213: Point Coordinate Y (相机坐标系Y, 米为单位)
+- 214: Point Coordinate Z (相机坐标系Z, 米为单位)
+- 215: Doppler Velocity (多普勒速度d, 原始单位)
+- 216: Signal Intensity (信号强度I, 原始单位)
 
 #### WiFi CSI Processed [217-235] (Necessary)
-217: WiFi Present Flag (-1=mask, 0=no_wifi, 1=wifi_active)
-218: CSI PCA Feature 1 (第一主成分)
-219: CSI PCA Feature 2 (第二主成分)
-220: CSI PCA Feature 3 (第三主成分)
-221: CSI PCA Feature 4 (第四主成分)
-222: CSI PCA Feature 5 (第五主成分)
-223: CSI PCA Feature 6 (第六主成分)
-224: Spatial Influence Weight (该像素的WiFi影响权重)
-225: Movement Detection (运动检测概率)
-226: Presence Confidence (人体存在置信度)
+- 217: WiFi Present Flag (-1=mask, 0=no_wifi, 1=wifi_active)
+- 218: CSI PCA Feature 1 (第一主成分)
+- 219: CSI PCA Feature 2 (第二主成分)
+- 220: CSI PCA Feature 3 (第三主成分)
+- 221: CSI PCA Feature 4 (第四主成分)
+- 222: CSI PCA Feature 5 (第五主成分)
+- 223: CSI PCA Feature 6 (第六主成分)
+- 224: Spatial Influence Weight (该像素的WiFi影响权重)
+- 225: Movement Detection (运动检测概率)
+- 226: Presence Confidence (人体存在置信度)
 227-235: Reserved for WiFi extension
 
 236-255: Reserved for future wireless sensing expansion

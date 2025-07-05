@@ -42,4 +42,10 @@ NeRF is somewhat like WSF under pure probability, though NeRF cannot transform t
 
 It would be better if WSG could use LiDAR to fill its absolute distance channel, rather than relying on predicted distances. If it's necessary to use predicted distances, I prefer using metric distances or affine-invariant distances, as this makes reconstruction and rendering faster. Although humans perceive the external world through relative feeling, everything in nature ultimately has its natural scale.
 
+## The real challenges in the field of computer vision at present
+
+Currently, there are many genuine problems in the field of computer vision that need to be addressed. However, due to their complexity, these problems have been overlooked by researchers over time. They have transformed the difficult issues encountered in expanding the knowledge frontier into something that seems worthy of solving, but in reality, the real problems remain here.
+
+We must not forget what the real problems are. We cannot walk with our eyes blindfolded. This is an expenditure of financial resources, human efforts and the youth's enthusiasm. Now let's set out towards the real problems.
+
 *Conceived this blog on 23th Dec 2024 and completed on 23th Dec 24, Updated on 9th Apr 2025*
