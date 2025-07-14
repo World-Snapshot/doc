@@ -229,6 +229,22 @@ If possible, I will attempt to transform the physical information domain into en
 
 ## Implementation
 
+Then we began to conceive of how we could train a core space. In a sense, the essence of the wave space is like a blurry area that connects images and numbers. Just as someone first expressed a function using equations, the image is the function.
+
+### Training sequences at spatial dimension
+
+After some consideration, I believe that a sequence model like LongT5 should be used to model the wave space (other methods can also be employed if there are good training strategies). Regarding this training strategy, the problem lies in how we can train our ability to generate the wave space while retaining the spatial information.
+
+First of all, our optimization goal should be to satisfy the principle of minimum action while ensuring that the equilibrium positions of each wave can fit as many point clouds provided from different perspectives as possible. In this way, the shape of the wave will be learned from the point clouds. The question is what constitutes a good strategy and what is the optimal method?
+
+I decided to adopt a similar concept to VAR and transform the parameters of an appropriate number of waves spatially into a "problem of predicting the next number in a sequence". That is to say, we first consider generating a wave, and a single wave may be able to fit an object, which is sufficient. Then we can consider generating the cube of 2 or 3 waves, which will gradually divide an object to obtain more instances. The details of the object will gradually become richer.
+
+The number of waves here is in line with 3D requirements, but this is only for convenience of representation, not meaning that 8 waves occupy a specific location. Then our wave function has approximately 20 values. $20^3 = 8k$, and I decided to set this as the maximum number of waves (only for this model, there can be up to 8k wave functions in the wave space). The length of LongT5 is 16k. For a 16k context, the remaining 8k will be the content of the text.
+
+Then I considered that each time it generates, it should rely on the wave parameters and text from the previous two frames, because waves have a speed, and two frames make it easier to obtain the acceleration. In this way, actually the number of waves should be reduced a little. For example, $16^3 = 4k$, and two frames would be $8k$, and the text has an $8k$ length. Thus, we have obtained a relatively good situation:
+
+We will first train the model to start from one wave, trying to fit the point cloud from a certain perspective. Then we will expand to 8 waves, and continue to increase the number until 4k waves. This is somewhat like an autoregressive approach, but it is not convenient for the usual parallel processing. I will modify the maximum number of waves and decide whether to skip certain levels during the practice.
+
 ## Discussion
 
 ### Core Space
