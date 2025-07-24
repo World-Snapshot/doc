@@ -36,11 +36,11 @@ Many people are confused and can't distinguish the future direction, they don't 
 
 ## Definition
 
-I combine people's opinions to make the following definition, a world snapshot model or ideal world model should generate:
+I combine people's opinions<sup class="footnote" data-note="After starting my work, I read some public discussions by researchers regarding the definition of the world model.">1</sup> to make the following definition, a world snapshot model or ideal world model should generate:
 
 - **Spatial sequence (x,y,z):** For modeling geometric space.
 - **Time sequence (t):** Generate dynamic, static, continuous, discontinuous content with temporal flow (now, past, future).
-- **Dense representation:** Texture, lighting, rendering process, as many physical meanings and properties as possible. And all these properties need to be controllable.
+- **Dense representation:** Texture, lighting, rendering process, as many physical meanings and properties as possible. And all these properties need to be controllable<sup class="footnote" data-note="In fact, controllability can almost be regarded as a new feature, because before ‘wsg birth + virtual-real transformation‘, there was no good method for pixel-level control. Previous work relied on 2D instance methods such as reference images and concept-level control methods such as prompts. While we developed 3-4D instance control and hundreds of condition control at the pixel level.">2</sup>.
 - **Semantic instances:** The environment is not a whole, but broken down into specific objects, enabling object-level control and recombination.
 - **World heart or world core:** In a core space, using some high-dimensional method to represent the probability distribution of the world, then modeling everything's spatiotemporal distribution by the core. After model, it then output the specific content, object or sample. *WaveGen uses [Quantum Waves](https://en.wikipedia.org/wiki/Wave_function) to create the heart of world.*
 - **Physical constraint:** In the core space, the abstract representation of objects should be constrained. In our work, this is equivalent to using formulas to convert natural distributions into relative energy and relative density based on probability, which allows for further constraints. *We use the '[Principle of Least Action](https://en.wikipedia.org/wiki/Action_principles)' for constraint.*
@@ -58,7 +58,9 @@ Models that conform to these definitions (including but not limited to) will be 
 
 **Note6:** April 10, 2025: Some researchers/papers believe that world models should have strong capabilities, allowing them to interact with the world based on knowledge in their minds. They are actually envisioning what embodied intelligence (Agent/LLM+Robot) could achieve if it truly understood the world. What they're thinking about is the result of combining world models with some intelligent models. However, this concept is not an ideal world model; it combines LLMs, robotics, and world models—it's an bigger engineering composite. For example, someone believes that world models can make decisions, which is not our definition of world snapshot model or ideal world model.
 
-*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 10th April 2025*
+**Note7:** July 24, 2025: More complex decisions should be the responsibility of LLMs rather than WSMs. However, to be honest, later I did come up with two types of methods for integrating the core space with the real world. Reader can read about WaveGen in the [methods section - Further Approach](https://world-snapshot.github.io/doc/index.html?page=S3_get_start/01_wave_gen.md#core-space-mechanism-and-usage-method). Since the core space represents the evolution of the world, the posture of every world within it can be output externally or be controlled by the outside. Due to the velocity difference between the inside and outside of the world, it can not only create more obvious causality but also output the knowledge that WSMs should have about how the world should be. For example, if the model believes that a car should react in a certain way to the outside world, then it should have such a reaction.
+
+*Conceived this blog on 22th Dec 2024, Completed on 23th Dec 2024, Updated on 24th July 2025*
 
 <!--
 <div style="background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 5px;">
