@@ -236,18 +236,19 @@ Reserved for future audio properties
 ### Wireless Sensing Domain [207-255]
 
 #### LiDAR Point Cloud [207-210] (Necessary)
-- 207: LiDAR Present Flag (-1=mask, 0=no_lidar, 1=lidar_active)
-- 208: Point Coordinate X (相机坐标系X, 米为单位)
-- 209: Point Coordinate Y (相机坐标系Y, 米为单位)
-- 210: Point Coordinate Z (相机坐标系Z, 米为单位)
+
+- 207: Point Coordinate X (相机坐标系X, 米为单位)
+- 208: Point Coordinate Y (相机坐标系Y, 米为单位)
+- 209: Point Coordinate Z (相机坐标系Z, 米为单位)
+- 210: Reserved for future
 
 #### mmWave Radar Point Cloud [211-216] (Necessary)
-- 211: mmWave Present Flag (-1=mask, 0=no_radar, 1=radar_active)
-- 212: Point Coordinate X (相机坐标系X, 米为单位)
-- 213: Point Coordinate Y (相机坐标系Y, 米为单位)
-- 214: Point Coordinate Z (相机坐标系Z, 米为单位)
-- 215: Doppler Velocity (多普勒速度d, 原始单位)
-- 216: Signal Intensity (信号强度I, 原始单位)
+- 211: Point Coordinate X (相机坐标系X, 米为单位)
+- 212: Point Coordinate Y (相机坐标系Y, 米为单位)
+- 213: Point Coordinate Z (相机坐标系Z, 米为单位)
+- 214: Doppler Velocity (多普勒速度d, 原始单位)
+- 215: Signal Intensity (信号强度I, 原始单位)
+- 216: Reserved for future
 
 #### WiFi CSI Processed [217-235] (Necessary)
 - 217: WiFi Present Flag (-1=mask, 0=no_wifi, 1=wifi_active)

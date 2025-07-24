@@ -71,7 +71,7 @@ This technique guarantees that what users see in preview is exactly what they'll
 
 
 
-## Dissuasion
+## Discussion
 
 ### How to control the pixel network
 
