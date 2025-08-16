@@ -33,11 +33,52 @@ We also welcome contributions in all forms:
 
 ## Future Work / Full RoadMap
 
+
+
+
+```mermaid
+gantt
+   title Core Space progress
+   dateFormat X
+   axisFormat %s
+   
+   section Gen Capacity
+   Static Single Object    :done, 0, 1
+   Static Multi-Object     :done, 0, 2
+   Dynamic Multi-Object (now)   :crit, active, 0, 3
+   Dynamic Small Scene     :0, 4
+   Dynamic Large Scene     :0, 5
+   
+```
+
+```mermaid
+gantt
+   title Wave2Pixel progress
+   dateFormat X
+   axisFormat %s
+   
+   section Inference Speed
+   12fps             :done, 0, 1
+   24fps (now)           :crit, active, 0, 2
+   60fps             :0, 3
+   90fps             :0, 4
+   120fps            :0, 5
+   
+   section Generalization
+   100 tasks/functions           :done, 0, 1
+   300 tasks/functions (now)          :crit, active, 0, 2
+   500 tasks/functions           :0, 3
+   1000 tasks/functions          :0, 4
+   1500+ tasks/functions         :0, 5
+```
+
 Here, we take stock of the things that can be done in the future (Written on 16 August 2025, when the project is not yet mature enough to public).
 
-Currently, wave generation models obtain the world representation of waves from the real world (Normalized depth map; or point cloud), (i.e., some kind of dynamic function or probability space wave). Due to the limitations of GPUs, wave models should only be able to demonstrate potential and are far from being mature. However, the world snapshot part, with the help of the mature ecosystem of RF, should be relatively better. 
+Currently, Core Space obtain the world representation of waves from the real world (Normalized depth map; or point cloud), (i.e., some kind of dynamic function or probability space wave). Due to the limitations of GPUs, Wave2Pixel decoder should only be able to demonstrate potential and are far from being mature. However, the Wave2Pixel decoder part, with the help of the mature ecosystem of RF, should be relatively better. 
 
+<!--
 I'm not saying that the wave generation model and the world snapshot are different parts. They are essentially the same thing. They need to be utilized together and form a whole. The wave generation model requires a wsg decoder. The world snapshot model also needs a core space. What I just mentioned was their bias. The world snapshot model is a model trained using the wave generation method. Although they are responsible for two orthogonal tasks, they still need to rely on each other. Perhaps only in a few cases do they need to be separate<sup class="footnote" data-note="(1) reconstruction, time-space, order and existence; (2) generation, rendering, understanding and cognition. Only when you focus on one of the two types of tasks will you propose WaveXyy or XyyWSM.">1</sup>. 
+-->
 
 Therefore, we should:
 
