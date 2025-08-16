@@ -37,7 +37,7 @@ Here, we take stock of the things that can be done in the future (Written on 16 
 
 Currently, wave generation models obtain the world representation of waves from the real world (Normalized depth map; or point cloud), (i.e., some kind of dynamic function or probability space wave). Due to the limitations of GPUs, wave models should only be able to demonstrate potential and are far from being mature. However, the world snapshot part, with the help of the mature ecosystem of RF, should be relatively better. 
 
-I'm not saying that the wave generation model and the world snapshot are different parts. They are essentially the same thing. They need to be utilized together and form a whole. The wave generation model requires a wsg decoder. The world snapshot model also needs a core space. What I just mentioned was their bias. The world snapshot model is a model trained using the wave generation method. Although they are responsible for two orthogonal tasks, they still need to rely on each other. Perhaps only in a few cases do they need to be separate. 
+I'm not saying that the wave generation model and the world snapshot are different parts. They are essentially the same thing. They need to be utilized together and form a whole. The wave generation model requires a wsg decoder. The world snapshot model also needs a core space. What I just mentioned was their bias. The world snapshot model is a model trained using the wave generation method. Although they are responsible for two orthogonal tasks, they still need to rely on each other. Perhaps only in a few cases do they need to be separate<sup class="footnote" data-note="(1) reconstruction, time-space, order and existence; (2) generation, rendering, understanding and cognition. Only when you focus on one of the two types of tasks will you propose WaveXyy or XyyWSM.">1</sup>. 
 
 Therefore, we should:
 
@@ -58,3 +58,7 @@ Therefore, we should:
 ### Phase N: 
 
 - Of course, at the beginning of this project, we had a [brief reflection](https://world-snapshot.github.io/doc/index.html?page=S5_blogs/02_cv_rebirth.md).
+
+## How to cooperate?
+
+For academic collaborations and any discussions, please send [emails](mailto:sen.fang@rutgers.edu)/[X(twitter)](https://x.com/SenFang01)/[Thread](https://www.threads.com/@senfang01) to the first author or the organization email. For more in-depth or business or funding collaborations, please send proposals, plans, and general details to [DM](mailto:dnm@cs.rutgers.edu) and copy the first author.
