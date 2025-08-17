@@ -33,9 +33,6 @@ We also welcome contributions in all forms:
 
 ## Future Work / Full RoadMap
 
-
-
-
 ```mermaid
 gantt
    title Core Space progress
@@ -80,21 +77,23 @@ Currently, Core Space obtain the world representation of waves from the real wor
 I'm not saying that the wave generation model and the world snapshot are different parts. They are essentially the same thing. They need to be utilized together and form a whole. The wave generation model requires a wsg decoder. The world snapshot model also needs a core space. What I just mentioned was their bias. The world snapshot model is a model trained using the wave generation method. Although they are responsible for two orthogonal tasks, they still need to rely on each other. Perhaps only in a few cases do they need to be separate<sup class="footnote" data-note="(1) reconstruction, time-space, order and existence; (2) generation, rendering, understanding and cognition. Only when you focus on one of the two types of tasks will you propose WaveXyy or XyyWSM.">1</sup>. 
 -->
 
-Therefore, we should:
+Therefore, next, we should:
 
 ### Phase One: 
 
-- **Create sufficient datasets:** 1. For example, develop and use the SQ-SLAM method to convert the entire world into a wave function. 2. Perhaps the entire SMPL/MeshObj/Avatar ecosystems can be transferred over. 3. Integrate the SAM-Grounded tool with the existing wsg tools to obtain a better wsg dataset.
+- **Create sufficient function probability wave datasets:** 1. For example, develop and use the SQ-SLAM method to convert the entire world into a wave function. 2. Perhaps the entire SMPL/MeshObj/Avatar ecosystems can be transferred over. 3. Integrate the SAM-Grounded tool with the existing wsg tools to obtain a better wsg dataset.
 
 - **Improving and upgrading the wave2pixel:** I'm not sure if the model released for the first time can achieve a unified level of over 1500 visual tasks, but it is undoubtedly necessary to continue making improvements.
 
-- **We can explore more generation methods to create the core space:** 1. perhaps 4D CNN is a better foundation for the world model and a way to construct the core space; 2. perhaps RNN like RWKV, Mamba, which are naturally suitable for maintaining states and align with our explicit world state concept; 3. perhaps the super-large Gaussian volume can replace the wave space; 4. perhaps the traditional several image generation methods (e.g., 3D VAE to TSDF to Mesh) can be changed into a two-stage method to create the core space...
+- **We can explore more generation methods to create the core space:** 1. perhaps 4D CNN is a better foundation for the world model and a way to construct the core space; 2. perhaps RNN like RWKV, Mamba, which are naturally suitable for maintaining states and align with our explicit world state concept; 3. perhaps the super-large Gaussian volume can replace the wave space; 4. perhaps the traditional several image generation methods (e.g., 3D VAE to TSDF to Mesh) can be changed into a two-stage method to create the core space; 5. DiC (Conv With Diffusion)/TCN? ...
 
 - **Continue to increase the duration of the wave space:** By August 2025, it is impossible to achieve this in one step. We have to lower our goals. Perhaps the extremely long generation time or certain target concepts cannot be verified. We need to continuously prove the feasibility of the concepts.
 
 ### Phase Two:
 
-- **Using sufficient data and GPU to train a complete model:** The new WSMs should be able to more comprehensively process the entire world, run a world more perfectly, quickly generate, understand, recognize, and reconstruct for visual and other tasks. And the version released in 2025 should only be a proof-of-concept version.
+- **Using sufficient data and GPU to train a complete model:** The new WSMs should be able to more comprehensively process the entire world, run a world more perfectly, quickly generate, understand, recognize, and reconstruct for visual and other tasks. And the version released in 2025 should only be a proof-of-concept version. Perhaps we could consider extracting the knowledge from DINOv3: I believe the implicit representations still need to be transformed into explicit representations within our core space, and into interpretable attributes of the pixels in our world.
+
+- **Try to construct the training of physical knowledge using unsupervised methods:** As of August 2025, there is no good method for unsupervised training of perfect physical operation rules. We can import the core space into Blender (we support such operations) for constraints, or we can calculate through the following physical quantities (even some work has attempted this). Although the merging, disappearance, and birth of waves should be able to solve some extreme scenarios, I hope there are simpler training methods: In a certain physical condition, all symmetries correspond to an invariant, that is, the conservation of conformal charges. This may help the model more strictly satisfy the common symmetry, which may be helpful for the model to comply with the minimum action. Perhaps when the decoder training is good enough, it can feed back to the operation of the core space.
 
 ### Phase N: 
 

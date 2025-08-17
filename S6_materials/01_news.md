@@ -6,7 +6,6 @@ Here we provide full news of World Snapshot:
 
 - **Feb 7:** Guideline "Model Design Guideline Memo" completed.
 - **Jan 23:** Blog "Tensors are Basis of Light" completed.
-- **Jan 20:** Thoughts "Try to Explain Quantum Entanglement" draft completed.
 - **Jan 18:** Blog "Pixel Grandfather Paradox" completed.
 - **Jan 3:** Blog "Time Flowing in Graphics" and "Relative be in All Things" completed.
 

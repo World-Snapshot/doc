@@ -6,6 +6,8 @@ It is well written, and the original was in Chinese. I have translated it into E
 
 **Note1:** I can illustrate this article with an example. Light always moves in the direction that minimizes resistance. This idea is one that many people have heard. I believe the rectified flow model also represents this concept. Its viewpoint is to straighten out the path. In fact, the path may not be straight, but it is the one with the least resistance and the fastest speed. Therefore, by using the principle of minimizing action as the loss function, I was able to obtain the wave core space that satisfies all physical systems.
 
+**Note2:** Furthermore, Sen Fang believes and boldly conjectures that the essence of [Rectified Flow](https://arxiv.org/abs/2209.03003)/[Flow Matching](https://arxiv.org/abs/2210.02747v2) is not to straighten the paths, but to have the model generate along the path with the least resistance.
+
 # Introduction
 
 The principle of least action is an important concept in physics. Its core idea is that for a physical system, there exists an action (typically a function in integral form) that describes the evolution of the system from its initial state to its final state. The principle of least action states that among all possible evolutionary paths, the one that actually occurs is the path that minimizes this action.
