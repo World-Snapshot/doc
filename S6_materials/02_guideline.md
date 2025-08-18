@@ -50,6 +50,8 @@ This is similar to a hologram, where three-dimensional images can actually be re
 
 Roughly speaking, our attempt is to construct such a converter through wave space.
 
+**Note:** On August 17th, 2025, I realized that my job was actually about realizing the physical [holographic theory](https://en.wikipedia.org/wiki/Holographic_principle). This physical theory posits that the properties of a space (such as physical information) can be encoded onto its boundaries, just as a world can be captured by the event horizon of a black hole. The history of the "physical holographic theory" or the "cosmic holographic theory" is quite long and has been highly regarded by many Nobel Prize-winning physicists. I essentially rediscovered, proposed, and implemented this idea in the field of computer vision.
+
 ### How to decode or render pixels in real time?
 
 For how to implement decoding generation at the pixel level. I have considered using various generative models including VAE, U-Net, pure decoders, RNN-only, etc., but all seem to be slightly lacking. We know that current models have strong characteristics of mutual learning and fusion. For example, the original diffusion model DDPM contains U-Net, Stable Diffusion added VAE latent space, and its generation end also borrowed some ideas from GANs. Flow-based models are now closely connected with Transformers or autoregressive methods, while stable video diffusion uses technology that combines advantages from multiple approaches.
