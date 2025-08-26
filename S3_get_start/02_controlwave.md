@@ -1,7 +1,7 @@
 # ControlWave
 
 <!--*"Wave is all things those worlds need."*-->
-*"I suspect that waves are the most suitable core of the world." -- SF*
+*"Training the world requires its shadow, an operating system that overlaps with reality. The virtual mathematical wave is concepts' distribution and the skeleton of the world. The control wave is the control of reconstruction, time-space, order and existence." -- SF*
 
 ## Overview
 
