@@ -1,5 +1,10 @@
 # Model Design Guideline Memo
 
+Version: 1.0;
+Draft was established on: 2025-2-7;
+Last Updated: 2025-08-29;
+History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
+
 Here I write down my design creation thoughts to help readers better understand why I designed the new model this way. It will help future researchers quickly get started with, use, and improve this model.
 
 This Guideline Memo can be considered as our motivation and what we should do. The main text just tell you how to do it.
@@ -21,6 +26,8 @@ For training strategies, we know there are broadly two categories: self-supervis
 I considered using the seq2seq concept (since our images contain pose information, it like leaves have veins, with stronger constraints), but it doesn't seem very compatible with RNN. I'm also considering MSE as my backup/mixed training strategy.
 
 This sets the tone for the entire new model.
+
+**Note:** It is currently August 29, 2025. For the first release of the initial/preview version, I will not use RWKV because its environment is a bit difficult to configure.
 
 ## Idea
 
@@ -147,7 +154,7 @@ Regarding Option Two: I initially had some doubts because we used point clouds a
 
 ### Sen Fang Initialization
 
-Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. <strong style="color: #666666">If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. I call this concept "Sen Fang Initialization."</strong>
+Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. <strong style="color: #666666">If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. I call this concept ["Sen Fang Initialization"](https://github.com/World-Snapshot/Sen-Fang-Initialization).</strong>
 
 For the wave core space, I initially conceived it as a carrier for virtual-real conversion, later it evolved into a representation recording multi-perspective views of the world, and later still it became a carrier of physical rules. However, this concept can also be applied to other generative models (other generative models can also have core spaces), and it doesn't necessarily have to be a wave space (other 3D generative models might use meshes). Furthermore, core space is <strong style="color: #666666">a method of 3D/4D Sen Fang Initialization that accelerates and optimizes the generation process by providing valuable multi-dimensional information.</strong>
 
@@ -160,6 +167,8 @@ This method actually has strong universality and can be applied to almost all AI
 **Note3:** Strictly speaking, someone should have considered similar ideas before. However, if without the following three conditions: 1. The channels of WSG are mutually conditional; 2. The virtual-real conversion mechanism; 3. The wave-space as the intermediate domain -- the significance of initializing a meaningful tensor will be not very significant. Or if without these three conditions, developing a similar model is equivalent to a ControlNet rotated by 90 degrees, with no particularly superior features.
 
 **Note4:** Regarding the previous point, let's take an example: We can consider a light source as a wave of a specific frequency. At every point in space, it has a calculated value, exerting an influence on the entire space. This trained model will have a more powerful optical control ability. We can create natural light sources, create specific light sources, and calculate the impact on the entire 3D space. This time, we are more like an all-AI engine example, which is also an embodiment of our superiority (new pixel-level, 3-4D level control). Only these supporting schemes can make our initialization truly useful; otherwise, it has no practical application value. Of course, if we want to fully transfer it to other tasks, some deeper exploration is required; otherwise, it is just another name for the core space. To put it further, if we design the core space as an API interface, it might become a kind of public component model.
+
+**Note5:** (Aug 29, 2025) I suddenly realized that this [initialization](https://github.com/World-Snapshot/Sen-Fang-Initialization) process, apart from the two usage techniques mentioned above, can also have its own third method of usage/training.
 
 ### What is the next generation of entertainment for humans?
 

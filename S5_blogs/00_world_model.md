@@ -4,9 +4,9 @@
 
 ## What is Real the World Models
 
-Yann LeCun often says that large language models are not world models, and humanity needs something new to reach the next level. Indeed, large language models often make mistakes in the most basic reasoning, and perhaps super-alignment is a direction to enhance Agent intelligence. But LLMs are indeed not world models; in my view, they are just two-dimensional beings.
+[Yann LeCun](http://yann.lecun.com/) often says that large language models are not world models, and humanity needs something new to reach the next level. Indeed, large language models often make mistakes in the most basic reasoning, and perhaps super-alignment is a direction to enhance Agent intelligence. But LLMs are indeed not world models; in my view, they are just two-dimensional beings.
 
-Fei-Fei Li has also tried to create model-based spatial intelligence to make some improvements. Both the image generation model and the spatial understanding model are studied. Although model and data is finetuned simply to construct the spatial, it primarily serves the model. Of course, newly developed spatial methods will always be valuable experience and wealth for reference.
+[Fei-Fei Li](https://profiles.stanford.edu/fei-fei-li) has also tried to create model-based spatial intelligence to make some improvements. Both the image generation model and the spatial understanding model are studied. Although model and data is finetuned simply to construct the spatial, it primarily serves the model. Of course, newly developed spatial methods will always be valuable experience and wealth for reference.
 
 Some early works had "world model" in their names, but they were just beneficial attempts with agents and scenarios - these attempts ahead of their time. Because there were no LLMs, agents, or robots trained in excellent simulation environments back then. So from today's perspective, those works were just prototypes that touched the boundaries of hybrid agents and artificial environments.
 
