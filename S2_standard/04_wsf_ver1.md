@@ -136,6 +136,8 @@ In quantum physics, a [wave function](https://en.wikipedia.org/wiki/Wave_functio
 
 **The waves I mentioned in the following text are all special-shaped mathematical functions, and it is not ruled out to introduce multiple mathematical functions in the future.** I cannot use the term "probability cloud" because it easily evokes the idea of particleization. Our space is dynamic, can change shape, and is an interactive wave or some kind of transparent shape body interaction. They represent reconstruction, time-space, order and existence. Therefore, calling this differentiable dynamic shape a wave is very appropriate. Although they may be confused with physics, I can hardly think of any other description and can only try to distinguish them as much as possible by adding qualifiers. Apologies in advance.
 
+Quickly acquiring knowledge about this math function can be done at: https://superquadrics.com/
+
 Our goal is to build WSF based on probability wave functions, with the key being training relevant parameters to learn the natural distribution of the world. The core challenge lies in how to control this equation. During inference, users will specify the range of xyz (image resolution, or world range) and time range t. These parameters are used during inference, while parameters like Shape parameters need to be learned by the model.
 
 We can then utilize this concept of probability, treating a probability wave as a virtual world entity. When needed, we decode the wave function solutions through a pixel network into a useful 4D world pixel field. Then I realized that representing the world through just one set of wave functions might not be sufficient, even though the solutions in the complex plane are practically infinite:
@@ -160,6 +162,10 @@ In essence, WSF should be a mixed virtual-real field that computes in real-time 
 
 In this way, we have roughly conceived the formation of WSF.
 
+**Note 1:** Some frequency-based waves ("wavelet diffusion" and "wavelet transforms") have little to do with our method. What we are attempting to do is to introduce the concept of transforming reality and virtual into Computer Vision.
+
+<!--
 **Note 1:** Existing quantum GANs, quantum diffusion models, and quantum generative models all use existing generative models to explore applications in the quantum domain. Some attempt to generate complex mazes or structures, unrelated to image and scene generation. Others involve "wavelet diffusion" and "wavelet transforms" in the frequency domain, which are unrelated to the quantum waves and their collapse. Unlike previous approaches, we are the first work to focus on image generation through quantum wave functions. 
+-->
 
 *Please read blogs "01 Rethink Best Papers", "05 Relative be in All Things" and "06 Pixel Grandfather Paradox"*
