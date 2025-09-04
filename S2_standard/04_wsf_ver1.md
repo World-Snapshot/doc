@@ -27,7 +27,10 @@ Through this approach, WSF has concept particles like 3DGS while maintaining dif
 
 How should we train this kind of data that combines virtual and real, particles and probability? Facing this familiar scenario, I thought of the quantum wave function:
 
-## Quantum Wave Function
+## ~~Quantum Wave Function~~
+
+<details>
+<summary>The content of this section has been abandoned because I found that for macroscopic objects, the fitting ability of spherical harmonic functions is relatively poor. Therefore, in the initial version, I planned to use super-quadratic surface functions to create the probabilistic wave of the core space with a shape. Instead of using the standard quantum wave function.</summary>
 
 In quantum physics, a [wave function](https://en.wikipedia.org/wiki/Wave_function) (or wavefunction) is a mathematical description of the quantum state of an isolated quantum system. In one common form, it indicates that the square of the modulus of a position-dependent wave function is the probability density of measuring a particle at a given position. The integral of the square of the wave function's modulus over all degrees of freedom of the system must equal 1, a condition called normalization. Since the wave function is complex-valued, only its relative phase and relative magnitude can be measured; its value alone cannot tell us the magnitude or direction of measurable observables. One must apply quantum operators (whose eigenvalues correspond to possible sets of measurement results) to the wave function ψ and calculate the statistical distributions of measurable quantities.
 
@@ -43,7 +46,7 @@ $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t
 
 Our goal is to build WSF based on wave functions, with the key being training relevant parameters to learn the natural distribution of the world. The core challenge lies in how to control this equation. During inference, users will specify the range of xyz (image resolution, or world range) and time range t. These parameters are used during inference, while parameters like A, k, and ω in the formula need to be learned by the model.
 
-We can then utilize this concept of probability, treating a probability cloud as a virtual world entity. When needed, we decode the wave function solutions through a pixel network into a useful 4D world pixel field. Then I realized that representing the world through just one set of wave functions might not be sufficient, even though the solutions in the complex plane are practically infinite:
+We can then utilize this concept of probability, treating a probability wave as a virtual world entity. When needed, we decode the wave function solutions through a pixel network into a useful 4D world pixel field. Then I realized that representing the world through just one set of wave functions might not be sufficient, even though the solutions in the complex plane are practically infinite:
 
 We can imagine a disturbance (text input) appearing at the bottom of an ocean, causing changes in the middle layer (wave function features), which ultimately reflects on the surface layer (pixel layer). Although a single wave function can have infinite variations, using just one is like trying to represent everything with a basketball. For example, a large basketball represents animals, a small basketball represents plants, and a one-ten-thousandth amplitude deviation represents species variation. This would certainly be somewhat unstable or limited, although high-dimensional latent space might not actually work this way.
 
@@ -122,6 +125,24 @@ When applied to image generation, it exhibits some excellent properties:
 * Texture mapping: using wave function evolution
 * Light and shadow effects: using potential field guidance
 </details>
+
+This excites me, and I realize that we can completely abandon the 3x3 or 5x5 calculation division, making all world pixels capable of transforming between virtual and real states. Then we should consider how to combine this idea with data:
+
+</details>
+
+## Mathematical waves with shapes
+
+In quantum physics, a [wave function](https://en.wikipedia.org/wiki/Wave_function) (or wavefunction) is a mathematical description of the quantum state of an isolated quantum system. In one common form, it indicates that the square of the modulus of a position-dependent wave function is the probability density of measuring a particle at a given position. Then for us, what we actually need is the overall probability density to represent the existence and shape of the object (I later summarized this process as using mathematical functions to losslessly record dynamic 3D shapes, fundamentally reducing the generated strings/values while maintaining the same expression ability). The wave function is actually derived by adding spherical harmonic functions to the spatial wave. And based on my experiments, I found that the [Superquadrics](https://en.wikipedia.org/wiki/Superquadrics) function is suitable for macroscopic representation. This sets the foundation for my wave function. 
+
+**The waves I mentioned in the following text are all special-shaped mathematical functions, and it is not ruled out to introduce multiple mathematical functions in the future.** I cannot use the term "probability cloud" because it easily evokes the idea of particleization. Our space is dynamic, can change shape, and is an interactive wave or some kind of transparent shape body interaction. They represent reconstruction, time-space, order and existence. Therefore, calling this differentiable dynamic shape a wave is very appropriate. Although they may be confused with physics, I can hardly think of any other description and can only try to distinguish them as much as possible by adding qualifiers. Apologies in advance.
+
+Our goal is to build WSF based on probability wave functions, with the key being training relevant parameters to learn the natural distribution of the world. The core challenge lies in how to control this equation. During inference, users will specify the range of xyz (image resolution, or world range) and time range t. These parameters are used during inference, while parameters like Shape parameters need to be learned by the model.
+
+We can then utilize this concept of probability, treating a probability wave as a virtual world entity. When needed, we decode the wave function solutions through a pixel network into a useful 4D world pixel field. Then I realized that representing the world through just one set of wave functions might not be sufficient, even though the solutions in the complex plane are practically infinite:
+
+We can imagine a disturbance (text input) appearing at the bottom of an ocean, causing changes in the middle layer (wave function features), which ultimately reflects on the surface layer (pixel layer). Although a single wave function can have infinite variations, using just one is like trying to represent everything with a basketball. For example, a large basketball represents animals, a small basketball represents plants, and a one-ten-thousandth amplitude deviation represents species variation. This would certainly be somewhat unstable or limited, although high-dimensional latent space might not actually work this way.
+
+Therefore, we can use multiple sets of wave functions to represent the world's manifestation. When multiple sets of wave functions superimpose, they constrain each other through interference, and they naturally have different states determined by time, capable of representing almost anything. <strong style="color: #666666">They are like the heart or core of the world - imagine countless waves entangled together, like a temporal-spatial ocean, an exquisite membrane with infinite information.</strong>
 
 This excites me, and I realize that we can completely abandon the 3x3 or 5x5 calculation division, making all world pixels capable of transforming between virtual and real states. Then we should consider how to combine this idea with data:
 
