@@ -70,10 +70,10 @@ Generally speaking:
 ### Motion Geometry (2D optical flow, point cloud, depth)[41-56] (Necessary)
 - 41: optical flow dx
 - 42: optical flow dv
-- 43: cloud point x
-- 44: cloud point y
-- 45: cloud point z
-- 46: cloud point confident
+- 43: point cloud x
+- 44: point cloud y
+- 45: point cloud z
+- 46: point cloud confident
 - 47: world depth z
 - 48: world depth confident
 
@@ -139,7 +139,7 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 
 ### Human segmentation [103-110] (Optional)
 
-- 103: class value (Sapiens)
+- 103: class value (General by Sapiens)
 
 - 104: class value (Medical)
 
