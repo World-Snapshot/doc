@@ -146,7 +146,7 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 - 105-110: Reserved for future
 
 
-## Object/Animal Information [111-125] (Necessary)
+## Object/Animal Information Domain [111-125] (Necessary)
 - 111: Object UUID (encoded identifier)
 - 112: Class Value
     - 113: Vertex ID (find this vertex based on xy coordinates, then mark which vertex it is)
@@ -168,7 +168,7 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 **Note:** We respectively search for the weight values from the "skinning_weights_row" (vertex index) and "skinning_weights_col" (bone index), and then place them in the corresponding pixels. These are the necessary indices, just like key names, and the corresponding values are in the "skinning_weights_value" (weight value).
 
 
-## Physics Properties [126-142] (Necessary)
+## Physics Properties Domain [126-142] (Necessary)
 - 126: Object volume (normalized, 0-1)
 - 127: Object mass/weight (normalized, 0-1) 
 - 128: Material density (normalized, 0-1)
