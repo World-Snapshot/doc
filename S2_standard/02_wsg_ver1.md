@@ -4,6 +4,8 @@ Draft was established on: 2024-12-25;
 Last Updated: 2025-06-16;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
+*"The only truly serious question in computer vision is how to train the world itself." --SF*
+
 ## Overview
 WSG (World Snapshot Graphics) is a high-dimensional image format that extends traditional RGB images with additional channels to store rich metadata at the pixel level. Each pixel in a WSG file contains 256 channels of floating-point data.
 
@@ -139,7 +141,7 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 
 ### Human segmentation [103-110] (Optional)
 
-- 103: class value (General by Sapiens)
+- 103: class value (General by Mediapipe seg)
 
 - 104: class value (Medical)
 
