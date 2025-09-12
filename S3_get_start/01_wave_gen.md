@@ -1,4 +1,4 @@
-# Learn Quantum Wave Function Generation (WaveGen)
+# Learn Wave Generative Method (WaveGen)
 
 *"God plays dice, our world snapshot does play dice too." -- SF*
 
@@ -10,58 +10,60 @@ In theory, WaveGen can directly train a continuous world field (WSF). When we fi
 
 ## Background
 
-According to [Fourier series](https://en.wikipedia.org/wiki/Fourier_series), multiple sine functions superimposed can represent any curve with n bends. This also applies in 3D and 4D spaces, just as multiple 3D waves can represent any sandbox with various peaks. In the last section (WSF), we discussed the core space of the world, which is a space that represents the real world through multiple sets of wave functions.
+According to [Fourier series](https://en.wikipedia.org/wiki/Fourier_series), multiple sine functions superimposed can represent any curve with n bends. This also applies in 3D and 4D spaces, just as multiple 3D waves can represent any sandbox with various peaks. In the last section (WSF), we discussed the core space of the world, which is a space that represents the real world through multiple sets of math special shape dynamic math functions (All the special shape dynamic math functions mentioned in the following text are shape-shaped dynamic mathematical functions).
+
+
 
 <details>
-<summary>For a forest scene that needs to be represented, it may require 700-800 sets of wave functions to describe it well.</summary>
+<summary>For a forest scene that needs to be represented, it may require 700-800 sets of special shape dynamic math functions to describe it well.</summary>
 
 For a small forest scene (approximately 100m × 100m):
-- Large trees (about 20-30): 15-20 wave function sets per tree
-- Terrain variations: 10-15 wave function sets for basic terrain
-- Shrubs: 3-5 wave function sets per shrub
-- Ground vegetation: 1-2 wave function sets per square meter for main variations
+- Large trees (about 20-30): 15-20 special shape dynamic math function sets per tree
+- Terrain variations: 10-15 special shape dynamic math function sets for basic terrain
+- Shrubs: 3-5 special shape dynamic math function sets per shrub
+- Ground vegetation: 1-2 special shape dynamic math function sets per square meter for main variations
 Rough estimate:
 
-Trees: 20 trees × 20 sets = 400 wave function sets
-Terrain: 15 wave function sets
-Shrubs: 50 clusters × 4 sets = 200 wave function sets
-Ground surface: about 100 wave function sets
+Trees: 20 trees × 20 sets = 400 special shape dynamic math function sets
+Terrain: 15 special shape dynamic math function sets
+Shrubs: 50 clusters × 4 sets = 200 special shape dynamic math function sets
+Ground surface: about 100 special shape dynamic math function sets
 
-This equals approximately 700-800 wave function sets. With fractal properties and hierarchical representation, this number could potentially be optimized down to 300-400 sets while maintaining the main visual features.
+This equals approximately 700-800 special shape dynamic math function sets. With fractal properties and hierarchical representation, this number could potentially be optimized down to 300-400 sets while maintaining the main visual features.
 </details>
 
 <details>
-<summary>For a house that needs to be represented, a total of approximately 45-50 sets of wave functions are needed.</summary>
+<summary>For a house that needs to be represented, a total of approximately 45-50 sets of special shape dynamic math functions are needed.</summary>
 
 For a typical living room (approximately 20 square meters):
-- 4 walls + ceiling + floor: about 24 wave functions (edges and corners)
-- One set of sofas: about 8 wave functions
-- One coffee table: about 4 wave functions
-- One TV cabinet: about 4 wave functions
-- 5-6 small objects: about 5-6 wave functions
-This totals approximately 45-50 sets of wave functions.
+- 4 walls + ceiling + floor: about 24 special shape dynamic math functions (edges and corners)
+- One set of sofas: about 8 special shape dynamic math functions
+- One coffee table: about 4 special shape dynamic math functions
+- One TV cabinet: about 4 special shape dynamic math functions
+- 5-6 small objects: about 5-6 special shape dynamic math functions
+This totals approximately 45-50 sets of special shape dynamic math functions.
 Important trade-offs:
 
-For more precise detail description: might need 100+ wave function sets
+For more precise detail description: might need 100+ special shape dynamic math function sets
 For rough shapes only: 20-30 sets might be sufficient
-If considering surface textures: each surface might require an additional 5-10 wave function sets
+If considering surface textures: each surface might require an additional 5-10 special shape dynamic math function sets
 
-This estimation is based on each major edge/contour needing at least one wave function, with curved or complex shapes requiring multiple superimposed wave functions.
+This estimation is based on each major edge/contour needing at least one special shape dynamic math function, with curved or complex shapes requiring multiple superimposed special shape dynamic math functions.
 </details>
 
-Text as input, multiple sets of wave functions as output: each set of wave functions contains at least information about the real part, imaginary part, amplitude, phase, etc. As of now (March 11, 2025), I'm still unclear about their specific functions. Ideally, whether we manually set a core space similar to the real world, or it naturally uses waves to construct and reconstruct real scenes through learning, both are what we hope for.
+Text as input, multiple sets of special shape dynamic math functions as output. As of now (March 11, 2025), I'm still unclear about their specific functions. Ideally, whether we manually set a core space similar to the real world, or it naturally uses waves to construct and reconstruct real scenes through learning, both are what we hope for.
 
 However, if after learning, the model has its own highly abstract method of representing the world in its mind, we may have to accept this as well. It's like how we ask LLMs to think in English, but they insist on thinking in representations, strange characters, or tensor flows. Therefore, I'm still unclear about what scenes exist in the world's core space.
 
 ## Theory
 
-Although the complex solutions generated by the wave equation at each position and moment are the high-dimensional features we need, we don't actually treat them as true probabilities. We haven't fully utilized the quantum wave function, but instead have made adaptive improvements. What we need is the concept of transformation between virtual and real, therefore we abandoned its various basis functions or complex atomic nuclear potential concepts.
+Although the complex solutions generated by the wave equation at each position and moment are the high-dimensional features we need, we don't actually treat them as true probabilities. We haven't fully utilized the quantum special shape dynamic math function, but instead have made adaptive improvements. What we need is the concept of transformation between virtual and real, therefore we abandoned its various basis functions or complex atomic nuclear potential concepts.
 
-What we need are some probability cloud with shapes as free as possible to fit this world, although this may not be necessary, it helps with Visualization and Editability. Therefore, we not only need to interpret the high-dimensional features but also make some adaptive improvements, such as adding decay factors, central positions, etc.
+What we need are some probability cloud/wave with shapes as free as possible to fit this world, although this may not be necessary, it helps with Visualization and Editability. Therefore, we not only need to interpret the high-dimensional features but also make some adaptive improvements, such as adding decay factors, central positions, etc.
 
-### Basic Wave Function
+### Basic special shape dynamic math function
 
-The time-dependent Schrödinger wave function in 3D cartesian coordinates can be expressed as:
+The time-dependent Schrödinger special shape dynamic math function in 3D cartesian coordinates can be expressed as:
 
 $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t)}$
 
@@ -75,9 +77,9 @@ We encode these parameters directly from text input through a neural network:
 
 ### Add Directional Decay
 
-The attenuation term is not inherent in the wave function, and it allows us to control the spatial extent of the wave function in each direction, enabling the generation of various shapes like spheres, ellipsoids, or more complex geometric forms based on the text description.
+The attenuation term is not inherent in the special shape dynamic math function, and it allows us to control the spatial extent of the special shape dynamic math function in each direction, enabling the generation of various shapes like spheres, ellipsoids, or more complex geometric forms based on the text description.
 
-The time-dependent Schrödinger wave function in 3D cartesian coordinates with directional decay can be expressed as:
+The time-dependent Schrödinger special shape dynamic math function in 3D cartesian coordinates with directional decay can be expressed as:
 
 $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t)} \cdot D(\hat{r})$
 
@@ -96,7 +98,7 @@ This directional decay allows us to represent complex asymmetric shapes with dif
 
 ### Add Center
 
-Additionally, we must establish a center for the wave function, around which the decay occurs:
+Additionally, we must establish a center for the special shape dynamic math function, around which the decay occurs:
 
 $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r})$
 
@@ -104,15 +106,15 @@ Where $\hat{r}$ is now the unit vector from center to point $(x,y,z)$:
 
 $\hat{r} = \frac{(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)}{||(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)||}$
 
-- $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$: Initial center position of the wave function at t=0 (generated from text)
+- $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$: Initial center position of the special shape dynamic math function at t=0 (generated from text)
 
 The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Center}_x + v_x \cdot t$; $C(t)_y = \text{Center}_y + v_y \cdot t$; $C(t)_z = \text{Center}_z + v_z \cdot t$. Where $v_x$, $v_y$, $v_z$ are the velocity components generated from the text for each time step.
 
 ### Add Information Systems
 
-In order to facilitate the editing of information in the high-dimensional wave space, we should encode the information of the WSG domain that is suitable for control into the waves: 1. It is more convenient than text input/control. 2. And it should be reflected in the solutions of each wave function: the information of matter, semantics and partial material properties should be correlated. 3. The integrated wave information should also be easy to separate: during reverse reasoning, the image can be restored to the wave, and the image can be regenerated after editing. However, if it is returned as a text description, it is inconvenient to separate and control.
+In order to facilitate the editing of information in the high-dimensional wave space, we should encode the information of the WSG domain that is suitable for control into the waves: 1. It is more convenient than text input/control. 2. And it should be reflected in the solutions of each special shape dynamic math function: the information of matter, semantics and partial material properties should be correlated. 3. The integrated wave information should also be easy to separate: during reverse reasoning, the image can be restored to the wave, and the image can be regenerated after editing. However, if it is returned as a text description, it is inconvenient to separate and control.
 
-The enhanced wave function with dynamic information systems can be expressed as:
+The enhanced special shape dynamic math function with dynamic information systems can be expressed as:
 
 $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r}) \cdot M(\mathcal{I})$
 
@@ -132,19 +134,19 @@ During training, the model learns:
 2. The appropriate value ranges for each position based on training data
 3. How to map textual descriptions to meaningful information values
 
-For extraction, we use a frequency analysis technique that identifies which frequency bands contain significant energy, then decodes the corresponding position-value pairs. This allows us to precisely reconstruct the original sparse information set from the wave function.
+For extraction, we use a frequency analysis technique that identifies which frequency bands contain significant energy, then decodes the corresponding position-value pairs. This allows us to precisely reconstruct the original sparse information set from the special shape dynamic math function.
 
 The extractable information domains (subsets of positions that contain related information) automatically emerge during training, forming logical groupings such as:
 - Material properties (e.g., positions 143-174 might encode reflectivity, texture, etc.)
 - Semantic attributes (e.g., positions 175-206 might encode object categories, descriptions, etc.)
 
-This dynamic architecture enables the wave function to adapt to different domains and use cases without requiring manual specification of information ranges.
+This dynamic architecture enables the special shape dynamic math function to adapt to different domains and use cases without requiring manual specification of information ranges.
 
 ### Add a Constant
 
-Since waves have oscillations, it is difficult to determine their specific boundaries and how they radiate to the surrounding environment. At certain moments, the value might be 0, so it is necessary to generate a constant when generating wave parameters, which serves as the intermediate value when the wave function oscillates.
+Since waves have oscillations, it is difficult to determine their specific boundaries and how they radiate to the surrounding environment. At certain moments, the value might be 0, so it is necessary to generate a constant when generating wave parameters, which serves as the intermediate value when the special shape dynamic math function oscillates.
 
-The complete time-dependent wave function in 3D cartesian coordinates with all enhancements can be expressed as:
+The complete time-dependent special shape dynamic math function in 3D cartesian coordinates with all enhancements can be expressed as:
 
 $\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r}) \cdot M(\mathcal{I}) + C$
 
@@ -159,7 +161,7 @@ Where:
 - $t$: Time parameter
 - $C$: Constant offset term (generated from text) - serves as the baseline value around which the wave oscillates
 
-The constant $C$ ensures that the wave function maintains a meaningful baseline value even when the oscillatory components approach zero, providing better control over the wave's spatial extent and environmental interaction. A more in-depth exploration of the constant term can be found in [Guideline](https://github.com/World-Snapshot/doc/index.html?page=S6_materials/02_guideline.md#how-to-observe-the-core-space-of-the-wave-during-training).
+The constant $C$ ensures that the special shape dynamic math function maintains a meaningful baseline value even when the oscillatory components approach zero, providing better control over the wave's spatial extent and environmental interaction. A more in-depth exploration of the constant term can be found in [Guideline](https://github.com/World-Snapshot/doc/index.html?page=S6_materials/02_guideline.md#how-to-observe-the-core-space-of-the-wave-during-training).
 
 ## Idea
 
@@ -171,21 +173,23 @@ Based on the theory above, we can consider creating a prototype of the model. Th
 <br>
 ↓
 <br>
-- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains; Constant offset term C)
+- **Generate parameters needed for the special shape dynamic math function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains; Constant offset term C)
 <br>
 ↓
 <br>
-- **Calculate wave function field and probability cloud in 3D space** (world parameters: we need space (x, y, z) and time (t) parameters to compute the solution of the equation)
+- **Calculate special shape dynamic math function field and probability cloud in 3D space** (world parameters: we need space (x, y, z) and time (t) parameters to compute the solution of the equation)
 <br>
 ↓
 <br>
-- **Obtain wave function characteristics from different perspectives** (enter additional camera parameters, observing high-dimensional core feature space from different angles to obtain different views)
+- **Obtain special shape dynamic math function characteristics from different perspectives** (enter additional camera parameters, observing high-dimensional core feature space from different angles to obtain different views)
 <br>
 ↓
 <br>
 - **Decode features through pixel network to render the final image** (we can also reuse text input for more control)
 
 As stated in "00 Discuss Real World Models", the main part of this structure should be bidirectional, where information can be exchanged mutually.
+
+**Note:** In the past, I attempted to use mathematical waves based on spherical harmonics, but the results were not satisfactory. If you need to view the content, you can click on [this link](https://github.com/World-Snapshot/doc/index.html?page=demos/old_wave_sys.md). However, they have been completely abandoned.
 
 ## Further Approach
 
@@ -215,7 +219,7 @@ This also demonstrates the superiority of the wave space and its powerful abilit
 
 At this point, we can notice an interesting phenomenon. The control frequencies of good keyboards and mice are all above 1000Hz, and the reverse inference from the decoding device in the outside world to the wave space is also faster than the wave space itself. At this time, we discover that we can control the evolution of the wave space in real time and create causal generation!
 
-For instance, if we manipulate the wave function representing the shape of a car (a cube), and change it at a frequency of 1000 Hz, and if our wave space is generated and evolved based on the previous frame (of course we do), the model will generate cars that avoid our driving route; or if we use the decoder for reverse reasoning and convert the human body into a wave, then humans can enter the two-dimensional world, the world of the snapshot model, and interact with it. For example, you can interact your arm with the water in the video. I call this the game mode. Humans control the protagonist, and the model is responsible for creating feedback based on real-world experiences.
+For instance, if we manipulate the special shape dynamic math function representing the shape of a car (a cube), and change it at a frequency of 1000 Hz, and if our wave space is generated and evolved based on the previous frame (of course we do), the model will generate cars that avoid our driving route; or if we use the decoder for reverse reasoning and convert the human body into a wave, then humans can enter the two-dimensional world, the world of the snapshot model, and interact with it. For example, you can interact your arm with the water in the video. I call this the game mode. Humans control the protagonist, and the model is responsible for creating feedback based on real-world experiences.
 
 Furthermore, if we regard external videos as control, for instance, we observe the surrounding vehicles and update their status in real time to the wave space, just as the real world is playing a game. At this point, the wave space will generate the causal path of one of the vehicles based on these externally controlled vehicles. At this time, an autonomous driving mode is completed. Of course, the same principle applies to robots. Theoretically, we can completely load the concept of what a person is like (from the knowledge of World Snapshot Models) into a robot. If a robot precisely replicates all the behaviors of a human in any given video, then with the assistance of LLMs (large language models), it can be regarded as a being that is even closer to a human.
 
@@ -239,7 +243,7 @@ First of all, our optimization goal should be to satisfy the principle of minimu
 
 I decided to adopt a similar concept to VAR and transform the parameters of an appropriate number of waves spatially into a "problem of predicting the next number in a sequence". That is to say, we first consider generating a wave, and a single wave may be able to fit an object, which is sufficient. Then we can consider generating the cube of 2 or 3 waves, which will gradually divide an object to obtain more instances. The details of the object will gradually become richer.
 
-The number of waves here is in line with 3D requirements, but this is only for convenience of representation, not meaning that 8 waves occupy a specific location. Then our wave function has approximately 20 values. $8^3 \cdot 20 = 10k$, and I decided to set this as the maximum number of waves (only for this model, there can be up to $8^3$ (512) wave functions in the wave space). The length of LongT5 is 16k. For a 16k context, the remaining 6k will be the content of the text.
+The number of waves here is in line with 3D requirements, but this is only for convenience of representation, not meaning that 8 waves occupy a specific location. Then our special shape dynamic math function has approximately 20 values. $8^3 \cdot 20 = 10k$, and I decided to set this as the maximum number of waves (only for this model, there can be up to $8^3$ (512) special shape dynamic math functions in the wave space). The length of LongT5 is 16k. For a 16k context, the remaining 6k will be the content of the text.
 
 Then I considered that each time it generates, it should rely on the wave parameters and text from the previous two frames, because waves have a speed, and two frames make it easier to obtain the acceleration. In this way, actually the number of waves should be reduced a little. For example, $6^3 \cdot 20 = 4k$, and two frames would be $8k$, and the text has an $8k$ length. Thus, we have obtained a relatively good situation:
 
@@ -249,9 +253,9 @@ We will first train the model to start from one wave, trying to fit the point cl
 
 ### Core Space
 
-Our wave function generation method essentially uses multiple sets of wave functions to construct a core space that can simulate the world. This space is inherently physical: it possesses characteristics such as energy, probability, density, mass, temporal evolution, interactive constraints between different parts, different scale perspectives, 1-4D unification, and transformation between virtual and real states (both explicit and implicit).
+Our special shape dynamic math function generation method essentially uses multiple sets of special shape dynamic math functions to construct a core space that can simulate the world. This space is inherently physical: it possesses characteristics such as energy, probability, density, mass, temporal evolution, interactive constraints between different parts, different scale perspectives, 1-4D unification, and transformation between virtual and real states (both explicit and implicit).
 
-This core ("world core" or "heart of the world") can be viewed as world representations space, where each wave function is a world representation (represents a relatively independent object, a semantic entity, a part or whole). For example, when we generate Batman and Superman fighting from text, the process or results of generation might be different each time. However, after training, these superimposed and entangled abstract world representations that evolve with time in the core space will always strive to be as reasonable as possible.
+This core ("world core" or "heart of the world") can be viewed as world representations space, where each special shape dynamic math function is a world representation (represents a relatively independent object, a semantic entity, a part or whole). For example, when we generate Batman and Superman fighting from text, the process or results of generation might be different each time. However, after training, these superimposed and entangled abstract world representations that evolve with time in the core space will always strive to be as reasonable as possible.
 
 In my WaveGen, the focus is more on using text to control this "world core" or "heart of the world" to utilize its generative capabilities. In the future, people could develop something like ControlWave to try controlling this "world core" through other methods. Currently, the reconstruction capability might be relatively weak and needs exploration.
 
@@ -277,13 +281,13 @@ This method actually has strong universality and can be applied to almost all AI
 
 WaveGen's "world core" is an expandable superposition of complex waves that can simulate the world, with extremely free and expandable expressiveness. It's almost like a genius creation. Its characteristics are difficult to summarize:
 
-Compared to diffusion, its virtual-real transformation and noise addition/removal are similar, and it inherently acts like a single-step diffusion model - equivalent to diffusion with fewer layers. Since wave functions only need very simple parameters to simulate a world, it saves considerable cross-attention space. Its information about world distribution is mainly stored in the pixel space decoding process.
+Compared to diffusion, its virtual-real transformation and noise addition/removal are similar, and it inherently acts like a single-step diffusion model - equivalent to diffusion with fewer layers. Since special shape dynamic math functions only need very simple parameters to simulate a world, it saves considerable cross-attention space. Its information about world distribution is mainly stored in the pixel space decoding process.
 
 Compared to point clouds, they are like a form of our foundation, but they're difficult to compare. The difference might be that we have more information and a "heart of the world" to unify the underlying logic of the world in an abstract way.
 
-Compared to NeRF, it's equivalent to using hundreds of wave functions instead of Gaussians for reconstruction. Our functions are virtual and need decoding. This is like software engineering decoupling rule. We use pixels to render the world, which makes editing and processing convenient and saves enormous space. Although we also need to sample points, we're much faster than MLP. The disadvantage is that we're too free because we're essentially like Text2NeRF or Text-to-4DGS, a generative model. For world reconstruction or reconstruction using reference images, we could consider recovering wave characteristics from reference images to guide generation, or increase the number of wave function groups while reducing pixel freedom.
+Compared to NeRF, it's equivalent to using hundreds of special shape dynamic math functions instead of Gaussians for reconstruction. Our functions are virtual and need decoding. This is like software engineering decoupling rule. We use pixels to render the world, which makes editing and processing convenient and saves enormous space. Although we also need to sample points, we're much faster than MLP. The disadvantage is that we're too free because we're essentially like Text2NeRF or Text-to-4DGS, a generative model. For world reconstruction or reconstruction using reference images, we could consider recovering wave characteristics from reference images to guide generation, or increase the number of special shape dynamic math function groups while reducing pixel freedom.
 
-Compared to 3DGS, we're equivalent to using probability clouds instead of Gaussian kernels, and they're fundamentally quite similar in core space. If we use 99% wave functions and 1% pixel decoding, we and 3DGS might be like functional analogues (or chemical homologues) - different compositions achieving similar results. (On June 24, 2025, I realized that we are essentially using waves to represent shapes and generating models to represent details: Why don't we use very large Gaussian kernels? Because they are too large to represent details well. Instead, it's like we've applied a layer of paint, without this problem. So we are quite similar to first representing shapes with Gaussian kernels, and other attributes will be added later. Perhaps this is an alternative to the wave core space. In the future, someone might actually achieve a world snapshot model based on a huge Gaussian kernel core space.)
+Compared to 3DGS, we're equivalent to using probability clouds instead of Gaussian kernels, and they're fundamentally quite similar in core space. If we use 99% special shape dynamic math functions and 1% pixel decoding, we and 3DGS might be like functional analogues (or chemical homologues) - different compositions achieving similar results. (On June 24, 2025, I realized that we are essentially using waves to represent shapes and generating models to represent details: Why don't we use very large Gaussian kernels? Because they are too large to represent details well. Instead, it's like we've applied a layer of paint, without this problem. So we are quite similar to first representing shapes with Gaussian kernels, and other attributes will be added later. Perhaps this is an alternative to the wave core space. In the future, someone might actually achieve a world snapshot model based on a huge Gaussian kernel core space.)
 
 ## Prospect
 
