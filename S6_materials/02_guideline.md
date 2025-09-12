@@ -19,17 +19,25 @@ Next, I want to create a model that can unify 1D, 2D, 3D, 4D, and other dimensio
 
 The basic WaveGen has no attention mechanism, just like the original diffusion model paper. It consists of a text encoder module that can understand prompt inputs and a Wave generation module. But temporal continuity is important: although the wave equation itself supports time as a parameter, we need to use frame-to-frame parameter learning to make the world field generation more smooth, like vertical and horizontal road. Also, even if the generated local video segments are consistent, we cannot guarantee that the semantics of the entire video are consistent.
 
-So what should I choose for Temporal Attention? I decided to use RWKV, the best existing linear attention RNN model, abandoning Transformer. Just as the symmetric U-Net was incorporated by diffusion models years later, I believe RWKV and WaveGen are a perfect match - they have too many mutually beneficial properties.
+So how should we design this method for generating or updating the wave space? Depending on the required characteristics, how do people understand the world? Causality. We should choose RNN for generation because it is suitable for updating the world, with infinite length and causality. However, for the time being, there is some difficulty/for some reason, I am currently using Long-T5 for generation. We can use frame generation to create an infinite length and causal wave space. 
+
+Then, regarding the training strategy, I would like to make it more flexible. Maybe a method combining cross-entropy and reinforcement learning would be suitable. Of course, there might also be other methods such as the principle of minimal effect combined for optimization. Generally speaking, that's the plan.
+
+<!--
+So what should I choose for Temporal Attention / The method of generating or continuously updating the wave space? I decided to use RWKV, the best existing linear attention RNN model, abandoning Transformer. Just as the symmetric U-Net was incorporated by diffusion models years later, I believe RWKV and WaveGen are a perfect match - they have too many mutually beneficial properties (It is currently August 29, 2025. For the first release of the initial/preview version, I will not use RWKV because its environment is a bit difficult to configure).
 
 For training strategies, we know there are broadly two categories: self-supervised MSE and reinforcement learning. I lean towards using pure reinforcement learning to train this next-generation new model born in 2025, because for prompt inputs, images themselves are inherently uncertain. Just like DeepSeek-R1 in 25 year, letting the model learn by itself might be more liberating, and RNN states are denser, naturally suited for RL. Moreover, RNN is suitable for causal learning, more elegant than NVIDIA's video generation model named Cosmos in 24 year.
 
 I considered using the seq2seq concept (since our images contain pose information, it like leaves have veins, with stronger constraints), but it doesn't seem very compatible with RNN. I'm also considering MSE as my backup/mixed training strategy.
+-->
 
 This sets the tone for the entire new model.
 
-**Note:** It is currently August 29, 2025. For the first release of the initial/preview version, I will not use RWKV because its environment is a bit difficult to configure.
+
 
 ## Idea
+
+
 
 And then there were some problems that bothered me. The problems that need to be solved include (but are not limited to):
 
