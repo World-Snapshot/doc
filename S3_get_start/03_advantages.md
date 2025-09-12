@@ -6,6 +6,8 @@
 
 Here we provide a summary of WaveGen's advantages and experimental results to serve as a helpful summary.
 
+Before all, in short, it is dedicated to achieving some new features that was not well accomplished by previous methods: like variable FPS, variable resolution, causality, physics, consistency, training the world itself, predicting the future/past, synchronizing the real world with model's core space, and pixel-level control of the world distribution, unlimited duration, native 3D+t, etc.
+
 ## 1. Basic Comparison
 
 | Features | Wave Function Generation | Diffusion Model | GAN Model | Point Cloud | NeRFields | 3D Gaussian |
@@ -21,6 +23,8 @@ Here we provide a summary of WaveGen's advantages and experimental results to se
 
 ### 2.1 Theoretical Foundation
 
+These principles are only conceptually similar to each other, and it doesn't mean that we employ any sci-fi technologies.
+
 ```mermaid
 graph TD
     A["Wave Function Generation (WaveGen)"] --> B[Quantum Mechanics Base]
@@ -34,18 +38,13 @@ graph TD
 
 ### 2.2 Representation Capability
 
-#### 2D Generation
+#### 2D
 - **Compared to Diffusion Models**:
-  - Single-step generation, higher efficiency
-  - Quantum wave function provides richer feature representation
-  - Supports continuous multi-scale generation
+  - It is somewhat like a two-stage generative model, which makes it possible to have 3D-native features.
+  - Too many new features and functions
+  - After orthogonal separation of shape and rendering, the training becomes stable and easy
 
-- **Compared to GAN**:
-  - More stable training process
-  - Physical constraints provide better generation quality
-  - Natural support for conditional generation
-
-#### 3D Generation
+#### 3D
 - **Compared to Point Clouds**:
   - Continuous field representation, no discretization issues
   - Natural support for multi-view consistency
@@ -58,12 +57,17 @@ graph TD
 
 - **Compared to 3D Gaussian**:
   - Unified physical framework
-  - Better theoretical guarantees
-  - Adaptive sampling
+  - More functions and real-world attributes
+  - A simpler shape representation, the mathematical wave is somewhat like an extremely large dynamic Gaussian kernel.
 
 ## 3. Technical Features
 
-### 3.1 Multi-scale Capability
+### 3.1 Unique Advantages
+
+I have arranged the features of WaveGen from the most common to the least common. The previous models basically did not have these features. Considering some excellent works, they can generally reach a range of 4-5. Generally speaking, they even cannot manage to have 1-4 at the same time.
+
+1: consistency; 2: native 3D+t; 3: variable resolution; 4: unlimited duration; 5:  predicting the future; 6: variable FPS; 7: physics; 8: causality; 9: predicting the past; 10: pixel-level control of the world distribution; 11: synchronizing the real world with model's core space; 12: training the world itself
+
 ```mermaid
 gantt
     title Scale Range Comparison
@@ -71,17 +75,13 @@ gantt
     axisFormat %s
     
     section WaveGen
-    Full scale range      :0, 10
+    Full scale range      :0, 12
     section Diffusion
-    Limited scale range   :0, 4
+    Limited scale range   :0, 5
     section GAN
-    Single scale         :0, 3
-    section Point Cloud
-    Discrete scale      :0, 2
-    section NeRF
-    Limited scale range  :0, 4
-    section 3DGS
-    Gaussian scale      :0, 3
+    Limited scale range         :0, 5
+    section AR
+    Limited scale range         :0, 5
 ```
 
 ### 3.2 Computational Efficiency
@@ -94,51 +94,14 @@ gantt
 | NeRF | Slow | Slow | High |
 | 3DGS | Medium | Fast | Medium |
 
-## 4. Unique Advantages
-
-### 4.1 Physical Significance
-1. **Quantum Wave Function Representation**
-   - Supports probabilistic interpretation
-   - Natural uncertainty modeling
-   - Physics-guided constraints
-
-2. **Multi-scale Characteristics**
-   - Adaptive resolution
-   - Continuous scale transformation
-   - Global-local correlation
-
-### 4.2 Implementation Advantages
-1. **Unified Framework**
-   ```
-   WaveGen
-   ├── 2D Generation
-   │   ├── Single View
-   │   └── Multiple Views
-   └── 3D Generation
-       ├── Scene Reconstruction
-       ├── View Synthesis
-       └── Dynamic Scenes
-   ```
-
-2. **Flexibility**
-   - Support for conditional generation
-   - Controllable generation process
-   - Easy to extend
-
-## 5. Application Scenarios
+## 4. Application Scenarios
 
 | Application | WaveGen Model | Diffusion | GAN Model | Point Cloud | NeRF | 3DGS |
 |-------------|---------|-----------|-----|-------------|------|------|
-| Image Generation | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| 3D Reconstruction | ✓ | ✗ | △ | ✓ | ✓ | ✓ |
+| Image/Conditional Generation | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| 3D Reconstruction | ✓ | △ | △ | ✓ | ✓ | ✓ |
 | View Synthesis | ✓ | △ | △ | ✓ | ✓ | ✓ |
-| Dynamic Scenes | ✓ | △ | △ | △ | △ | △ |
-| Real-time Rendering | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ |
+| 4D Reconstruction (Dynamic Scenes) | ✓ | △ | △ | △ | △ | △ |
+| Real-time Rendering | ✓ | △ | ✓ | △ | ✗ | ✓ |
+| understanding/estimation | ✓ | △ | ✗ | ✗ | ✗ | ✗ |
 
-<!--
-## 6. Limitations and Challenges
-- High theoretical complexity
-- Requires deep understanding of quantum mechanics
-- High requirements for parameter tuning
-- Potential computational overhead
--->
