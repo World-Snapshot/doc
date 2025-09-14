@@ -114,7 +114,22 @@ There are approximately two approaches to implementing controllable generation w
 
 2. Reverse-engineer the results, then forward reason, relying on the inherent properties of flow models to operate in high-dimensional space to achieve similar effects.
 
-We plan to choose the second method. We're considering encoding as many domains as possible—such as materials, physics, etc.—as controllable domains into the wave. This information can all be reflected in the solution of the wave function; when reconstructing the wave space from multiple perspectives of the wave, we only need to separate certain spectra.
+We plan to choose the second method. Let me describe it in detail: 
+
+First of all, we know that SD essentially generates high-dimensional representations from the text and then decodes. Therefore, we should freeze the VAE and fine-tune the expansion layer (try not to damage the RGB for compatibility), resulting in the WSG encoder-decoder. At this point, we should start training the Unet part. If it only generates 3/4 channels for the input of the VAE decoder, it is no longer compatible. We also have no intention of damaging or upgrading the VAE. Because Unet is more suitable for improvement or upgrading. 
+
+Secondly, for Unet, it should also be frozen for channel expansion. At this point, we should consider our requirements:
+
+- A for ordinary generation WSG: Then we only need to learn to generate content directly from 256 channels of Gaussian distribution.
+- B for conditional generation: Then we should learn to generate content from 256 channels (part Gaussian, part valid information) (the Gaussian part becomes valid, and the valid part remains unchanged)
+- C for generating content with fixed channels: This can actually be regarded as similar to conditional generation. If it is RGB, it is confirmed, to generate the rest, it should be run in reverse, inputting the three-channel Gaussian and 253 empty channels, and then generating normally. If other conditions are confirmed, these information should be input into the initialization tensor, and then use the conditional generation with conditions.
+- D for estimation/understanding tasks: For an RGB, we should first restore to Gaussian, and then input the 3-channel Gaussian and 253 empty channels. We can see that this is actually the requirement of C. So, in this way, we theoretically prove that generation and understanding are actually one task. Just like in the Evaluation.md of ["result repository"](https://github.com/World-Snapshot/The-results-of-Augustus), we realized a long time ago that they are similar. 
+
+In this regard, Unet requires the following functions: 1. It should be able to generate normally from 256 channels, and except for the first 4 channels, the remaining channels will learn the input and output information in an invariant manner. 2. It should be able to learn to generate the wsg result from 3/4 channels (or the other channels are empty and masked). As long as these two functions are achieved, Unet is considered to have been upgraded successfully.
+
+### What methods will be used in the future to transmit the information in the wave space to the decoder?
+
+In future, we also should consider encoding as many domains as possible—such as materials, physics, etc.—as controllable domains into the wave. This information can all be reflected in the solution/information of the wave function; when reconstructing the wave space from multiple perspectives of the wave, we only need to separate certain spectra.
 
 Pose and lighting are still uncertainties. 1. It seems that in the process of restoring real images to wave space, the shape of the wave can achieve similar pose control functionality. As in the previous question, ControlWave controls controllable generation not through ControlNet training, but through information recorded in wave space, just as we need OpenPose pose JSON files rather than pose visualization images. We need to build in some such preprocessing/extraction models. 2. Lighting information needs to work with different angles, which requires further consideration on how to create engine-like light sources.
 
