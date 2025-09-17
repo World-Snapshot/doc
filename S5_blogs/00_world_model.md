@@ -30,7 +30,9 @@ However, it's important to note that <strong style="color: #666666">top research
 
 Many people are confused and can't distinguish the future direction, they don't even know which category their work belongs in.
 
-**Note1:** I originally only learned about world models through LeCun's tweets, about two or three of them. Actually, I don't care about world models at all, I think it's a very broad concept. But when I recently conceived the WSG format, and then I revisited part of his published speeches. I was surprised - although he didn't provide the answer, but his definition (models that can predict future world states) was consistent with three ninths of the definitions/natures of the WSG-based models, namely world snapshot models.
+**Note1:** I originally only learned about world models through LeCun's tweets, about two or three of them. Actually, I don't care about world models at all, I think it's a very broad concept. Moreover, he was very persistent in predicting the next state, and was also influenced by some aspects of LLM (originally it was more purely based on CV, but occasionally it would mention real reasoning). Considering that many other researchers now have their own ideas, I started from scratch, striving to avoid the ideas of various researchers, and redesigned a kind of Ideal World Model, calling it the World Snapshot Model.
+
+<!--But when I recently conceived the WSG format, and then I revisited part of his published speeches. I was surprised - although he didn't provide the answer, but his definition (models that can predict future world states) was consistent with three ninths of the definitions/natures of the WSG-based models, namely world snapshot models.-->
 
 **Note2:** I later discovered that world snapshot models also natively can predict the past world states. 
 
