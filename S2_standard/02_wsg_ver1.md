@@ -72,7 +72,9 @@ Generally speaking:
 ### Motion Geometry (2D optical flow, point cloud, depth)[41-56] (Necessary)
 - 41: optical flow dx
 - 42: optical flow dv
-- 43: point cloud x
+
+Note: The following part is rather difficult to extract and is not applicable at present.
+- 43: point cloud x  
 - 44: point cloud y
 - 45: point cloud z
 - 46: point cloud confident
