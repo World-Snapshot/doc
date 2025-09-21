@@ -218,26 +218,12 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 ## Sound Properties Domain [175-206]
 ### Video Original Audio [175-184] (Necessary - 视频原始音频,没有就算了)
-- 175: Mel frequency band 1 (0-300Hz) - 低频能量，语音基频
-- 176: Mel frequency band 2 (300-700Hz) - 第一共振峰区域
-- 177: Mel frequency band 3 (700-1200Hz) - 第二共振峰区域
-- 178: Mel frequency band 4 (1200-2000Hz) - 第三共振峰区域
-- 179: Mel frequency band 5 (2000-3500Hz) - 高频辅音区域
-- 180: Mel frequency band 6 (3500-8000Hz) - 超高频细节
-- 181: RMS Energy (音量包络) - 33ms窗口内的均方根能量
-- 182: Pitch Contour (音调轮廓) - 基频变化趋势
-- 183-184: Reserved for original audio
+- 175-184: Reserved for original audio
 
 ### Video Description Audio [185-194] (Necessary - 视频描述音频)
-- 185: Mel frequency band 1 (0-300Hz) - 描述语音低频
-- 186: Mel frequency band 2 (300-700Hz) - 描述语音第一共振峰
-- 187: Mel frequency band 3 (700-1200Hz) - 描述语音第二共振峰
-- 188: Mel frequency band 4 (1200-2000Hz) - 描述语音第三共振峰
-- 189: Mel frequency band 5 (2000-3500Hz) - 描述语音高频辅音
-- 190: Mel frequency band 6 (3500-8000Hz) - 描述语音超高频
-- 191: RMS Energy (描述音量包络) - 描述语音的韵律强度
-- 192: Pitch Contour (描述音调轮廓) - 描述语音的音调变化
-- 193-194: Reserved for description audio
+- 185-194: Reserved for description audio
+
+
 
 ### Audio Extension [195-206]
 Reserved for future audio properties
