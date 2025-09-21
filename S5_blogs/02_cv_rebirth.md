@@ -2,15 +2,15 @@
 
 <!--*"The best research is like water, which nourishes all things without contention."*-->
 
-Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video), **WSF** (World Snapshot Fields) and **WaveGen** (Quantum Wave Function Generation) may promote the birth of some new areas:
+Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video), **WSF** (World Snapshot Fields) and **WaveGen** (Wave Generative Method) may promote the birth of some new areas:
 
 ### Computer Graphics in WS
 
 Development and learning of WSG, WSV, and other formats, exploring WS principles and algorithms based on line, lighting, and shape representation.
 
-### Quantum Wave Function Generation
+### Wave Generative Method
 
-I have specifically developed a new type of generative model based on quantum wave functions (abbreviated as WaveGen) to better model world information. This new generative model has many advantages - conceptually and theoretically, it is rooted in the fundamental principles of the universe, making it much more elegant than the denoising process of diffusion models. Its control over physical conditions is natively supported, making it more elegant than embedded approaches like ControlNet. 
+I have specifically developed a new type of generative model based on Math Wave functions (abbreviated as WaveGen) to better model world information. This new generative model has many advantages - conceptually and theoretically, it is rooted in the fundamental principles of the universe, making it much more elegant than the denoising process of diffusion models. Its control over physical conditions is natively supported, making it more elegant than embedded approaches like ControlNet. 
 
 Personally, I hope its impact will surpass both of these predecessors (More broadly, hope it is to unify all methods and any form of AI generation from 1D to 4D), and hope it will serve as a bridge for communication between the AI and physics communities.
 
