@@ -216,17 +216,16 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 - 155-174: Reserved for future material properties
 
-## Sound Properties Domain [175-206]
-### Video Original Audio [175-184] (Necessary - 视频原始音频,没有就算了)
-- 175-184: Reserved for original audio
+## Sound And Language Properties Domain [175-206]
+### Video Original Audio [175-184] (Necessary)
+- 175-184: The original/background audio of the video. If there is none, it's fine. For the specific implementation, please refer to the next section "WSV".
 
-### Video Description Audio [185-194] (Necessary - 视频描述音频)
-- 185-194: Reserved for description audio
+### Video Description Audio [185-194] (Necessary)
+- 185-194: Video caption describes audio. For the specific implementation, please refer to the next section "WSV".
 
-
-
-### Audio Extension [195-206]
-Reserved for future audio properties
+### Extension [195-206]
+- 195: Semantic Segmentation
+- 196-206: Reserved for future audio properties
 
 **Note:** We use two sets of audio systems to carry out the process of encoding information into images. Because I believe that audio is the intersection of CV and NLP, audio is the manifestation of text in space. Moreover, even if audio is distorted, it can still be recognized, and its robustness may be better than text encoding.
 
