@@ -108,3 +108,5 @@ Therefore, next, we should:
 ## How to cooperate?
 
 For academic collaborations and any discussions, please send [emails](mailto:sen.fang@rutgers.edu)/[X(twitter)](https://x.com/SenFang01)/[Thread](https://www.threads.com/@senfang01) to the first author or the organization email. For more in-depth or business or funding collaborations, please send proposals, plans, and general details to [DM](mailto:dnm@cs.rutgers.edu) and copy the first author.
+
+**Join us:** If you are a contributor, please refer to the above content. If you have an in-depth collaboration or sponsorship, please check [Q&As](https://world-snapshot.github.io/doc/index.html?page=S6_materials/04_questions.md#how-to-cooperate). If you wish to have long-term research cooperation and development with World Snapshot, including paper publication, please enter this [Slack](https://join.slack.com/t/senfanglab/shared_invite/zt-3e9y3e85d-jQu5Jt7UDYyEDfkuGCdJWA). The chat and communication community is located in this [Discord/QQ/WeChat](https://github.com/World-Snapshot/ControlWave/issues/2) Group.
