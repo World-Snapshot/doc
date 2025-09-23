@@ -173,6 +173,29 @@ For Option One: Quantum waves and spatial waves actually have their own distinct
 
 Regarding Option Two: I initially had some doubts because we used point clouds and depth as constraints, which might not align with our concept. However, after some consideration, we aim to create a good shape in the future and standardization is about the wave world. If we use some methods similar to 3D Mesh generation, we should also be able to train a good wave world. Therefore, this can only be regarded as a choice of training strategy. (The preferred method should be point clouds, followed by scalar depth with world coordinates, then relative/scalar depth. Real-world measured 3D optical flow should also be fine, but the data is difficult to obtain.)
 
+## Unified Law for Visual Tasks
+
+This part of the content was initially released on [this](https://github.com/orgs/World-Snapshot/discussions/1), and then I copied it here:
+
+The ordinary generation process goes from noise to RGB, that is, from A to M. However, our generation can be regarded as going from A to MN, where N represents additional information. 
+
+Then our estimation can be regarded as going from M to A in reverse, and then performing the process from A to MN again. Do you understand? In our view, if you want to achieve unified generation comprehension, your generation should be equal to comprehension/estimation, and both tasks should be accomplished simultaneously. 
+
+Then, in a broader sense, we use RGB as a condition to obtain other information. At this time, **the estimation task = condition control**. **The recognition task based on RGB = a special condition task**. So, if we replace RGB with other channels, we get **condition control = generation task based on conditions**. 
+
+To sum up, our derivation process is: 
+
+- **previous Generating = a special case where only RGB is generated**
+- **previous Estimation/Understanding = a special control generation task where RGB is used as a condition input**
+- **previous Conditional Control = a special RGB generation task where other channels are used as conditions**
+- **previous Reconstruction = The process of reconstructing the 3D+t space through the geometric shape estimation function.**
+
+Therefore, we can say that **all previous computer vision tasks were special cases of the world snapshot model tasks**. In fact, we should estimate the material from color, estimate the roughness from the material, estimate the 3D human body from the 2D human skeleton, and estimate the rendered result from the Mesh. Any possible 256*256 scenario should be achievable.
+
+Their function is to inform people: 1. How the generated knowledge of the model can be utilized for understanding without re-training/add-dev. 2. How to theoretically unify all 2D visual tasks (Generating, Conditional Control, Estimation) and incorporate them into an interpretable framework.
+
+You can refer to these formulas as the **"Unified Law for Visual Tasks"** or **"The Four Laws of Computer Vision"**
+
 ## Question and discussion
 
 ### Sen Fang Initialization
