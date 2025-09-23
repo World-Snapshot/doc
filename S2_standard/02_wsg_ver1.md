@@ -249,21 +249,20 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 - 216: Reserved for future
 
 #### WiFi CSI Processed [217-235] (Necessary)
-- 217: WiFi Present Flag (-1=mask, 0=no_wifi, 1=wifi_active)
-- 218: CSI PCA Feature 1 (第一主成分)
-- 219: CSI PCA Feature 2 (第二主成分)
-- 220: CSI PCA Feature 3 (第三主成分)
-- 221: CSI PCA Feature 4 (第四主成分)
-- 222: CSI PCA Feature 5 (第五主成分)
-- 223: CSI PCA Feature 6 (第六主成分)
-- 224: Spatial Influence Weight (该像素的WiFi影响权重)
-- 225: Movement Detection (运动检测概率)
-- 226: Presence Confidence (人体存在置信度)
+- 217-226: CSI PCA Feature 1-10
+
 227-235: Reserved for WiFi extension
 
-236-255: Reserved for future wireless sensing expansion
+**Note:**: WiFi CSI data structure:
+- (T, F, A) = (Time, Frequency, Antenna)
+- T: Time sampling point
+- F: Number of subcarrier frequencies
+- A: Number of antennas
+Then we used PCA component analysis to identify 10 main components.
 
-**Note:**: WiFi CSI Compression Method(3, 114, 10), 复数 → **压缩**: 6个PCA主成分 + 空间权重分配到像素
+236-255: Reserved for future expansion
+
+
 
 
 
