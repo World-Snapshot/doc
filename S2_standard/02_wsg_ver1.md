@@ -153,17 +153,48 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 ## Object/Animal Information Domain [111-125] (Necessary)
 - 111: Object UUID (encoded identifier)
 - 112: Class Value
-    - 113: Vertex ID (find this vertex based on xy coordinates, then mark which vertex it is)
-        - 114: Vertex UV coordinates U
-        - 115: Vertex UV coordinates V
-        - 116: position Z
-        - 117: skinning_weights_value (influence strength)
-    - 118: Face ID (which face this pixel belongs to)
-    - 119: Joint ID (joint with highest influence on this vertex)
-        - 120: Joint position Z
-    - 121: Bone ID
-        - 122: skinning_weights_value (influence strength)
-- 123-125: Reserved for future object properties
+
+  When Class Value = 1 (Vertex Data)
+
+  - 113: Vertex ID - vertex index
+  - 114: Vertex X coordinate
+  - 115: Vertex Y coordinate
+  - 116: Vertex Z coordinate
+  - 117: Skinning weights (4 weights packed)
+  - 118: Bone indices (4 bone IDs packed)
+  - 119: Unused
+  - 120: UV coordinate U
+  - 121: UV coordinate V
+
+  When Class Value = 2 (Face Data)
+
+  - 113: Face ID - face index
+  - 114: Vertex 1 index
+  - 115: Vertex 2 index
+  - 116: Vertex 3 index
+  - 117-121: Unused
+
+  When Class Value = 3 (Joint Data)
+
+  - 113: Joint ID - joint index
+  - 114: Joint X coordinate
+  - 115: Joint Y coordinate
+  - 116: Joint Z coordinate
+  - 117: Unused
+  - 118: Unused
+  - 119: Skeleton metadata (stored only in first joint)
+  - 120: Parent joint ID
+  - 121: Unused
+
+  When Class Value = 4 (Bone Data)
+
+  - 113: Bone ID - bone index
+  - 114: Start joint ID
+  - 115: End joint ID
+  - 116: Bone length
+  - 117-121: Unused
+
+- 122-125: Reserved for future object properties
 
 **Note:** In accordance with the usual requirements, for all pixels that contain information, at least an ID should be provided. It is also advisable to include information such as Class ID.
 
