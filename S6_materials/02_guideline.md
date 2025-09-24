@@ -188,11 +188,11 @@ To sum up, our derivation process is:
 - **previous Generating = a special case where only RGB is generated**
 - **previous Estimation/Understanding = a special control generation task where RGB is used as a condition input**
 - **previous Conditional Control = a special RGB generation task where other channels are used as conditions**
-- **previous Reconstruction = The process of reconstructing the 3D+t space through the geometric shape estimation function.**
+- **previous Reconstruction = The process of reconstructing the 3D+t space through the geometric shape estimation/generation.** (If you do not use the core space, then it is an implicit reconstruction)
 
 Therefore, we can say that **all previous computer vision tasks were special cases of the world snapshot model tasks**. In fact, we should estimate the material from color, estimate the roughness from the material, estimate the 3D human body from the 2D human skeleton, and estimate the rendered result from the Mesh. Any possible 256*256 scenario should be achievable.
 
-Their function is to inform people: 1. How the generated knowledge of the model can be utilized for understanding without re-training/add-dev. 2. How to theoretically unify all 2D visual tasks (Generating, Conditional Control, Estimation) and incorporate them into an interpretable framework.
+Their function is to inform people: 1. How the generated knowledge of the model can be utilized for understanding without re-training/add-dev. 2. How to theoretically unify all 2D visual tasks (Generating, Conditional Control, Estimation) and incorporate them into an interpretable framework. 3. LLM can unify everything into the *Prompt-Answer* format. Then our rules can uniformly transform all CV tasks into a generation form.
 
 You can refer to these formulas as the **"Unified Law for Visual Tasks"** or **"The Four Laws of Computer Vision"**
 
