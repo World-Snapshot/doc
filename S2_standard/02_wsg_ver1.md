@@ -253,16 +253,9 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 227-235: Reserved for WiFi extension
 
-**Note:**: WiFi CSI data structure:
-- (T, F, A) = (Time, Frequency, Antenna)
-- T: Time sampling point
-- F: Number of subcarrier frequencies
-- A: Number of antennas
-Then we used PCA component analysis to identify 10 main components.
+**Note:**: Interpolate the 3x144 time-frequency graph and overlay it onto the entire image. Then, the 10 antennas can be placed within the original 10 channels.
 
 236-255: Reserved for future expansion
-
-
 
 
 
