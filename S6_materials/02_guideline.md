@@ -186,7 +186,7 @@ Then, in a broader sense, we use RGB as a condition to obtain other information.
 To sum up, our derivation process is: 
 
 - **previous Generating = a special case where only RGB is generated**
-- **previous Estimation/Understanding = a special control generation task where RGB is used as a condition input**
+- **previous Estimation (understand, detect, segment) = a special control generation task where RGB is used as a condition input**
 - **previous Conditional Control = a special RGB generation task where other channels are used as conditions**
 - **previous Reconstruction = The process of reconstructing the 3D+t space through the geometric shape estimation/generation.** (If you do not use the core space, then it is an implicit reconstruction)
 

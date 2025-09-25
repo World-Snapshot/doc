@@ -151,50 +151,43 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 
 
 ## Object/Animal Information Domain [111-125] (Necessary)
-- 111: Object UUID (encoded identifier)
-- 112: Class Value
+  - 111: The mapped category ID
+  - 112: Class Value
 
-  When Class Value = 1 (Vertex Data)
-
-  - 113: Vertex ID - vertex index
-  - 114: Vertex X coordinate
-  - 115: Vertex Y coordinate
-  - 116: Vertex Z coordinate
-  - 117: Skinning weights (4 weights packed)
-  - 118: Bone indices (4 bone IDs packed)
-  - 119: Unused
-  - 120: UV coordinate U
-  - 121: UV coordinate V
+  - When Class Value = 1 (Vertex Data)
+    - 113: Vertex ID - vertex index
+    - 114: Vertex X coordinate
+    - 115: Vertex Y coordinate
+    - 116: Vertex Z coordinate
+    - 117: Skinning weights (4 weights packed)
+    - 118: Bone indices (4 bone IDs packed)
+    - 119: Unused
+    - 120: UV coordinate U
+    - 121: UV coordinate V
 
   When Class Value = 2 (Face Data)
-
-  - 113: Face ID - face index
-  - 114: Vertex 1 index
-  - 115: Vertex 2 index
-  - 116: Vertex 3 index
-  - 117-121: Unused
+    - 113: Face ID - face index
+    - 114: Vertex 1 index
+    - 115: Vertex 2 index
+    - 116: Vertex 3 index
+    - 117-121: Unused
 
   When Class Value = 3 (Joint Data)
-
-  - 113: Joint ID - joint index
-  - 114: Joint X coordinate
-  - 115: Joint Y coordinate
-  - 116: Joint Z coordinate
-  - 117: Unused
-  - 118: Unused
-  - 119: Skeleton metadata (stored only in first joint)
-  - 120: Parent joint ID
-  - 121: Unused
+    - 113: Joint ID - joint index
+    - 114: Joint X coordinate
+    - 115: Joint Y coordinate
+    - 116: Joint Z coordinate
+    - 117: Skeleton metadata (stored only in first joint)
+    - 118: Parent joint ID
+    - 119-121: Unused
 
   When Class Value = 4 (Bone Data)
-
-  - 113: Bone ID - bone index
-  - 114: Start joint ID
-  - 115: End joint ID
-  - 116: Bone length
-  - 117-121: Unused
-
-- 122-125: Reserved for future object properties
+    - 113: Bone ID - bone index
+    - 114: Start joint ID
+    - 115: End joint ID
+    - 116: Bone length
+    - 117-121: Unused
+  - 122-125: Reserved for future object properties
 
 **Note:** In accordance with the usual requirements, for all pixels that contain information, at least an ID should be provided. It is also advisable to include information such as Class ID.
 
