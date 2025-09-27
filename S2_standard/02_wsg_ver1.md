@@ -219,26 +219,45 @@ Direct from ShapeNet
 ## Reserved for future
 134-142: Reserved for when we have additional physics datasets
 
-## Material Properties Domain [143-174]
-### PBR Material [143-154] (Necessary) (Encodable control domain)
+
+值得注意的是，ShapeNetSem里面保存了贴图和材质属性，我们为这些属性提供位置如下：
+
+- 143: newmtl - （定义材质名称）
+- 144-146: map Ka - （环境光颜色）
+- 147-149: map Kd - （漫反射颜色）
+- 3&150: d 不透明度Opacity
+- 151-153: Ks - （镜面反射颜色）
+- 154: Ns - （高光指数）
+
+
+## Material & Light Properties Domain [143-174]
+
+### Tradition and Control Optics [143-160] (Optional)
+
+- 143: newmtl - （定义材质名称）
+- 144-146: map Ka - （环境光颜色,最好有map）
+- 147-149: map Kd - （漫反射颜色，最好有map）
+- 3&150: d 不透明度Opacity
+- 151-153: Ks - （镜面反射颜色）
+- 154: Ns - （高光指数）
+
+- 155-160: Reserved for future properties
+
+### PBR Material [161-174] (Necessary) (Encodable control domain)
 
 Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
-- 143: Basecolor - 基础颜色贴图
-- 144: Diffuse - 漫反射贴图
-- 145: Normal - 法线贴图（采用OpenGL标准，Y轴向上）
-- 146: Height - 高度贴图（16位单通道格式，提供更高精度）
-- 147: Roughness - 粗糙度贴图
-- 148: Metallic - 金属度贴图
-- 149: Specular - 镜面反射贴图
-- 150: Opacity - 透明度贴图（当需要时，例如有孔洞的表面）
-- 151-154: Reserved for future
+- 161-163: Basecolor - 基础颜色贴图
+- 164-166: Diffuse - 漫反射贴图
+- 36-38: Normal - 法线贴图
+- 167: Height - 高度贴图
+- 168: Roughness - 粗糙度贴图
+- 169: Metallic - 金属度贴图
+- 170-172: Specular - 镜面反射贴图
+- 3&173: Opacity - 透明度贴图（当需要时，例如有孔洞的表面）
 
-**Note:** After the category and description tags are combined, they are converted into audio and placed in the audio description area.
 
-### Advanced Material [155-174] (Optional)
-
-- 155-174: Reserved for future material properties
+**Note:** After the category and description tags are combined, they are converted into audio and placed in the audio description area. Take the actual situation as the reference.
 
 ## Sound And Language Properties Domain [175-206]
 ### Video Original Audio [175-184] (Necessary)
