@@ -196,6 +196,8 @@ Their function is to inform people: 1. How the generated knowledge of the model 
 
 You can refer to these formulas as the **"Unified Law for Visual Tasks"** or **"The Four Laws of Computer Vision"**
 
+*More details at [this link](https://github.com/World-Snapshot/Unified-Law-for-Visual-Tasks).*
+
 ## Question and discussion
 
 ### Sen Fang Initialization
