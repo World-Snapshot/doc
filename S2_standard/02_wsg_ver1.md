@@ -197,7 +197,7 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 
 
 ## Physics Properties Domain [126-142] (Necessary)
-  - 126: solidVolume（实体体积，来自metadata.csv）
+  - 126: solidVolume（实体体积，来自metadata.csv）（归一化0-100）
   - 127: surfaceVolume（表面体积，来自metadata.csv）
   - 128: weight（相对重量，来自metadata.csv）
 Note：我们发现体素的体积有点奇怪，不能直接采用于现实体积。由于体素的数量和大小有关系，数量越多体积越大，我们使用相对体积，归一化1-100，这样我们就能注入相对表面积、相对体积、相对质量了。这也符合共形对称性。
@@ -206,7 +206,7 @@ Note：我们发现体素的体积有点奇怪，不能直接采用于现实体�
   - 130: staticFrictionForce（相对静摩擦力，来自metadata.csv）
   - 131: material_id（材质ID，单一材质）
   - 132: material_confidence（材质置信度/概率，基于materials.csv的ratio）
-  - 133: density（密度，来自densities.csv）
+  - 133: density（密度，来自densities.csv）（kg/L）
   - 134: staticFrictionCoeff（静摩擦系数，来自densities.csv）
   - 135: isContainerLike（容器标志，来自metadata.csv，0/1）
   - 136：物体类别id
@@ -217,10 +217,10 @@ Note：我们发现体素的体积有点奇怪，不能直接采用于现实体�
 
 值得注意的是，ShapeNetSem里面保存了贴图和材质属性，我们为这些属性提供位置如下：
 
-- 143: newmtl - （定义材质名称）
+- 143: newmtl - （定义材质名称，材料哈希值）
 - 144-146: map Ka - （环境光颜色）
 - 147-149: map Kd - （漫反射颜色）
-- 3&150: d 不透明度Opacity
+- 150: d 不透明度Opacity
 - 151-153: Ks - （镜面反射颜色）
 - 154: Ns - （高光指数）
 
@@ -232,7 +232,7 @@ Note：我们发现体素的体积有点奇怪，不能直接采用于现实体�
 - 143: newmtl - （定义材质名称）
 - 144-146: map Ka - （环境光颜色,最好有map）
 - 147-149: map Kd - （漫反射颜色，最好有map）
-- 3&150: d 不透明度Opacity
+- 150: d 不透明度Opacity
 - 151-153: Ks - （镜面反射颜色）
 - 154: Ns - （高光指数）
 
