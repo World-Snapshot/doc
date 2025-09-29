@@ -249,7 +249,7 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 - 168: Roughness - 粗糙度贴图
 - 169: Metallic - 金属度贴图
 - 170-172: Specular - 镜面反射贴图
-- 3&173: Opacity - 透明度贴图（当需要时，例如有孔洞的表面）
+- 173: Opacity - 透明度贴图（当需要时，例如有孔洞的表面）
 
 
 **Note:** After the category and description tags are combined, they are converted into audio and placed in the audio description area. Take the actual situation as the reference.
