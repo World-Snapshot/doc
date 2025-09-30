@@ -88,7 +88,7 @@ Note: The following part is rather difficult to extract and is not applicable at
 ### Geometry Extension [49-63]
 Reserved for future geometry data
 
-## Pose and Human Information Domain [64-95]
+## Pose and Human Information Domain [64-110]
 ### 2D skeletal human (DWPose) [64-71] (Necessary)
 - 64: Person ID (-1 or ID number)
     - 65: Keypoint ID (about 0-134, find this keypoint based on the xy coordinates, and then mark which key point it is.)
@@ -250,7 +250,7 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 - 169: Metallic - 金属度贴图
 - 170-172: Specular - 镜面反射贴图
 - 173: Opacity - 透明度贴图（当需要时，例如有孔洞的表面）
-
+- 174: Reserved for future properties
 
 **Note:** After the category and description tags are combined, they are converted into audio and placed in the audio description area. Take the actual situation as the reference.
 
