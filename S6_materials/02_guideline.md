@@ -173,6 +173,17 @@ For Option One: Quantum waves and spatial waves actually have their own distinct
 
 Regarding Option Two: I initially had some doubts because we used point clouds and depth as constraints, which might not align with our concept. However, after some consideration, we aim to create a good shape in the future and standardization is about the wave world. If we use some methods similar to 3D Mesh generation, we should also be able to train a good wave world. Therefore, this can only be regarded as a choice of training strategy. (The preferred method should be point clouds, followed by scalar depth with world coordinates, then relative/scalar depth. Real-world measured 3D optical flow should also be fine, but the data is difficult to obtain.)
 
+## Large Canvas Position Encoding (LCPE)
+
+Imagine there is a large canvas of 4400*4400. Then place the image in the center, and mark the positions of the entire canvas. However, only the area covered by this image is considered. Other areas are not included in the calculation and are empty/masked. This has some benefits:
+
+1. It can distinguish between large and small images.
+2. Compared to relative position encoding, its parameter burden is theoretically less "dense".
+3. If there are no pixel areas, it actually does not increase the computational burden.
+4. We divide the method into two orthogonal parts: (1) reconstruction, time-space, order and existence; (2) generation, rendering, understanding and cognition. LCPE actually assigns the responsibility of relative capabilities to the core space, while learning how pixels are distributed under large and small images. I think this should have some benefits. 
+
+LCPE should be implemented in the Unet part of the decoder.
+
 ## Unified Law for Visual Tasks
 
 This part of the content was initially released on [this](https://github.com/orgs/World-Snapshot/discussions/1), and then I copied it here:
