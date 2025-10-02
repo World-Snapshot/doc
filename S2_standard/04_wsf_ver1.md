@@ -1,6 +1,6 @@
 # World Snapshot Field (WSF) Format Specification
 Version: 1.0;
-Last Updated: 2025-01-09;
+Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 ## Overview
@@ -26,6 +26,8 @@ Therefore, when training, I originally intended to set up a 3x3 pixel grid in th
 Through this approach, WSF has concept particles like 3DGS while maintaining differentiable, calculable functions like NeRF, reducing computational load. It possesses advantages of both systems. Additionally, each of our concept particles has its own color, requiring no additional rendering.
 
 How should we train this kind of data that combines virtual and real, particles and probability? Facing this familiar scenario, I thought of the quantum wave function:
+
+<!--
 
 ## ~~Quantum Wave Function~~
 
@@ -129,6 +131,8 @@ When applied to image generation, it exhibits some excellent properties:
 This excites me, and I realize that we can completely abandon the 3x3 or 5x5 calculation division, making all world pixels capable of transforming between virtual and real states. Then we should consider how to combine this idea with data:
 
 </details>
+
+-->
 
 ## Mathematical waves with shapes
 
