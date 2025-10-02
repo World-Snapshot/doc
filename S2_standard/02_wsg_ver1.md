@@ -200,44 +200,45 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 
 
 ## Physics Properties Domain [126-142] (Necessary)
-  - 126: relative solidVolume（实体体积，来自metadata.csv）（归一化0-100）
-  - 127: relative surfaceVolume（表面体积，来自metadata.csv）
-  - 128: relative weight（相对重量，来自metadata.csv）
-Note：我们发现体素的体积有点奇怪，不能直接采用于现实体积。由于体素的数量和大小有关系，数量越多体积越大，我们使用相对体积，归一化1-100，这样我们就能注入相对表面积、相对体积、相对质量了。这也符合共形对称性。
 
-  - 129: supportSurfaceArea（相对支撑表面积，来自metadata.csv）
-  - 130: relative staticFrictionForce（相对静摩擦力，来自metadata.csv）
-  - 131: Physics material_id（材质ID，单一材质）
-  - 132: material_confidence（材质置信度/概率，基于materials.csv的ratio）
-  - 133: density（密度，来自densities.csv）（kg/L）
-  - 134: staticFrictionCoeff（静摩擦系数，来自densities.csv）
-  - 135: isContainerLike（容器标志，来自metadata.csv，0/1）
-  - 136：Object/Thing category id
+  - 126: relative solidVolume (solid volume from metadata.csv) (normalized 0-100)
+  - 127: relative surfaceVolume (surface volume from metadata.csv)
+  - 128: relative weight (relative weight from metadata.csv)
+Note: We found that voxel volume is somewhat problematic and cannot be directly used as real-world volume. Since the number of voxels is related to size (more voxels means larger volume), we use relative volume normalized to 1-100, which allows us to inject relative surface area, relative volume, and relative mass. This also aligns with conformal symmetry.
+  - 129: supportSurfaceArea (relative support surface area from metadata.csv)
+  - 130: relative staticFrictionForce (relative static friction force from metadata.csv)
+  - 131: Physics material_id (material ID, single material)
+  - 132: material_confidence (material confidence/probability based on ratio from materials.csv)
+  - 133: density (density from densities.csv) (kg/L)
+  - 134: staticFrictionCoeff (static friction coefficient from densities.csv)
+  - 135: isContainerLike (container flag from metadata.csv, 0/1)
+  - 136: Object/Thing category id
+
 
 ## Reserved for future
 137-142: Reserved for when we have additional physics datasets
 
 
-值得注意的是，ShapeNetSem里面保存了贴图和材质属性，我们为这些属性提供位置如下：
 
-- 143: Material Name, newmtl - （定义材质名称，材料哈希值, This mapping not existing may render it unusable. SF made a mistake.）
-- 144-146: map Ka - （环境光颜色）
-- 147-149: map Kd - （漫反射颜色）
-- 150: d 不透明度Opacity
-- 151-153: Ks - （镜面反射颜色）
-- 154: Ns - （高光指数）
+It is worth noting that ShapeNetSem stores texture and material properties. We provide positions for these properties as follows:
 
+- 143: Material Name, newmtl - (defines material name, material hash value. The absence of this mapping may render it unusable. SF made a mistake.)
+- 144-146: Ambient light color (map Ka)
+- 147-149: Diffuse color (map Kd)
+- 150: Opacity (d)
+- 151-153: Specular reflection color (Ks)
+- 154: Specular exponent/shininess (Ns)
 
 ## Material & Light Properties Domain [143-174]
 
 ### Tradition and Control Optics [143-160] (Optional)
 
-- 143: newmtl - （定义材质名称）
-- 144-146: map Ka - （环境光颜色,最好有map）
-- 147-149: map Kd - （漫反射颜色，最好有map）
-- 150: d 不透明度Opacity
-- 151-153: Ks - （镜面反射颜色）
-- 154: Ns - （高光指数）
+- 143: Material Name, newmtl - (defines material name.)
+- 144-146: Ambient light color (map Ka)
+- 147-149: Diffuse color (map Kd)
+- 150: Opacity (d)
+- 151-153: Specular reflection color (Ks)
+- 154: Specular exponent/shininess (Ns)
 
 - 155-160: Reserved for future properties
 
@@ -245,14 +246,14 @@ Note：我们发现体素的体积有点奇怪，不能直接采用于现实体�
 
 Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
-- 161-163: Basecolor - 基础颜色贴图
-- 164-166: Diffuse - 漫反射贴图
-- 36-38: Normal - 法线贴图
-- 167: Height - 高度贴图
-- 168: Roughness - 粗糙度贴图
-- 169: Metallic - 金属度贴图
-- 170-172: Specular - 镜面反射贴图
-- 173: Opacity - 透明度贴图（当需要时，例如有孔洞的表面）
+- 161-163: Basecolor - Base color map
+- 164-166: Diffuse - Diffuse map
+- 36-38: Normal - Normal map
+- 167: Height - Height map
+- 168: Roughness - Roughness map
+- 169: Metallic - Metallic map
+- 170-172: Specular - Specular map
+- 173: Opacity - Opacity map (when needed, e.g., for surfaces with holes)
 - 174: Reserved for future properties
 
 **Note:** After the category and description tags are combined, they are converted into audio and placed in the audio description area. Take the actual situation as the reference.
