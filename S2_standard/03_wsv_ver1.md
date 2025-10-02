@@ -1,6 +1,6 @@
 # World Snapshot Video (WSV) Format Specification
 Version: 1.0;
-Last Updated: 2025-09-20;
+Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 ## Overview
@@ -51,6 +51,10 @@ For audio with sound sources, audio data is distributed throughout the entire in
    - For example: length field 8000(0x1F40) might be read as 7743(0x1E3F), and the system automatically corrects this
 
 For scene audio, which has no mask, or descriptive text for the entire image will be converted to audio and stored in channels 185-184 of the entire image.
+
+## Summary
+
+Sound is the intersection of NLP and CV. Sound is a specific object, and sound is a visual pattern.
 
 
 *Please read blogs "03 Time Flowing in Graphics" and "04 Create Laplace Demon"*
