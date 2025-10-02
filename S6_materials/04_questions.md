@@ -62,10 +62,10 @@ gantt
    120fps            :0, 5
    
    section Generalization
-   100 tasks/functions           :done, 0, 1
-   300 tasks/functions (now)          :crit, active, 0, 2
-   500 tasks/functions           :0, 3
-   1000 tasks/functions          :0, 4
+   100+ tasks/functions           :done, 0, 1
+   200+ tasks/functions (now)          :crit, active, 0, 2
+   500+ tasks/functions           :0, 3
+   1000+ tasks/functions          :0, 4
    1500+ tasks/functions         :0, 5
 ```
 

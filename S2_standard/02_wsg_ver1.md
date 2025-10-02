@@ -207,7 +207,7 @@ Note：我们发现体素的体积有点奇怪，不能直接采用于现实体�
 
   - 129: supportSurfaceArea（相对支撑表面积，来自metadata.csv）
   - 130: relative staticFrictionForce（相对静摩擦力，来自metadata.csv）
-  - 131: material_id（材质ID，单一材质）
+  - 131: Physics material_id（材质ID，单一材质）
   - 132: material_confidence（材质置信度/概率，基于materials.csv的ratio）
   - 133: density（密度，来自densities.csv）（kg/L）
   - 134: staticFrictionCoeff（静摩擦系数，来自densities.csv）
