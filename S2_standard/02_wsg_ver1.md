@@ -1,7 +1,7 @@
 # World Snapshot Graphics (WSG) Format Specification
 Version: 1.0;
 Draft was established on: 2024-12-25;
-Last Updated: 2025-06-16;
+Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 *"The only truly serious question in computer vision is how to train the world itself." --SF*
