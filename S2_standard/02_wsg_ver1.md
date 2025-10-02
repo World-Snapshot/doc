@@ -267,7 +267,7 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 ### Extension [195-206]
 - 195: Semantic Segmentation
-- 196-206: Reserved for future audio properties
+- 196-206: Reserved for future properties
 
 **Note:** We use two sets of audio systems to carry out the process of encoding information into images. Because I believe that audio is the intersection of CV and NLP, audio is the manifestation of text in space. Moreover, even if audio is distorted, it can still be recognized, and its robustness may be better than text encoding.
 
@@ -277,17 +277,17 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 #### LiDAR Point Cloud [207-210] (Necessary)
 
-- 207: Point Coordinate X (相机坐标系X, 米为单位)
-- 208: Point Coordinate Y (相机坐标系Y, 米为单位)
-- 209: Point Coordinate Z (相机坐标系Z, 米为单位)
+- 207: Point Coordinate X (camera coordinate system X, in meters)
+- 208: Point Coordinate Y (camera coordinate system Y, in meters)
+- 209: Point Coordinate Z (camera coordinate system Z, in meters)
 - 210: Reserved for future
 
 #### mmWave Radar Point Cloud [211-216] (Necessary)
-- 211: Point Coordinate X (相机坐标系X, 米为单位)
-- 212: Point Coordinate Y (相机坐标系Y, 米为单位)
-- 213: Point Coordinate Z (相机坐标系Z, 米为单位)
-- 214: Doppler Velocity (多普勒速度d, 原始单位)
-- 215: Signal Intensity (信号强度I, 原始单位)
+- 211: Point Coordinate X (camera coordinate system X, in meters)
+- 212: Point Coordinate Y (camera coordinate system Y, in meters)
+- 213: Point Coordinate Z (camera coordinate system Z, in meters)
+- 214: Doppler Velocity (Doppler velocity d, raw units)
+- 215: Signal Intensity (signal intensity I, raw units)
 - 216: Reserved for future
 
 #### WiFi CSI Processed [217-235] (Necessary)
