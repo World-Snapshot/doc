@@ -54,7 +54,6 @@ For scene audio, which has no mask, or descriptive text for the entire image wil
 
 ## Summary
 
-Sound lies at the crossroads of language and vision. Sound is tangible matter. Sound is visual texture.
-
+Sound lies at the intersection of language and vision. Sound is the substance of the dynamic and tangible. Sound is the texture pattern of the visible.
 
 *Please read blogs "03 Time Flowing in Graphics" and "04 Create Laplace Demon"*
