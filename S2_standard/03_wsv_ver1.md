@@ -54,7 +54,7 @@ For scene audio, which has no mask, or descriptive text for the entire image wil
 
 ## Summary
 
-Sound is the intersection of NLP and CV. Sound is a specific object, and sound is a visual pattern.
+Sound lies at the crossroads of language and vision. Sound is tangible matter. Sound is visual texture.
 
 
 *Please read blogs "03 Time Flowing in Graphics" and "04 Create Laplace Demon"*
