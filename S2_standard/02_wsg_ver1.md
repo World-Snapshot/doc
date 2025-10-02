@@ -34,7 +34,11 @@ Generally speaking:
 
 ### Complex Interact [8-31] (Optional)
 
-- 8-31: Reserved for core information expansion (Content to be determined)
+- 8: Major version number (e.g., 1, 2, 3). If it does not exist (with a value of -1), the default is wsg v1.
+
+**Note:** Each minor improvement in a major version must be forward-compatible; anything that is not compatible constitutes a major version update.
+
+- 9-31: Reserved for core information expansion (Content to be determined)
 
 <!--
 
@@ -303,12 +307,13 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 ## Technical Details
 
-### Version Control (16th channel)
+<!--
+### Version Control (channel 8. ie, 9th channel)
 Version format: MAJOR.MINOR.PATCH
 - MAJOR: Breaking changes
 - MINOR: New features, backward compatible 
 - PATCH: Bug fixes, backward compatible
-
+-->
 ### Compatibility Requirements
 - Applications must gracefully handle missing channel data (set to -1)
 - RGB channels must remain viewable in standard image viewers (need develop a trick)
