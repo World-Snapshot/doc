@@ -241,7 +241,7 @@ For example, in terms of helping embodied intelligence, our most concise concept
 
 ## TLDR of Project Page
 
-- **TLDR:** Requirements for implementing an ideal world model: 1. Encode all information to the boundary. 2. Conform to conformal symmetry. Follow this rule, video (2D+time) generation models and world (3D+time) generation models will be equivalent.
+- **TLDR:** Requirements for implementing an ideal world model: 1. Encode all information to the boundary. 2. Conform to conformal symmetry. Follow this rule, flattens the world into a two-dimensional space, and visual generation is almost lossless world generation.
 - **TLDR:** World Snapshot Model: similar to a two-stage rich-information diffusion model, to a flow-based spatially conditioned generative model, to a 3DGS model that separates attributes from spatial information, to a model that fuses virtual NeRF and real point clouds, to an AI optical engine for rendering 3D models to 2D animation video (Cel shading/toon shading)...
 - **TLDR:** Definition of an ideal world model: 1. Spatial sequence 2. Time sequence 3. Dense representation 4. Semantic instances 5. World core 6. Physical constraint 7. RIVE, Reasonable, Interpretable, Visualizable, and Editable. 8. Bidirectional training and inference 9. All living animals have posture information.
 - **TLDR:** The method to make vision models understand physics is to create a core space and implement constraints within it.
