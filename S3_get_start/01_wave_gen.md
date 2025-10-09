@@ -249,6 +249,30 @@ Then I considered that each time it generates, it should rely on the wave parame
 
 We will first train the model to start from one wave, trying to fit the point cloud from a certain perspective. Then we will expand to 8 waves, and continue to increase the number until $6^3$ (216) waves per frame. This is somewhat like an autoregressive approach, but it is not convenient for the usual parallel processing. I will modify the maximum number of waves and decide whether to skip certain levels during the practice.
 
+### Wave2Pixel Decoder
+
+My initial idea was to freeze the Tiny VAE and train it on a widened number of layers, approximately four times. Each of these four times corresponds to our data focus, from details to abstraction. This should yield good results while keeping the RGB unchanged. Then, we could consider fine-tuning the Unet or not, as long as it can complete the additional information (generation and estimation). Of course, if we want the additional information to affect the RGB, fine-tuning would be necessary (condition control). 
+
+Later, I discovered that even a simple widening would destroy the potential space / upsampling/downsampling. I tried for 6 days without any good results, including MSE and piecewise MSE. I then tried to train from scratch and found that this was indeed a better choice because the potential space should have a more flexible structure. I also tried piecewise normalization and inverse normalization, training directly within the original distribution range, adding KL divergence, but none of them showed significant effects. 
+
+I realized that the latent space dimension must be larger than your original data in order to achieve better training. So I should create a VAE with at least 256 latent channels. But this should be quite difficult to train. I wouldn't dare to attempt it without 1000 GPUs. Maybe we could try to have separate input and output layers with input and output heads, but I don't have the time to try it anymore. 
+
+I began searching on the internet, and then suddenly thought of the article on [LayerDiffuse](https://arxiv.org/abs/2402.17113). Then I decided to simulate this method and create the WSG VAE Group. That method is equivalent to creating perturbations, training additional VAEs to learn the decoded results after the RGB latent space is perturbed. It can extract RGB plus additional features from the high-dimensional RGB features, or it can extract the RGBA additional features from RGB plus additional features. 
+This can be applied to generation and estimation tasks. However, it cannot be used for conditional control. Lvmin Zhang also noticed this issue and recommended using ControlNet to solve it. Nevertheless, since I am planning to control all the information within the image itself, even though I don't have enough GPU to train the WSG VAE at present, I should still retain this design concept as much as possible. 
+
+To be more specific, the current situation is that the VAE with perturbation terms does not learn how the latent variables change when the conditions change for RGB. This makes it impossible for us to perform conditional control. Then, if we add an offset for RGB, we can reverse-engineer the latent variables of RGB through their respective information perturbations. 
+
+That is to say, when we are training, we not only need to train the VAE for the new channels, which will encode the additional channels into perturbation terms and then decode them back to the latent variables. We should also learn what the differences are between the current high-dimensional features of RGB and the rendered results. This part should be handled by the RGB shadow channels. 
+
+In summary, I plan to consider RGB as a shifted entity as well. When the different channels of WSG's codecs provide the shift for RGB, I should provide the theoretical situation of how RGB is controlled and changed. 
+
+This approach has both advantages and disadvantages:
+
+- It is very convenient for expansion
+- It does not require full-scale reasoning, but can be separated
+- Any existing generative model can be transformed into a world snapshot model without training using this method. (RF can perform any task, diffusion's support for estimation tasks should be not so good, flow matching if it can perform inversion should also enable diffusion models to perform estimation)
+- Direct conversion of any channel cannot be done randomly; it must be mediated by RGB.
+
 ## Discussion
 
 ### Core Space
