@@ -24,7 +24,7 @@ Therefore, the answer might be just the opposite - training breadth should be ac
 
 In the past 5 years, LLM has been one of the most brilliant achievements in NLP, while generative models have been one of the most brilliant achievements in CV.
 
-However, CV's images cannot be fully controlled yet, and videos can hardly generate coherent movies longer than 2 hours. Compared to LLM, it seems somewhat weak. As for the reasons, I've already mentioned them in the Song of Computer Vision (2025), so I won't elaborate further.
+However, CV's images cannot be fully controlled yet, and videos can hardly generate coherent movies longer than 2 hours. Compared to LLM, it seems somewhat weak. As for the reasons, I've already mentioned them in the Song of Computer Vision (2026), so I won't elaborate further.
 
 I believe the CV field should be completely unified: standardization of basic formats; unification of generation methods across dimensions, like 2D (image/video), 3D (scene), and 4D (dynamic scene). There should be not only explicit control methods like ControlNet but also implicit constraint control methods through theory. Thus, WaveGen was born.
 

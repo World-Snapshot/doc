@@ -15,7 +15,7 @@ A feeling descended upon me - can the world really not be trained so simply? My 
 Then, a poem was born:
 
 
-### The Song of Computer Vision (2025)
+### The Song of Computer Vision (2026)
 
 <p>
 Without storing multimodal information in basic units,<br>
