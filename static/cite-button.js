@@ -112,14 +112,33 @@ const CiteButton = (function() {
     }
 
     /**
+     * 从 URL 中提取域名前缀（只保留字母）
+     */
+    function extractDomainPrefix(url) {
+        try {
+            // 提取 https:// 或 http:// 之后，到第一个斜杠之前的部分
+            const match = url.match(/https?:\/\/([^\/]+)/);
+            if (match && match[1]) {
+                // 只保留字母
+                return match[1].replace(/[^a-zA-Z]/g, '').toLowerCase();
+            }
+        } catch (e) {
+            console.error('Error extracting domain prefix:', e);
+        }
+        // 如果提取失败，返回默认值
+        return 'worldsnapshotwebsites';
+    }
+
+    /**
      * 生成 BibTeX 引文
      */
     function generateBibTeX(title, url, headerElement) {
         const year = getYear();
 
-        // citation key 包含标题名称，格式: World_Snapshot_Websites_标题
+        // 从 URL 提取域名前缀（只保留字母）
+        const domainPrefix = extractDomainPrefix(url);
         const titleSlug = generateSlug(title);
-        const citationKey = 'World_Snapshot_Websites_' + titleSlug;
+        const citationKey = domainPrefix + '_' + titleSlug;
 
         // 获取完整的标题路径
         const fullPath = headerElement ? getHeaderPath(headerElement).join(' > ') : title;
@@ -345,7 +364,7 @@ const CiteButton = (function() {
         generateBibTeX: function(title, url, headerElement) {
             return generateBibTeX(title, url, headerElement);
         },
-        version: '1.2.0'
+        version: '1.3.0'
     };
 })();
 
