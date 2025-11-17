@@ -171,10 +171,10 @@ const CiteButton = (function() {
 
         return `@${config.citationType}{${citationKey},
   author = {${config.author}},
-  title = {${actualTitle}},
+  title = {${actualTitle} (under World Snapshot Template)},
   year = {${year}},
   url = {${url}},
-  note = {Section: ${fullPath} (under World Snapshot Template)}
+  note = {Section: ${fullPath}}
 }`;
     }
 
@@ -324,7 +324,7 @@ const CiteButton = (function() {
             '<ol>',
             '<li>Generally, the key should not be modified. If the generated Key conflicts, for example, if two websites both use our template and both have an Overview, then you can manually modify it. This will not affect the correct citation of your content. This is quite rare.</li>',
             '<li>For Author, since the contribution of the Doc is uncertain and the number of authors will increase, it is best to use a team name. This is also beneficial for you to increase citations and attract more contributors to contribute to your project. And a fixed name is convenient for searching.</li>',
-            '<li>For the title, the default is to use the current paragraph title that is being referenced.</li>',
+            '<li>For the title, the default is to use the current paragraph title that is being referenced. It\'s better not to remove "(under World Snapshot Template)" after the title, because if you don\'t include this, it will be very difficult for you to quickly search for who has cited you on Google. This is equivalent to a filter identifier.</li>',
             '<li>The year is automatically obtained from the current year of the Doc. We assume that you will always maintain and be responsible for the content you publish online.</li>',
             '<li>The URL and note are automatically obtained from the current title of the cite.</li>',
             '</ol>',
