@@ -15,7 +15,7 @@ Generally speaking:
 2. The indentation relationship represents the loop/subordinate relationship.
 3. Regarding the optional format standards, we have not conducted in-depth trials and do not have corresponding WSG file samples. They are merely recommended. We may calibrate them in future WSG minor version updates.
 4. For the channels that are very significant for the original data, we could normalize them in advance to prevent any interference with them during future training. Although in general, we will restore them back to their original state when generating the final results.
-5. Since the npz format requires the same data type, considering the storage issue, I decided to use float16 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG.
+5. Since the npz format requires the same data type, considering the storage issue, I decided to use floa32 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG.
 
 ## Format Core Domain [0-31]
 ### Essential Visual [0-7] (Necessary)
@@ -226,7 +226,7 @@ Note: We found that voxel volume is somewhat problematic and cannot be directly 
 
 It is worth noting that ShapeNetSem stores texture and material properties. We provide positions for these properties as follows:
 
-- 143: Material Name, newmtl - (defines material name, material hash value. The absence of this mapping may render it unusable. SF made a mistake.)
+- 143: per-pixel material region ID
 - 144-146: Ambient light color (map Ka)
 - 147-149: Diffuse color (map Kd)
 - 150: Opacity (d)
@@ -237,7 +237,7 @@ It is worth noting that ShapeNetSem stores texture and material properties. We p
 
 ### Tradition and Control Optics [143-160] (Optional)
 
-- 143: Material Name, newmtl - (defines material name.)
+- 143: per-pixel material region ID
 - 144-146: Ambient light color (map Ka)
 - 147-149: Diffuse color (map Kd)
 - 150: Opacity (d)
@@ -250,7 +250,7 @@ It is worth noting that ShapeNetSem stores texture and material properties. We p
 
 Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
-- 161-163: Basecolor - Base color map
+- 161-163: Basecolor / Albedo - Base color map
 - 164-166: Diffuse - Diffuse map
 - 36-38: Normal - Normal map
 - 167: Height - Height map
