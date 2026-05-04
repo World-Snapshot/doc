@@ -243,8 +243,9 @@ It is worth noting that ShapeNetSem stores texture and material properties. We p
 - 150: Opacity (d)
 - 151-153: Specular reflection color (Ks)
 - 154: Specular exponent/shininess (Ns)
+- 155-157: Irradiance RGB, normalized [0,1] or log-normalized HDR
 
-- 155-160: Reserved for future properties
+- 158-160: Reserved for future properties
 
 ### PBR Material [161-174] (Necessary) (Encodable control domain)
 
