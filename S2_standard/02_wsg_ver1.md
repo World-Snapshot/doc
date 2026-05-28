@@ -1,10 +1,17 @@
 # World Snapshot Graphics (WSG) Format Specification
-Version: 1.0;
+Version: 1.2;
 Draft was established on: 2024-12-25;
 Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 *"The only truly serious question in computer vision is how to train the world itself." --SF*
+
+## Update
+
+- v1.3: Fix the injection of semantic instances for the 195th channel.
+- v1.2: Add channels for storing "black background visualization" information for DWPose, Mediapipe Pose, and SMPLer. According to the standard, the "abstract information domain" has been removed, but the corresponding channels' information has not been deleted yet. This is because the MMFi of HG is stored separately, and there is no need to delete the ontology. It is only necessary to remove it from the standard.
+- v1.1: All WSGs are merged into WSV for storage, mainly involving AVIS and MMFi. Then, using NormalCrafter, the normals of AVIS are reprocessed and injected.
+- v1.0: https://github.com/World-Snapshot/wsg
 
 ## Overview
 WSG (World Snapshot Graphics) is a high-dimensional image format that extends traditional RGB images with additional channels to store rich metadata at the pixel level. Each pixel in a WSG file contains 256 channels of floating-point data.
@@ -100,9 +107,12 @@ Reserved for future geometry data
 - 64: Person ID (-1 or ID number)
     - 65: Keypoint ID (about 0-134, find this keypoint based on the xy coordinates, and then mark which key point it is.)
         - 66: Score (The body score serves as an index. One person occupies 18 index values, and then the second person increments. The remaining scores represent the degree of confidence.)
-- 67-71: Reserved for future 2D skeletal pose data
+- 67-69: Posture visualization on a black background
+- 70-71: Reserved for future 2D skeletal pose data
 
 **Note:** The design principle for 2D skeleton poses is to define the key point ID channels, then find the corresponding pixels for the key points, and set the corresponding channels to 1/Ture. In this way, when we detect a true channel, we know that there is a key point at that location, and then we know which key point it is.
+
+**Note:** Known Issue: https://github.com/World-Snapshot/wsg/issues/9
 
 ### 3D mesh human (SMPLer-X) [72-94] (Necessary)
 - 72: Person ID (from bbox_id in meta dir)
@@ -139,6 +149,8 @@ Then for the box vertices, if a certain pixel belongs to the box vertices, the c
 
 Then for the vertices, we first find the corresponding pixel according to xy, and then put xyz into the channels 90 to 92 that we require, only put it in the corresponding single pixel, so that it has a connection with the spatial relationship. The model only needs to check the channels 90 to 92 of all pixels, and if it finds valid information, then it is a vertex.
 
+**Note:** Known Issue: https://github.com/World-Snapshot/wsg/issues/10
+
 ### 3D skeletal human (Mediapipe Pose) [95-102] (Necessary)
 
 - 95: Person ID (-1 or ID number)
@@ -146,15 +158,26 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
         - 97: z: relative depth: Positive values indicate proximity to the camera, while negative values indicate distance from the camera.
         - 98: Visibility confident
 
-- 99-102: Reserved for future
+- 99-101: Posture visualization on a black background
+- 102: Reserved for future
 
 ### Human segmentation [103-110] (Optional)
 
 - 103: class value (General by Mediapipe seg)
 
-- 104: class value (Medical)
+```code
+0 - background
+1 - hair
+2 - body-skin
+3 - face-skin
+4 - clothes
+5 - others (accessories)
+```
 
-- 105-110: Reserved for future
+- 104: class value (Medical)
+- 105-107: SMPLer Posture visualization on a black background
+
+- 108-110: Reserved for future
 
 
 ## Object/Animal Information Domain [111-125] (Necessary)
@@ -272,9 +295,44 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 ### Extension [195-206]
 - 195: Semantic Segmentation
+
+```code
+1: person
+2: violin
+3: guitar
+4: cello
+5: flute
+6: piano
+7: ukulele
+8: accordion
+9: guzheng
+10: clarinet
+11: cat
+12: car
+13: saxophone
+14: dog
+15: lawn_mover
+16: tuba
+17: banjo
+18: pipa
+19: bassoon
+20: airplane
+21: tree_harvester
+22: trumpet
+23: lion
+24: bass
+25: erhu
+26: horse
+```
+
 - 196-206: Reserved for future properties
 
 **Note:** We use two sets of audio systems to carry out the process of encoding information into images. Because I believe that audio is the intersection of CV and NLP, audio is the manifestation of text in space. Moreover, even if audio is distorted, it can still be recognized, and its robustness may be better than text encoding.
+
+## Reserved for Future Domain [207-255]
+
+<details>
+<summary>Previously, this was "Abstract Information Domain", but it has been discarded. The data is temporarily retained.</summary>
 
 ## Abstract Information Domain [207-255]
 
@@ -304,7 +362,7 @@ Dataset: [MatSynth](https://gvecchio.com/matsynth/)
 
 236-255: Reserved for future expansion
 
-
+</details>
 
 ## Technical Details
 
