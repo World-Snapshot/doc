@@ -1,5 +1,5 @@
 # World Snapshot Graphics (WSG) Format Specification
-Version: 1.2;
+Version: 1.3;
 Draft was established on: 2024-12-25;
 Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
