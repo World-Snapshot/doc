@@ -1,5 +1,5 @@
 # World Snapshot Graphics (WSG) Format Specification
-Version: 1.3;
+Version: 1.4;
 Draft was established on: 2024-12-25;
 Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
@@ -8,6 +8,7 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 ## Update
 
+- v1.4: Represent the bones using lines
 - v1.3: Fix the injection of semantic instances for the 195th channel.
 - v1.2: Add channels for storing "black background visualization" information for DWPose, Mediapipe Pose, and SMPLer. According to the standard, the "abstract information domain" has been removed, but the corresponding channels' information has not been deleted yet. This is because the MMFi of HG is stored separately, and there is no need to delete the ontology. It is only necessary to remove it from the standard.
 - v1.1: All WSGs are merged into WSV for storage, mainly involving AVIS and MMFi. Then, using NormalCrafter, the normals of AVIS are reprocessed and injected.
@@ -217,7 +218,8 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
     - 115: End joint ID
     - 116: Bone length
     - 117-121: Unused
-  - 122-125: Reserved for future object properties
+  - 122-124: Represent the bones using lines
+  - 125: Reserved for future object properties
 
 **Note:** In accordance with the usual requirements, for all pixels that contain information, at least an ID should be provided. It is also advisable to include information such as Class ID.
 
