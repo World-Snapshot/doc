@@ -1,5 +1,5 @@
 # World Snapshot Graphics (WSG) Format Specification
-Version: 1.4;
+Version: 1.5;
 Draft was established on: 2024-12-25;
 Last Updated: 2025-10-02;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
@@ -8,6 +8,7 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 ## Update
 
+- v1.5: Clean, extract, inject, and adjust SMPL.
 - v1.4: Represent the bones using lines
 - v1.3: Fix the injection of semantic instances for the 195th channel.
 - v1.2: Add channels for storing "black background visualization" information for DWPose, Mediapipe Pose, and SMPLer. According to the standard, the "abstract information domain" has been removed, but the corresponding channels' information has not been deleted yet. This is because the MMFi of HG is stored separately, and there is no need to delete the ontology. It is only necessary to remove it from the standard.
@@ -23,7 +24,7 @@ Generally speaking:
 2. The indentation relationship represents the loop/subordinate relationship.
 3. Regarding the optional format standards, we have not conducted in-depth trials and do not have corresponding WSG file samples. They are merely recommended. We may calibrate them in future WSG minor version updates.
 4. For the channels that are very significant for the original data, we could normalize them in advance to prevent any interference with them during future training. Although in general, we will restore them back to their original state when generating the final results.
-5. Since the npz format requires the same data type, considering the storage issue, I decided to use floa32 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG.
+5. Considering the storage issue, I decided to use floa16 as the format for storing our WSG. When training the model and loading it later, we may be able to use bf16 or float32 at that time. Additionally, float16 seems unable to represent a large number of digits such as 100,000. Therefore, IDs and the like must not exceed 100,000. They can be replaced by using 1 (True) and 0 (False). Always keep in mind to optimize the logic and structure of WSG. For some datasets, such as OBJ, float32 can be used.
 
 ## Format Core Domain [0-31]
 ### Essential Visual [0-7] (Necessary)
@@ -121,15 +122,11 @@ Reserved for future geometry data
         - 74: Joint rotations or transl x
         - 75: Joint rotations or transl y
         - 76: Joint rotations or transl z
-- 77: betas: 0 epression: 1
-    - 78-87: the value of betas/epression
+- 77-87: Reserved for future
 - 88: bbox: If the vertex is set to 1, then the absence of a vertex is naturally -1.
 - 89: bbox_mmdet: If the vertex is set to 1, then the absence of a vertex is naturally -1.
-- 90: vertices (vf system) id
-- 91: vertices (vf system) x: it is actually the coordinates that have been calibrated based on the predicted translation information.
-- 92: vertices (vf system) y: it is actually the coordinates that have been calibrated based on the predicted translation information.
-- 93: vertices (vf system) z: it is actually the coordinates that have been calibrated based on the predicted translation information.
-- 94: Reserved for future
+- 90-92: SMPLer Posture visualization on a black background
+- 93-94: Reserved for future
 
 **Note:** I utilized the bbox_mmdet and bbox information from Meta dir, but did not use focal and princpt, as these two elements will be provided by user.
 
@@ -139,18 +136,13 @@ Reserved for future geometry data
 
 **More Explain:** First of all, regarding the key points, it is different from DWpose. Since it uses 3D rotation angles to represent the human body, it cannot correspond to pixels. DWpose finds corresponding key points based on xy coordinates and then stores z coordinates, but for SMPLer-X, according to the standard, we will store a piece of information throughout this area, rather than storing a certain joint point at a certain pixel. Then for pixels that obtain information in the corresponding channel, they will be marked which person they belong to, that is, person id.
 
-For the value of each key point, we found that one pixel cannot store it completely, so we can store key point 0 and its rotation angle xyz in the first pixel, store the second key point in the second pixel, and store it evenly in the area like this. For:
-
-- 77: betas: 0 expression: 1
-- 78-87: the value of betas/expression
-
-They follow the same logic. Betas and expression can be regarded as two types of data, each type of data has 10 values.
+For the value of each key point, we found that one pixel cannot store it completely, so we can store key point 0 and its rotation angle xyz in the first pixel, store the second key point in the second pixel, and store it evenly in the area like this.
 
 Then for the box vertices, if a certain pixel belongs to the box vertices, the corresponding channel is changed to 1. In this way, the model only needs to look at the corresponding channel of the entire image, and it is easy to find four points or 8 points, knowing that they are some squares.
 
 Then for the vertices, we first find the corresponding pixel according to xy, and then put xyz into the channels 90 to 92 that we require, only put it in the corresponding single pixel, so that it has a connection with the spatial relationship. The model only needs to check the channels 90 to 92 of all pixels, and if it finds valid information, then it is a vertex.
 
-**Note:** Known Issue: https://github.com/World-Snapshot/wsg/issues/10
+
 
 ### 3D skeletal human (Mediapipe Pose) [95-102] (Necessary)
 
@@ -176,9 +168,7 @@ Then for the vertices, we first find the corresponding pixel according to xy, an
 ```
 
 - 104: class value (Medical)
-- 105-107: SMPLer Posture visualization on a black background
-
-- 108-110: Reserved for future
+- 105-110: Reserved for future
 
 
 ## Object/Animal Information Domain [111-125] (Necessary)
