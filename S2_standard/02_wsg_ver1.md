@@ -8,6 +8,7 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 ## Update
 
+- v1.6: Fix the 195 injection error caused by the disorder of the AVIS crop frame.
 - v1.5: Clean, extract, inject, and adjust SMPL.
 - v1.4: Represent the bones using lines
 - v1.3: Fix the injection of semantic instances for the 195th channel.
