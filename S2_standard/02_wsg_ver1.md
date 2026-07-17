@@ -8,6 +8,7 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 ## Update
 
+- v1.7: Just made some adjustments to the variables of the VAE encoding, because the category 1 of 195 would get stuck with the background; Correct the posture projection issue of SMPL; correct the RGB encoding problem of the material dataset; correct the problem of the attribute and background being stuck together in the ShapeNet dataset.
 - v1.6: Fix the 195 injection error caused by the disorder of the AVIS crop frame.
 - v1.5: Clean, extract, inject, and adjust SMPL.
 - v1.4: Represent the bones using lines
@@ -259,7 +260,7 @@ It is worth noting that ShapeNetSem stores texture and material properties. We p
 - 150: Opacity (d)
 - 151-153: Specular reflection color (Ks)
 - 154: Specular exponent/shininess (Ns)
-- 155-157: Irradiance RGB, normalized [0,1] or log-normalized HDR
+- 155-157: Irradiance RGB, normalized [0,1] or log-normalized HDR (This is defined, but there's no data available for now.)
 
 - 158-160: Reserved for future properties
 
