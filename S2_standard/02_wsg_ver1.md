@@ -8,6 +8,7 @@ History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/"
 
 ## Update
 
+- v1.8: Combine the 111 names of the obj dataset and use colors with as much difference as possible instead of grayscale. Also reassign new colors to 195 and 195 overlay.
 - v1.7: Just made some adjustments to the variables of the VAE encoding, because the category 1 of 195 would get stuck with the background; Correct the posture projection issue of SMPL; correct the RGB encoding problem of the material dataset; correct the problem of the attribute and background being stuck together in the ShapeNet dataset.
 - v1.6: Fix the 195 injection error caused by the disorder of the AVIS crop frame.
 - v1.5: Clean, extract, inject, and adjust SMPL.
