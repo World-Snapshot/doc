@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quantum Wave Function Visualization</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        #container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #gui-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 0 0 0 10px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+        #info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 600px;
+        }
+        .dg.main {
+            margin-right: 0 !important;
+        }
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .equation {
+            margin: 10px 0;
+            font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <div id="gui-container">
+        <h2>Wave Function Controls</h2>
+        <!-- GUI controls will be injected here -->
+    </div>
+    <div id="info">
+        <h3>Quantum Wave Function Visualization</h3>
+        <p>This visualization shows a 3D probability density cloud of a quantum wave function.</p>
+        <div class="equation">ψ(r,t) = A·exp(i(k·r - ωt))·exp(-(r-r₀-vt)²/(2σ²))</div>
+        <p>Use controls to adjust wave parameters. Left click + drag to rotate, right click + drag to pan, scroll to zoom.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <!-- Need to load OrbitControls after Three.js is fully loaded -->
+    <script>
+        // Wait for Three.js to load before loading OrbitControls
+        setTimeout(function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js';
+            script.onload = function() {
+                // Initialize the application after OrbitControls is loaded
+                const app = new WaveFunctionVisualizer();
+            };
+            document.head.appendChild(script);
+        }, 500);
+    </script>
+
+    <script>
+        // Main application
+        class WaveFunctionVisualizer {
+            constructor() {
+                this.params = {
+                    // Wave function parameters
+                    amplitude: 1.0,
+                    kx: 1.0,
+                    ky: 0.5,
+                    kz: 0.3,
+                    omega: 2.0,
+                    sigmaX: 1.5,
+                    sigmaY: 1.5,
+                    sigmaZ: 1.5,
+                    centerX: 0,
+                    centerY: 0,
+                    centerZ: 0,
+                    velocityX: 0.2,
+                    velocityY: 0,
+                    velocityZ: 0,
+                    
+                    // Visualization parameters
+                    resolution: 20,
+                    isoLevel: 0.3,
+                    particleCount: 10000,
+                    particleSize: 0.05,
+                    colorPhase: true,
+                    
+                    // Animation
+                    animate: true,
+                    timeScale: 1.0,
+                    
+                    // Display options
+                    showAxes: true,
+                    showGrid: true,
+                    viewMode: 'particles',  // 'particles', 'surface', 'both'
+                    
+                    // Reset function
+                    resetCamera: () => this.resetCamera(),
+                    updateGeometry: () => this.updateGeometry(),
+                    
+                    // Physics presets
+                    presets: 'custom',
+                    applyPreset: () => this.applyPreset()
+                };
+                
+                this.presets = {
+                    'custom': {},
+                    'free particle': {
+                        amplitude: 1.0, kx: 2.0, ky: 0, kz: 0, omega: 2.0,
+                        sigmaX: 2.0, sigmaY: 2.0, sigmaZ: 2.0,
+                        velocityX: 0.5, velocityY: 0, velocityZ: 0
+                    },
+                    'stationary state': {
+                        amplitude: 1.0, kx: 1.0, ky: 1.0, kz: 1.0, omega: 3.0,
+                        sigmaX: 3.0, sigmaY: 3.0, sigmaZ: 3.0,
+                        velocityX: 0, velocityY: 0, velocityZ: 0
+                    },
+                    'wave packet': {
+                        amplitude: 1.0, kx: 3.0, ky: 0, kz: 0, omega: 3.0,
+                        sigmaX: 1.0, sigmaY: 1.0, sigmaZ: 1.0,
+                        velocityX: 0.8, velocityY: 0, velocityZ: 0
+                    },
+                    '2D interference': {
+                        amplitude: 1.0, kx: 2.0, ky: 2.0, kz: 0, omega: 4.0,
+                        sigmaX: 3.0, sigmaY: 3.0, sigmaZ: 3.0,
+                        velocityX: 0.3, velocityY: 0.3, velocityZ: 0
+                    },
+                    '3D complex': {
+                        amplitude: 1.0, kx: 1.5, ky: 1.5, kz: 1.5, omega: 5.0,
+                        sigmaX: 2.0, sigmaY: 2.0, sigmaZ: 2.0,
+                        velocityX: 0.2, velocityY: 0.2, velocityZ: 0.2
+                    }
+                };
+                
+                this.setupScene();
+                this.setupControls();
+                this.createGeometry();
+                this.animate();
+            }
+            
+            setupScene() {
+                // Create the main scene elements
+                this.container = document.getElementById('container');
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(0x0c0c1c);
+                
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(
+                    60, window.innerWidth / window.innerHeight, 0.1, 1000
+                );
+                this.camera.position.set(10, 7, 10);
+                this.camera.lookAt(0, 0, 0);
+                
+                // Renderer
+                this.renderer = new THREE.WebGLRenderer({ antialias: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                this.container.appendChild(this.renderer.domElement);
+                
+                // Orbit controls for camera movement
+                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.1;
+                
+                // Set up lights
+                const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
+                this.scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(1, 2, 3);
+                this.scene.add(directionalLight);
+                
+                // Add coordinate axes
+                this.axesHelper = new THREE.AxesHelper(5);
+                this.scene.add(this.axesHelper);
+                
+                // Add grid
+                this.gridHelper = new THREE.GridHelper(10, 10);
+                this.scene.add(this.gridHelper);
+                
+                // Window resize event
+                window.addEventListener('resize', this.onWindowResize.bind(this), false);
+                
+                // Time tracking
+                this.clock = new THREE.Clock();
+                this.time = 0;
+            }
+            
+            setupControls() {
+                // Create dat.GUI controls
+                this.gui = new dat.GUI({ autoPlace: false });
+                document.getElementById('gui-container').appendChild(this.gui.domElement);
+                
+                // Function parameters folder
+                const waveFolder = this.gui.addFolder('Wave Function Parameters');
+                waveFolder.add(this.params, 'amplitude', 0.1, 3.0).step(0.1).onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'kx', -5.0, 5.0).step(0.1).name('k_x').onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'ky', -5.0, 5.0).step(0.1).name('k_y').onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'kz', -5.0, 5.0).step(0.1).name('k_z').onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'omega', 0.1, 10.0).step(0.1).name('ω').onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'sigmaX', 0.1, 5.0).step(0.1).name('σ_x').onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'sigmaY', 0.1, 5.0).step(0.1).name('σ_y').onChange(() => this.updateGeometry());
+                waveFolder.add(this.params, 'sigmaZ', 0.1, 5.0).step(0.1).name('σ_z').onChange(() => this.updateGeometry());
+                waveFolder.open();
+                
+                // Position and velocity folder
+                const posVelFolder = this.gui.addFolder('Position & Velocity');
+                posVelFolder.add(this.params, 'centerX', -5.0, 5.0).step(0.1).name('center_x').onChange(() => this.updateGeometry());
+                posVelFolder.add(this.params, 'centerY', -5.0, 5.0).step(0.1).name('center_y').onChange(() => this.updateGeometry());
+                posVelFolder.add(this.params, 'centerZ', -5.0, 5.0).step(0.1).name('center_z').onChange(() => this.updateGeometry());
+                posVelFolder.add(this.params, 'velocityX', -1.0, 1.0).step(0.05).name('v_x').onChange(() => this.updateGeometry());
+                posVelFolder.add(this.params, 'velocityY', -1.0, 1.0).step(0.05).name('v_y').onChange(() => this.updateGeometry());
+                posVelFolder.add(this.params, 'velocityZ', -1.0, 1.0).step(0.05).name('v_z').onChange(() => this.updateGeometry());
+                posVelFolder.open();
+                
+                // Visualization folder
+                const visualFolder = this.gui.addFolder('Visualization');
+                visualFolder.add(this.params, 'viewMode', ['particles', 'surface', 'both']).name('View Mode').onChange(() => this.updateVisualization());
+                visualFolder.add(this.params, 'resolution', 10, 40).step(5).name('Resolution').onChange(() => this.updateGeometry());
+                visualFolder.add(this.params, 'isoLevel', 0.01, 0.9).step(0.01).name('Iso Level').onChange(() => this.updateGeometry());
+                visualFolder.add(this.params, 'particleCount', 1000, 30000).step(1000).name('Particle Count').onChange(() => this.updateParticles());
+                visualFolder.add(this.params, 'particleSize', 0.01, 0.2).step(0.01).name('Particle Size').onChange(() => this.updateParticles());
+                visualFolder.add(this.params, 'colorPhase').name('Color by Phase').onChange(() => this.updateColors());
+                visualFolder.open();
+                
+                // Animation folder
+                const animFolder = this.gui.addFolder('Animation');
+                animFolder.add(this.params, 'animate').name('Animate');
+                animFolder.add(this.params, 'timeScale', 0.1, 3.0).step(0.1).name('Time Scale');
+                animFolder.open();
+                
+                // Display folder
+                const displayFolder = this.gui.addFolder('Display Options');
+                displayFolder.add(this.params, 'showAxes').name('Show Axes').onChange(() => {
+                    this.axesHelper.visible = this.params.showAxes;
+                });
+                displayFolder.add(this.params, 'showGrid').name('Show Grid').onChange(() => {
+                    this.gridHelper.visible = this.params.showGrid;
+                });
+                displayFolder.open();
+                
+                // Presets and utilities folder
+                const presetsFolder = this.gui.addFolder('Presets & Utilities');
+                presetsFolder.add(this.params, 'presets', Object.keys(this.presets)).name('Load Preset');
+                presetsFolder.add(this.params, 'applyPreset').name('Apply Selected Preset');
+                presetsFolder.add(this.params, 'resetCamera').name('Reset Camera View');
+                presetsFolder.add(this.params, 'updateGeometry').name('Rebuild Visualization');
+                presetsFolder.open();
+            }
+            
+            createGeometry() {
+                // Remove previous geometries if they exist
+                if (this.particleSystem) this.scene.remove(this.particleSystem);
+                if (this.surfaceMesh) this.scene.remove(this.surfaceMesh);
+                
+                // Create particle system
+                this.createParticleSystem();
+                
+                // Create isosurface
+                this.createIsosurface();
+                
+                // Apply view mode
+                this.updateVisualization();
+            }
+            
+            createParticleSystem() {
+                const particleCount = this.params.particleCount;
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+                
+                this.particlePositions = positions;
+                this.particleColors = colors;
+                
+                // Initialize particles with random positions
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    // Generate positions within a box
+                    positions[i] = (Math.random() - 0.5) * 10;
+                    positions[i + 1] = (Math.random() - 0.5) * 10;
+                    positions[i + 2] = (Math.random() - 0.5) * 10;
+                    
+                    // Default color (blue)
+                    colors[i] = 0.5;
+                    colors[i + 1] = 0.5;
+                    colors[i + 2] = 1.0;
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+                
+                // Particle material
+                const material = new THREE.PointsMaterial({
+                    size: this.params.particleSize,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending,
+                    sizeAttenuation: true
+                });
+                
+                this.particleSystem = new THREE.Points(geometry, material);
+                this.scene.add(this.particleSystem);
+                
+                // Update particle positions based on wave function
+                this.updateParticles();
+            }
+            
+            createIsosurface() {
+                const resolution = this.params.resolution;
+                
+                // Create material for isosurface
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: 0x3388ff,
+                    transparent: true,
+                    opacity: 0.65,
+                    roughness: 0.3,
+                    metalness: 0.2,
+                    side: THREE.DoubleSide
+                });
+                
+                // Create a basic box geometry
+                const boxGeometry = new THREE.BoxGeometry(
+                    10, 10, 10, resolution, resolution, resolution
+                );
+                
+                // Extract positions from the geometry
+                const positions = boxGeometry.attributes.position.array;
+                const vertexCount = positions.length / 3;
+                
+                // Store original positions for animation
+                this.surfaceVertices = new Float32Array(positions.length);
+                for (let i = 0; i < positions.length; i++) {
+                    this.surfaceVertices[i] = positions[i];
+                }
+                
+                // Apply the wave function to deform the geometry
+                this.updateSurfaceGeometry(boxGeometry, this.time);
+                
+                // Create the mesh
+                this.surfaceMesh = new THREE.Mesh(boxGeometry, material);
+                this.scene.add(this.surfaceMesh);
+            }
+            
+            calculateWaveFunction(x, y, z, t) {
+                const { amplitude, kx, ky, kz, omega, sigmaX, sigmaY, sigmaZ, 
+                      centerX, centerY, centerZ, velocityX, velocityY, velocityZ } = this.params;
+                
+                // Calculate the wave vector components
+                const kDotR = kx * x + ky * y + kz * z;
+                const omegaT = omega * t;
+                
+                // Calculate phase
+                const phase = kDotR - omegaT;
+                
+                // Calculate the Gaussian envelope
+                const dx = x - (centerX + velocityX * t);
+                const dy = y - (centerY + velocityY * t);
+                const dz = z - (centerZ + velocityZ * t);
+                
+                const exponent = -0.5 * (
+                    (dx * dx) / (sigmaX * sigmaX) +
+                    (dy * dy) / (sigmaY * sigmaY) +
+                    (dz * dz) / (sigmaZ * sigmaZ)
+                );
+                
+                // Calculate envelope
+                const envelope = Math.exp(exponent);
+                
+                // Real and imaginary parts
+                const real = amplitude * envelope * Math.cos(phase);
+                const imag = amplitude * envelope * Math.sin(phase);
+                
+                // Probability density is |ψ|²
+                const probability = real * real + imag * imag;
+                
+                return {
+                    real: real,
+                    imag: imag,
+                    probability: probability,
+                    phase: Math.atan2(imag, real)
+                };
+            }
+            
+            updateParticles() {
+                if (!this.particleSystem) return;
+                
+                const positions = this.particlePositions;
+                const colors = this.particleColors;
+                const particleCount = this.params.particleCount;
+                
+                // Calculate new positions for particles based on probability density
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    
+                    // Current position
+                    let x = positions[i3];
+                    let y = positions[i3 + 1];
+                    let z = positions[i3 + 2];
+                    
+                    // Calculate wave function at this position
+                    const wave = this.calculateWaveFunction(x, y, z, this.time);
+                    
+                    // Update particle position probabilistically
+                    // Add slight random movement and use probability to determine motion
+                    x += (Math.random() - 0.5) * 0.1;
+                    y += (Math.random() - 0.5) * 0.1;
+                    z += (Math.random() - 0.5) * 0.1;
+                    
+                    // If particle is in low probability region, move it randomly
+                    if (wave.probability < 0.01 || Math.random() > wave.probability * 2) {
+                        // Regenerate position with higher chance near center
+                        if (Math.random() < 0.01) {
+                            x = (Math.random() - 0.5) * 10;
+                            y = (Math.random() - 0.5) * 10;
+                            z = (Math.random() - 0.5) * 10;
+                        }
+                    }
+                    
+                    // Keep within bounds
+                    x = Math.max(-5, Math.min(5, x));
+                    y = Math.max(-5, Math.min(5, y));
+                    z = Math.max(-5, Math.min(5, z));
+                    
+                    // Update position
+                    positions[i3] = x;
+                    positions[i3 + 1] = y;
+                    positions[i3 + 2] = z;
+                    
+                    // Update color based on phase or probability
+                    if (this.params.colorPhase) {
+                        // Color by phase
+                        const hue = (wave.phase / (2 * Math.PI) + 0.5) % 1;
+                        const s = 1;
+                        const l = 0.5 * Math.min(1, wave.probability * 3);
+                        
+                        // Convert HSL to RGB
+                        const { r, g, b } = this.hslToRgb(hue, s, l);
+                        colors[i3] = r;
+                        colors[i3 + 1] = g;
+                        colors[i3 + 2] = b;
+                    } else {
+                        // Color by probability
+                        const intensity = Math.min(1, wave.probability * 2);
+                        colors[i3] = 0.5 * intensity;
+                        colors[i3 + 1] = 0.5 * intensity;
+                        colors[i3 + 2] = intensity;
+                    }
+                }
+                
+                // Update the geometry attributes
+                this.particleSystem.geometry.attributes.position.needsUpdate = true;
+                this.particleSystem.geometry.attributes.color.needsUpdate = true;
+                
+                // Update particle size
+                this.particleSystem.material.size = this.params.particleSize;
+            }
+            
+            updateSurfaceGeometry(geometry, time) {
+                if (!geometry) return;
+                
+                const positions = geometry.attributes.position.array;
+                const vertexCount = positions.length / 3;
+                
+                // Map of vertices to track which ones are inside the isosurface
+                const isInsideSurface = new Float32Array(vertexCount);
+                
+                // Apply wave function to each vertex
+                for (let i = 0; i < vertexCount; i++) {
+                    const i3 = i * 3;
+                    
+                    // Get the original position
+                    const x = this.surfaceVertices[i3] * 0.5;
+                    const y = this.surfaceVertices[i3 + 1] * 0.5;
+                    const z = this.surfaceVertices[i3 + 2] * 0.5;
+                    
+                    // Calculate wave function at this position
+                    const { probability } = this.calculateWaveFunction(x, y, z, time);
+                    
+                    // Determine if this vertex is inside the isosurface
+                    isInsideSurface[i] = probability >= this.params.isoLevel ? 1 : 0;
+                    
+                    // Scale vertices based on probability to create the isosurface effect
+                    const scaleFactor = isInsideSurface[i] ? 1.0 : 0.9;
+                    positions[i3] = this.surfaceVertices[i3] * scaleFactor;
+                    positions[i3 + 1] = this.surfaceVertices[i3 + 1] * scaleFactor;
+                    positions[i3 + 2] = this.surfaceVertices[i3 + 2] * scaleFactor;
+                }
+                
+                // Update the geometry
+                geometry.attributes.position.needsUpdate = true;
+                geometry.computeVertexNormals();
+            }
+            
+            updateGeometry() {
+                // Completely recreate the geometries with new parameters
+                this.createGeometry();
+            }
+            
+            updateVisualization() {
+                // Show/hide particle system and surface mesh based on view mode
+                if (this.particleSystem) {
+                    this.particleSystem.visible = 
+                        this.params.viewMode === 'particles' || this.params.viewMode === 'both';
+                }
+                
+                if (this.surfaceMesh) {
+                    this.surfaceMesh.visible = 
+                        this.params.viewMode === 'surface' || this.params.viewMode === 'both';
+                }
+            }
+            
+            updateColors() {
+                this.updateParticles();
+            }
+            
+            resetCamera() {
+                // Reset camera to default position
+                gsap.to(this.camera.position, {
+                    x: 10,
+                    y: 7,
+                    z: 10,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onUpdate: () => {
+                        this.camera.lookAt(0, 0, 0);
+                    }
+                });
+                
+                // Reset controls target
+                gsap.to(this.controls.target, {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                    duration: 1,
+                    ease: "power2.inOut"
+                });
+            }
+            
+            applyPreset() {
+                const preset = this.presets[this.params.presets];
+                if (!preset) return;
+                
+                // Apply preset parameters
+                for (const key in preset) {
+                    if (this.params.hasOwnProperty(key)) {
+                        this.params[key] = preset[key];
+                    }
+                }
+                
+                // Update the GUI controllers
+                for (let i = 0; i < this.gui.__controllers.length; i++) {
+                    this.gui.__controllers[i].updateDisplay();
+                }
+                
+                // Update the geometry
+                this.updateGeometry();
+            }
+            
+            onWindowResize() {
+                // Update camera and renderer on window resize
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            
+            animate() {
+                requestAnimationFrame(this.animate.bind(this));
+                
+                // Update time
+                if (this.params.animate) {
+                    const delta = this.clock.getDelta();
+                    this.time += delta * this.params.timeScale;
+                }
+                
+                // Update particles
+                this.updateParticles();
+                
+                // Update surface mesh
+                if (this.surfaceMesh && this.params.animate) {
+                    this.updateSurfaceGeometry(this.surfaceMesh.geometry, this.time);
+                }
+                
+                // Update controls
+                this.controls.update();
+                
+                // Render the scene
+                this.renderer.render(this.scene, this.camera);
+            }
+            
+            // Utility function to convert HSL to RGB
+            hslToRgb(h, s, l) {
+                let r, g, b;
+                
+                if (s === 0) {
+                    r = g = b = l; // achromatic
+                } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1;
+                        if (t > 1) t -= 1;
+                        if (t < 1/6) return p + (q - p) * 6 * t;
+                        if (t < 1/2) return q;
+                        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                        return p;
+                    };
+                    
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1/3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1/3);
+                }
+                
+                return { r, g, b };
+            }
+        }
+        
+        // Application will be initialized after OrbitControls is loaded
+    </script>
+</body>
+</html>

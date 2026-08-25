@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>量子波函数可视化器</title>
+    <style>
+        /* 这里保持原有样式不变 */
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        #container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #left-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100%;
+            background: rgba(240, 240, 245, 0.9);
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            z-index: 100;
+            border-right: 1px solid #ccc;
+        }
+        #right-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 100%;
+            background: rgba(240, 240, 245, 0.9);
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            z-index: 100;
+            border-left: 1px solid #ccc;
+        }
+        #info {
+            position: absolute;
+            bottom: 10px;
+            left: 320px;
+            background: rgba(240, 240, 245, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 600px;
+            z-index: 100;
+        }
+        .dg.main {
+            margin-right: 0 !important;
+        }
+        h2, h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .equation {
+            margin: 10px 0;
+            font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .file-item {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            background: #e0e0e0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .file-item:hover {
+            background: #d0d0d0;
+        }
+        .file-checkbox {
+            margin-right: 10px;
+        }
+        .wave-group {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f5f5f5;
+        }
+        button {
+            background: #4c6ef5;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #364fc7;
+        }
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+        .wave-checkbox {
+            margin-right: 10px;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none;
+        }
+        .info-message {
+            background: #e0f7fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .warning-message {
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .error-message {
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <!-- 左侧面板: 文件管理 -->
+    <div id="left-panel">
+        <h2>波函数文件</h2>
+        <div class="input-group">
+            <label for="export-filename">导出文件名:</label>
+            <input type="text" id="export-filename" value="default_wave_params.json">
+        </div>
+        
+        <button id="export-btn">导出当前参数</button>
+        <button id="scan-files-btn">扫描 JSON 文件</button>
+        <div id="loader" class="loader hidden"></div>
+        
+        <div id="status-message" class="info-message hidden"></div>
+        
+        <h3>可用文件:</h3>
+        <div id="file-list">
+            <!-- 文件项将动态添加在这里 -->
+            <div class="info-message">点击"扫描 JSON 文件"以搜索可用的波函数文件。</div>
+        </div>
+        
+        <h3>已加载波函数:</h3>
+        <div id="wave-list">
+            <!-- 波函数项将动态添加在这里 -->
+            <div class="info-message">尚未加载波函数。请在上面选择 JSON 文件。</div>
+        </div>
+    </div>
+    
+    <!-- 右侧面板: 波函数控制 -->
+    <div id="right-panel">
+        <h2>波函数控制</h2>
+        <div id="gui-container">
+            <!-- GUI 控件将注入在这里 -->
+        </div>
+    </div>
+    
+    <div id="info">
+        <h3>量子波函数可视化</h3>
+        <p>此可视化显示量子波函数的 3D 概率密度云。</p>
+        <div class="equation">ψ(r,t) = A·exp(i(k·r - ωt))·exp(-(r-r₀-vt)²/(2σ²))</div>
+        <p>使用控件调整波参数。左键单击 + 拖动旋转，右键单击 + 拖动平移，滚动缩放。</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        // 预定义JSON数据，用于模拟文件功能
+        const mockJsonData = {
+            'default_wave_params.json': {
+                "waveFunctions": [
+                    {
+                        "id": 0,
+                        "name": "默认波函数",
+                        "amplitude": 1.0,
+                        "kx": 1.0,
+                        "ky": 0.5,
+                        "kz": 0.3,
+                        "omega": 2.0,
+                        "sigmaX": 1.5,
+                        "sigmaY": 1.5,
+                        "sigmaZ": 1.5,
+                        "centerX": 0.0,
+                        "centerY": 0.0,
+                        "centerZ": 0.0,
+                        "velocityX": 0.2,
+                        "velocityY": 0.0,
+                        "velocityZ": 0.0,
+                        "color": "#4c6ef5",
+                        "visible": true
+                    }
+                ],
+                "metadata": {
+                    "description": "默认波函数参数",
+                    "created": "2025-03-15T12:00:00Z",
+                    "version": "1.0"
+                }
+            },
+            'multi_wave_params.json': {
+                "waveFunctions": [
+                    {
+                        "id": 0,
+                        "name": "自由粒子波函数",
+                        "amplitude": 1.0,
+                        "kx": 2.0,
+                        "ky": 0.0,
+                        "kz": 0.0,
+                        "omega": 2.0,
+                        "sigmaX": 2.0,
+                        "sigmaY": 2.0,
+                        "sigmaZ": 2.0,
+                        "centerX": -1.5,
+                        "centerY": 0.0,
+                        "centerZ": 0.0,
+                        "velocityX": 0.5,
+                        "velocityY": 0.0,
+                        "velocityZ": 0.0,
+                        "color": "#4c6ef5",
+                        "visible": true
+                    },
+                    {
+                        "id": 1,
+                        "name": "干涉波函数",
+                        "amplitude": 1.0,
+                        "kx": -2.0,
+                        "ky": 0.0,
+                        "kz": 0.0,
+                        "omega": 2.0,
+                        "sigmaX": 2.0,
+                        "sigmaY": 2.0,
+                        "sigmaZ": 2.0,
+                        "centerX": 1.5,
+                        "centerY": 0.0,
+                        "centerZ": 0.0,
+                        "velocityX": -0.5,
+                        "velocityY": 0.0,
+                        "velocityZ": 0.0,
+                        "color": "#e74c3c",
+                        "visible": true
+                    }
+                ],
+                "metadata": {
+                    "description": "包含两个波函数的参数集",
+                    "created": "2025-03-15T12:30:00Z",
+                    "version": "1.0"
+                }
+            }
+        };
+        
+        // 主应用程序
+        class WaveFunctionVisualizer {
+            constructor() {
+                // 所有波函数对象
+                this.waveFunctions = [];
+                
+                // 当前活动波函数索引（用于编辑）
+                this.activeWaveIndex = -1;
+                
+                // 默认波函数参数
+                this.defaultWaveParams = {
+                    id: 0,
+                    name: "默认波函数",
+                    amplitude: 1.0,
+                    kx: 1.0,
+                    ky: 0.5,
+                    kz: 0.3,
+                    omega: 2.0,
+                    sigmaX: 1.5,
+                    sigmaY: 1.5,
+                    sigmaZ: 1.5,
+                    centerX: 0,
+                    centerY: 0,
+                    centerZ: 0,
+                    velocityX: 0.2,
+                    velocityY: 0,
+                    velocityZ: 0,
+                    color: "#4c6ef5",
+                    visible: true
+                };
+                
+                // 可视化参数
+                this.visualParams = {
+                    resolution: 20,
+                    isoLevel: 0.3,
+                    particleCount: 10000,
+                    particleSize: 0.05,
+                    colorPhase: true,
+                    animate: true,
+                    timeScale: 1.0,
+                    showAxes: true,
+                    showGrid: true,
+                    viewMode: 'particles',  // 'particles', 'surface', 'both'
+                    resetCamera: () => this.resetCamera(),
+                    updateGeometry: () => this.updateGeometry()
+                };
+                
+                // 添加默认波函数
+                this.addWaveFunction(this.defaultWaveParams);
+                
+                // 设置 DOM 元素
+                this.setupDOM();
+                
+                // 设置 Three.js 场景
+                this.setupScene();
+                
+                // 设置控件
+                this.setupControls();
+                
+                // 创建几何体
+                this.createAllGeometries();
+                
+                // 开始动画循环
+                this.animate();
+            }
+            
+            setupDOM() {
+                // 获取 DOM 元素
+                this.container = document.getElementById('container');
+                this.fileList = document.getElementById('file-list');
+                this.waveList = document.getElementById('wave-list');
+                this.scanButton = document.getElementById('scan-files-btn');
+                this.exportButton = document.getElementById('export-btn');
+                this.loader = document.getElementById('loader');
+                this.statusMessage = document.getElementById('status-message');
+                this.exportFilename = document.getElementById('export-filename');
+                
+                // 添加事件监听器
+                this.scanButton.addEventListener('click', () => this.scanForJSONFiles());
+                this.exportButton.addEventListener('click', () => this.exportCurrentParameters());
+            }
+            
+            setupScene() {
+                // 创建场景
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(0x0c0c1c);
+                
+                // 相机
+                this.camera = new THREE.PerspectiveCamera(
+                    60, window.innerWidth / window.innerHeight, 0.1, 1000
+                );
+                this.camera.position.set(10, 7, 10);
+                this.camera.lookAt(0, 0, 0);
+                
+                // 渲染器
+                this.renderer = new THREE.WebGLRenderer({ antialias: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                this.container.appendChild(this.renderer.domElement);
+                
+                // 灯光
+                const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
+                this.scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(1, 2, 3);
+                this.scene.add(directionalLight);
+                
+                // 添加坐标轴
+                this.axesHelper = new THREE.AxesHelper(5);
+                this.scene.add(this.axesHelper);
+                
+                // 添加网格
+                this.gridHelper = new THREE.GridHelper(10, 10);
+                this.scene.add(this.gridHelper);
+                
+                // 窗口大小调整事件
+                window.addEventListener('resize', this.onWindowResize.bind(this), false);
+                
+                // 时间跟踪
+                this.clock = new THREE.Clock();
+                this.time = 0;
+            }
+            
+            setupControls() {
+                // 创建 OrbitControls 控件
+                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.1;
+                
+                // 创建 dat.GUI 控件
+                this.gui = new dat.GUI({ autoPlace: false });
+                document.getElementById('gui-container').appendChild(this.gui.domElement);
+                
+                // 添加波选择控件
+                const waveSelectFolder = this.gui.addFolder('波函数选择');
+                waveSelectFolder.add(this, 'activeWaveIndex', { 
+                    "默认波函数": 0 
+                }).name('当前波函数').onChange(() => this.updateActiveWaveGUI());
+                waveSelectFolder.open();
+                
+                // 函数参数文件夹
+                this.waveFolder = this.gui.addFolder('波函数参数');
+                
+                // 可视化参数文件夹
+                const visualFolder = this.gui.addFolder('可视化');
+                visualFolder.add(this.visualParams, 'viewMode', ['particles', 'surface', 'both'])
+                    .name('视图模式').onChange(() => this.updateVisualization());
+                visualFolder.add(this.visualParams, 'resolution', 10, 40).step(5)
+                    .name('分辨率').onChange(() => this.updateGeometry());
+                visualFolder.add(this.visualParams, 'isoLevel', 0.01, 0.9).step(0.01)
+                    .name('等值面等级').onChange(() => this.updateIsosurfaces());
+                visualFolder.add(this.visualParams, 'particleCount', 1000, 30000).step(1000)
+                    .name('粒子数量').onChange(() => this.updateParticleSystems());
+                visualFolder.add(this.visualParams, 'particleSize', 0.01, 0.2).step(0.01)
+                    .name('粒子大小').onChange(() => this.updateParticleSystems());
+                visualFolder.add(this.visualParams, 'colorPhase')
+                    .name('按相位着色').onChange(() => this.updateParticleSystems());
+                visualFolder.open();
+                
+                // 动画文件夹
+                const animFolder = this.gui.addFolder('动画');
+                animFolder.add(this.visualParams, 'animate').name('动画');
+                animFolder.add(this.visualParams, 'timeScale', 0.1, 3.0).step(0.1).name('时间比例');
+                animFolder.open();
+                
+                // 显示文件夹
+                const displayFolder = this.gui.addFolder('显示选项');
+                displayFolder.add(this.visualParams, 'showAxes').name('显示坐标轴').onChange(() => {
+                    this.axesHelper.visible = this.visualParams.showAxes;
+                });
+                displayFolder.add(this.visualParams, 'showGrid').name('显示网格').onChange(() => {
+                    this.gridHelper.visible = this.visualParams.showGrid;
+                });
+                displayFolder.add(this.visualParams, 'resetCamera').name('重置相机视图');
+                displayFolder.add(this.visualParams, 'updateGeometry').name('重建可视化');
+                displayFolder.open();
+                
+                // 初始化活动波 GUI
+                this.updateActiveWaveGUI();
+            }
+            
+            updateActiveWaveGUI() {
+                // 清除先前的波参数控件
+                if (this.waveFolder.__controllers) {
+                    while (this.waveFolder.__controllers.length > 0) {
+                        this.waveFolder.remove(this.waveFolder.__controllers[0]);
+                    }
+                }
+                
+                if (this.activeWaveIndex >= 0 && this.activeWaveIndex < this.waveFunctions.length) {
+                    const wave = this.waveFunctions[this.activeWaveIndex];
+                    
+                    // 为活动波添加控件
+                    this.waveFolder.add(wave, 'name').name('波函数名称');
+                    this.waveFolder.add(wave, 'amplitude', 0.1, 3.0).step(0.1)
+                        .onChange(() => this.updateGeometry());
+                    // 波矢量参数
+                    this.waveFolder.add(wave, 'kx', -5.0, 5.0).step(0.1).name('k_x')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'ky', -5.0, 5.0).step(0.1).name('k_y')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'kz', -5.0, 5.0).step(0.1).name('k_z')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'omega', 0.1, 10.0).step(0.1).name('ω')
+                        .onChange(() => this.updateGeometry());
+                    
+                    // Sigma 参数
+                    this.waveFolder.add(wave, 'sigmaX', 0.1, 5.0).step(0.1).name('σ_x')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'sigmaY', 0.1, 5.0).step(0.1).name('σ_y')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'sigmaZ', 0.1, 5.0).step(0.1).name('σ_z')
+                        .onChange(() => this.updateGeometry());
+                    
+                    // 中心位置
+                    this.waveFolder.add(wave, 'centerX', -5.0, 5.0).step(0.1).name('中心_x')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'centerY', -5.0, 5.0).step(0.1).name('中心_y')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'centerZ', -5.0, 5.0).step(0.1).name('中心_z')
+                        .onChange(() => this.updateGeometry());
+                    
+                    // 速度参数
+                    this.waveFolder.add(wave, 'velocityX', -1.0, 1.0).step(0.05).name('v_x')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'velocityY', -1.0, 1.0).step(0.05).name('v_y')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'velocityZ', -1.0, 1.0).step(0.05).name('v_z')
+                        .onChange(() => this.updateGeometry());
+                    
+                    // 附加显示选项
+                    this.waveFolder.addColor(wave, 'color')
+                        .onChange(() => this.updateGeometry());
+                    this.waveFolder.add(wave, 'visible')
+                        .onChange(() => this.updateWaveVisibility(this.activeWaveIndex));
+                }
+                
+                this.waveFolder.open();
+            }
+            
+            addWaveFunction(params) {
+                // 创建参数副本
+                const wave = Object.assign({}, params);
+                
+                // 如果未提供 ID，则设置默认 ID
+                if (wave.id === undefined) {
+                    wave.id = this.waveFunctions.length;
+                }
+                
+                // 如果未提供名称，则设置默认名称
+                if (wave.name === undefined) {
+                    wave.name = `波函数 ${wave.id}`;
+                }
+                
+                // 添加到集合
+                this.waveFunctions.push(wave);
+                
+                // 为此波创建几何体
+                if (this.scene) {
+                    this.createWaveGeometry(this.waveFunctions.length - 1);
+                }
+                
+                // 更新左侧面板中的波列表
+                this.updateWaveList();
+                
+                // 如果这是第一个波，则使其处于活动状态
+                if (this.waveFunctions.length === 1) {
+                    this.activeWaveIndex = 0;
+                    if (this.gui) {
+                        this.updateActiveWaveGUI();
+                        this.updateWaveSelectionControl();
+                    }
+                } else if (this.gui) {
+                    // 只更新波选择控件
+                    this.updateWaveSelectionControl();
+                }
+                
+                return this.waveFunctions.length - 1;
+            }
+            
+            updateWaveSelectionControl() {
+                // 获取波选择控制器
+                const controller = this.gui.__folders['波函数选择'].__controllers[0];
+                
+                // 创建波名称到索引的映射
+                const options = {};
+                this.waveFunctions.forEach((wave, index) => {
+                    options[wave.name] = index;
+                });
+                
+                // 更新控制器
+                controller.options(options);
+                controller.updateDisplay();
+            }
+            
+            createAllGeometries() {
+                // 为每个波函数创建几何体
+                this.waveFunctions.forEach((wave, index) => {
+                    this.createWaveGeometry(index);
+                });
+            }
+            
+            createWaveGeometry(waveIndex) {
+                if (waveIndex < 0 || waveIndex >= this.waveFunctions.length) return;
+                
+                const wave = this.waveFunctions[waveIndex];
+                
+                // 为此波的可视化对象创建容器
+                if (!wave.objects) {
+                    wave.objects = {
+                        particles: null,
+                        surface: null,
+                        particlePositions: null,
+                        particleColors: null,
+                        surfaceVertices: null
+                    };
+                }
+                
+                // 为此波创建粒子系统
+                this.createParticleSystem(waveIndex);
+                
+                // 为此波创建等值面
+                this.createIsosurface(waveIndex);
+            }
+            
+            createParticleSystem(waveIndex) {
+                if (waveIndex < 0 || waveIndex >= this.waveFunctions.length) return;
+                
+                const wave = this.waveFunctions[waveIndex];
+                
+                // 如果有，则删除现有粒子系统
+                if (wave.objects.particles) {
+                    this.scene.remove(wave.objects.particles);
+                }
+                
+                // 计算此波的粒子数量
+                const particleCount = Math.floor(this.visualParams.particleCount / this.waveFunctions.length);
+                
+                // 创建粒子系统
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+                
+                // 存储数组以供后续更新
+                wave.objects.particlePositions = positions;
+                wave.objects.particleColors = colors;
+                
+                // 使用随机位置初始化粒子
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    // 在盒子内生成位置
+                    positions[i] = (Math.random() - 0.5) * 10;
+                    positions[i + 1] = (Math.random() - 0.5) * 10;
+                    positions[i + 2] = (Math.random() - 0.5) * 10;
+                    
+                    // 默认颜色（基于 wave.color）
+                    const color = new THREE.Color(wave.color);
+                    colors[i] = color.r;
+                    colors[i + 1] = color.g;
+                    colors[i + 2] = color.b;
+                }
+                
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+                
+                // 粒子材质
+                const material = new THREE.PointsMaterial({
+                    size: this.visualParams.particleSize,
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending,
+                    sizeAttenuation: true
+                });
+                
+                // 创建粒子系统
+                wave.objects.particles = new THREE.Points(geometry, material);
+                wave.objects.particles.visible = wave.visible;
+                this.scene.add(wave.objects.particles);
+                
+                // 基于波函数更新粒子位置
+                this.updateParticleSystem(waveIndex);
+            }
+            
+            createIsosurface(waveIndex) {
+                if (waveIndex < 0 || waveIndex >= this.waveFunctions.length) return;
+                
+                const wave = this.waveFunctions[waveIndex];
+                
+                // 如果有，则删除现有等值面
+                if (wave.objects.surface) {
+                    this.scene.remove(wave.objects.surface);
+                }
+                
+                // 根据波的数量计算分辨率
+                const resolution = Math.max(10, Math.floor(this.visualParams.resolution / Math.sqrt(this.waveFunctions.length)));
+
+                // 创建等值面材质
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: new THREE.Color(wave.color),
+                    transparent: true,
+                    opacity: 0.65 / this.waveFunctions.length,
+                    roughness: 0.3,
+                    metalness: 0.2,
+                    side: THREE.DoubleSide
+                });
+                
+                // 创建盒子几何体
+                const boxGeometry = new THREE.BoxGeometry(
+                    10, 10, 10, resolution, resolution, resolution
+                );
+                
+                // 提取位置
+                const positions = boxGeometry.attributes.position.array;
+                const vertexCount = positions.length / 3;
+                
+                // 存储原始位置以供动画使用
+                wave.objects.surfaceVertices = new Float32Array(positions.length);
+                for (let i = 0; i < positions.length; i++) {
+                    wave.objects.surfaceVertices[i] = positions[i];
+                }
+                
+                // 应用波函数变形几何体
+                this.updateSurfaceGeometry(boxGeometry, wave, this.time);
+                
+                // 创建网格
+                wave.objects.surface = new THREE.Mesh(boxGeometry, material);
+                wave.objects.surface.visible = wave.visible;
+                this.scene.add(wave.objects.surface);
+            }
+            
+            calculateWaveFunction(x, y, z, t, wave) {
+                // 从波提取参数
+                const {
+                    amplitude, kx, ky, kz, omega, sigmaX, sigmaY, sigmaZ,
+                    centerX, centerY, centerZ, velocityX, velocityY, velocityZ
+                } = wave;
+                
+                // 计算波矢量分量
+                const kDotR = kx * x + ky * y + kz * z;
+                const omegaT = omega * t;
+                
+                // 计算相位
+                const phase = kDotR - omegaT;
+                
+                // 计算高斯包络
+                const dx = x - (centerX + velocityX * t);
+                const dy = y - (centerY + velocityY * t);
+                const dz = z - (centerZ + velocityZ * t);
+                
+                const exponent = -0.5 * (
+                    (dx * dx) / (sigmaX * sigmaX) +
+                    (dy * dy) / (sigmaY * sigmaY) +
+                    (dz * dz) / (sigmaZ * sigmaZ)
+                );
+                
+                // 计算包络
+                const envelope = Math.exp(exponent);
+                
+                // 实部和虚部
+                const real = amplitude * envelope * Math.cos(phase);
+                const imag = amplitude * envelope * Math.sin(phase);
+                
+                // 概率密度是 |ψ|²
+                const probability = real * real + imag * imag;
+                
+                return {
+                    real: real,
+                    imag: imag,
+                    probability: probability,
+                    phase: Math.atan2(imag, real)
+                };
+            }
+            
+            updateParticleSystem(waveIndex) {
+                if (waveIndex < 0 || waveIndex >= this.waveFunctions.length) return;
+                
+                const wave = this.waveFunctions[waveIndex];
+                if (!wave.objects || !wave.objects.particles) return;
+                
+                const positions = wave.objects.particlePositions;
+                const colors = wave.objects.particleColors;
+                const particleCount = positions.length / 3;
+                
+                // 根据概率密度计算粒子的新位置
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    
+                    // 当前位置
+                    let x = positions[i3];
+                    let y = positions[i3 + 1];
+                    let z = positions[i3 + 2];
+                    
+                    // 计算此位置的波函数
+                    const waveData = this.calculateWaveFunction(x, y, z, this.time, wave);
+                    
+                    // 概率性地更新粒子位置
+                    // 添加轻微的随机运动
+                    x += (Math.random() - 0.5) * 0.1;
+                    y += (Math.random() - 0.5) * 0.1;
+                    z += (Math.random() - 0.5) * 0.1;
+                    
+                    // 如果粒子在低概率区域，则随机移动它
+                    if (waveData.probability < 0.01 || Math.random() > waveData.probability * 2) {
+                        // 以更高的概率在中心附近重新生成位置
+                        if (Math.random() < 0.01) {
+                            x = (Math.random() - 0.5) * 10;
+                            y = (Math.random() - 0.5) * 10;
+                            z = (Math.random() - 0.5) * 10;
+                        }
+                    }
+                    
+                    // 保持在边界内
+                    x = Math.max(-5, Math.min(5, x));
+                    y = Math.max(-5, Math.min(5, y));
+                    z = Math.max(-5, Math.min(5, z));
+                    
+                    // 更新位置
+                    positions[i3] = x;
+                    positions[i3 + 1] = y;
+                    positions[i3 + 2] = z;
+                    
+                    // 根据相位或概率更新颜色
+                    if (this.visualParams.colorPhase) {
+                        // 按相位着色
+                        const hue = (waveData.phase / (2 * Math.PI) + 0.5) % 1;
+                        const s = 1;
+                        const l = 0.5 * Math.min(1, waveData.probability * 3);
+                        
+                        // 将 HSL 转换为 RGB
+                        const { r, g, b } = this.hslToRgb(hue, s, l);
+                        colors[i3] = r;
+                        colors[i3 + 1] = g;
+                        colors[i3 + 2] = b;
+                    } else {
+                        // 使用波的颜色按概率着色
+                        const baseColor = new THREE.Color(wave.color);
+                        const intensity = Math.min(1, waveData.probability * 2);
+                        colors[i3] = baseColor.r * intensity;
+                        colors[i3 + 1] = baseColor.g * intensity;
+                        colors[i3 + 2] = baseColor.b * intensity;
+                    }
+                }
+                
+                // 更新几何体属性
+                wave.objects.particles.geometry.attributes.position.needsUpdate = true;
+                wave.objects.particles.geometry.attributes.color.needsUpdate = true;
+                
+                // 更新粒子大小
+                wave.objects.particles.material.size = this.visualParams.particleSize;
+            }
+            
+            updateSurfaceGeometry(geometry, wave, time) {
+                if (!geometry || !wave) return;
+                
+                const positions = geometry.attributes.position.array;
+                const vertexCount = positions.length / 3;
+                
+                // 对每个顶点应用波函数
+                for (let i = 0; i < vertexCount; i++) {
+                    const i3 = i * 3;
+                    
+                    // 获取原始位置
+                    const x = wave.objects.surfaceVertices[i3] * 0.5;
+                    const y = wave.objects.surfaceVertices[i3 + 1] * 0.5;
+                    const z = wave.objects.surfaceVertices[i3 + 2] * 0.5;
+                    
+                    // 计算此位置的波函数
+                    const { probability } = this.calculateWaveFunction(x, y, z, time, wave);
+                    
+                    // 确定此顶点是否在等值面内
+                    const isInside = probability >= this.visualParams.isoLevel ? 1 : 0;
+                    
+                    // 基于概率缩放顶点以创建等值面效果
+                    const scaleFactor = isInside ? 1.0 : 0.9;
+                    positions[i3] = wave.objects.surfaceVertices[i3] * scaleFactor;
+                    positions[i3 + 1] = wave.objects.surfaceVertices[i3 + 1] * scaleFactor;
+                    positions[i3 + 2] = wave.objects.surfaceVertices[i3 + 2] * scaleFactor;
+                }
+                
+                // 更新几何体
+                geometry.attributes.position.needsUpdate = true;
+                geometry.computeVertexNormals();
+            }
+            
+            updateGeometry() {
+                // 重新创建所有几何体
+                this.waveFunctions.forEach((wave, index) => {
+                    this.createWaveGeometry(index);
+                });
+                
+                // 更新可视化
+                this.updateVisualization();
+            }
+            
+            updateIsosurfaces() {
+                // 使用新的等值面级别更新所有等值面
+                this.waveFunctions.forEach((wave, index) => {
+                    if (wave.objects && wave.objects.surface) {
+                        this.updateSurfaceGeometry(wave.objects.surface.geometry, wave, this.time);
+                    }
+                });
+            }
+            
+            updateParticleSystems() {
+                // 使用新设置重新创建粒子系统
+                this.waveFunctions.forEach((wave, index) => {
+                    this.createParticleSystem(index);
+                });
+            }
+            
+            updateVisualization() {
+                // 根据视图模式显示/隐藏元素
+                this.waveFunctions.forEach(wave => {
+                    if (wave.objects) {
+                        if (wave.objects.particles) {
+                            wave.objects.particles.visible = 
+                                wave.visible && (this.visualParams.viewMode === 'particles' || 
+                                               this.visualParams.viewMode === 'both');
+                        }
+                        
+                        if (wave.objects.surface) {
+                            wave.objects.surface.visible = 
+                                wave.visible && (this.visualParams.viewMode === 'surface' || 
+                                               this.visualParams.viewMode === 'both');
+                        }
+                    }
+                });
+            }
+            
+            updateWaveVisibility(waveIndex) {
+                if (waveIndex < 0 || waveIndex >= this.waveFunctions.length) return;
+                
+                const wave = this.waveFunctions[waveIndex];
+                
+                if (wave.objects) {
+                    if (wave.objects.particles) {
+                        wave.objects.particles.visible = 
+                            wave.visible && (this.visualParams.viewMode === 'particles' || 
+                                           this.visualParams.viewMode === 'both');
+                    }
+                    
+                    if (wave.objects.surface) {
+                        wave.objects.surface.visible = 
+                            wave.visible && (this.visualParams.viewMode === 'surface' || 
+                                           this.visualParams.viewMode === 'both');
+                    }
+                }
+                
+                // 更新波列表复选框
+                this.updateWaveList();
+            }
+            
+            resetCamera() {
+                // 将相机重置为默认位置
+                gsap.to(this.camera.position, {
+                    x: 10, y: 7, z: 10,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onUpdate: () => {
+                        this.camera.lookAt(0, 0, 0);
+                    }
+                });
+                
+                // 重置控件目标
+                gsap.to(this.controls.target, {
+                    x: 0, y: 0, z: 0,
+                    duration: 1,
+                    ease: "power2.inOut"
+                });
+            }
+            
+            onWindowResize() {
+                // 在窗口大小调整时更新相机和渲染器
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            
+            animate() {
+                requestAnimationFrame(this.animate.bind(this));
+                
+                // 更新时间
+                if (this.visualParams.animate) {
+                    const delta = this.clock.getDelta();
+                    this.time += delta * this.visualParams.timeScale;
+                }
+                
+                // 更新所有粒子系统
+                this.waveFunctions.forEach((wave, index) => {
+                    if (wave.visible) {
+                        this.updateParticleSystem(index);
+                        
+                        // 更新表面网格
+                        if (wave.objects && wave.objects.surface && this.visualParams.animate) {
+                            this.updateSurfaceGeometry(wave.objects.surface.geometry, wave, this.time);
+                        }
+                    }
+                });
+                
+                // 更新控件
+                if (this.controls) {
+                    this.controls.update();
+                }
+                
+                // 渲染场景
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            // 文件处理方法
+            scanForJSONFiles() {
+                this.showLoader(true);
+                this.showStatusMessage('扫描 JSON 波函数文件...', 'info');
+                
+                // 模拟扫描操作
+                setTimeout(() => {
+                    this.showLoader(false);
+                    this.showStatusMessage('找到2个 JSON 文件。', 'info');
+                    
+                    // 清除现有文件列表
+                    this.fileList.innerHTML = '';
+                    
+                    // 添加模拟文件
+                    const mockFiles = [
+                        { name: 'default_wave_params.json', description: '默认波函数参数' },
+                        { name: 'multi_wave_params.json', description: '多波函数参数' }
+                    ];
+                    
+                    mockFiles.forEach(file => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'file-checkbox';
+                        checkbox.dataset.filename = file.name;
+                        checkbox.addEventListener('change', (e) => {
+                            this.toggleJSONFile(file.name, e.target.checked);
+                        });
+                        
+                        const fileNameSpan = document.createElement('span');
+                        fileNameSpan.textContent = file.name;
+                        fileNameSpan.title = file.description;
+                        
+                        fileItem.appendChild(checkbox);
+                        fileItem.appendChild(fileNameSpan);
+                        
+                        this.fileList.appendChild(fileItem);
+                    });
+                }, 1000);
+            }
+            
+            toggleJSONFile(filename, isChecked) {
+                console.log(`Toggle file: ${filename}, checked: ${isChecked}`);
+                if (isChecked) {
+                    this.loadJSONFile(filename);
+                } else {
+                    this.unloadJSONFile(filename);
+                }
+            }
+            
+            loadJSONFile(filename) {
+                this.showLoader(true);
+                this.showStatusMessage(`加载 ${filename}...`, 'info');
+                
+                // 使用预定义的 JSON 数据而不是加载实际文件
+                setTimeout(() => {
+                    this.showLoader(false);
+                    
+                    if (filename in mockJsonData) {
+                        const jsonData = mockJsonData[filename];
+                        
+                        // 加载成功消息
+                        this.showStatusMessage(`已加载 ${filename}。`, 'info');
+                        
+                        // 清除现有波函数
+                        this.clearAllWaveFunctions();
+                        
+                        // 添加从 JSON 加载的波函数
+                        if (jsonData.waveFunctions && Array.isArray(jsonData.waveFunctions)) {
+                            jsonData.waveFunctions.forEach(waveParams => {
+                                this.addWaveFunction(waveParams);
+                            });
+                            
+                            // 设置第一个波函数为活动波函数
+                            if (this.waveFunctions.length > 0) {
+                                this.activeWaveIndex = 0;
+                                if (this.gui) {
+                                    this.updateActiveWaveGUI();
+                                    this.updateWaveSelectionControl();
+                                }
+                            }
+                            
+                            // 更新波函数列表
+                            this.updateWaveList();
+                        }
+                    } else {
+                        this.showStatusMessage(`无法加载 ${filename}: 文件未找到`, 'error');
+                    }
+                }, 1500);
+            }
+            
+            unloadJSONFile(filename) {
+                this.showStatusMessage(`已卸载 ${filename}。`, 'info');
+                
+                // 清除与此文件相关的波函数
+                this.clearAllWaveFunctions();
+                
+                // 重置活动波函数索引
+                this.activeWaveIndex = -1;
+                
+                // 添加默认波函数
+                this.addWaveFunction(this.defaultWaveParams);
+                
+                // 更新波函数选择控件
+                if (this.gui) {
+                    this.updateWaveSelectionControl();
+                    this.updateActiveWaveGUI();
+                }
+            }
+            
+            clearAllWaveFunctions() {
+                // 移除所有波函数对象
+                this.waveFunctions.forEach(wave => {
+                    if (wave.objects) {
+                        if (wave.objects.particles) {
+                            this.scene.remove(wave.objects.particles);
+                        }
+                        if (wave.objects.surface) {
+                            this.scene.remove(wave.objects.surface);
+                        }
+                    }
+                });
+                
+                // 清空波函数数组
+                this.waveFunctions = [];
+                
+                // 更新波函数列表
+                this.updateWaveList();
+            }
+            
+            updateWaveList() {
+                // 更新左侧面板中的波列表
+                this.waveList.innerHTML = '';
+                
+                if (this.waveFunctions.length === 0) {
+                    const message = document.createElement('div');
+                    message.className = 'info-message';
+                    message.textContent = '尚未加载波函数。请在上面选择 JSON 文件。';
+                    this.waveList.appendChild(message);
+                    return;
+                }
+                
+                // 将每个波添加到列表中
+                this.waveFunctions.forEach((wave, index) => {
+                    const waveItem = document.createElement('div');
+                    waveItem.className = 'wave-group';
+                    
+                    // 创建带有复选框的标题
+                    const header = document.createElement('div');
+                    header.style.display = 'flex';
+                    header.style.alignItems = 'center';
+                    header.style.marginBottom = '5px';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'wave-checkbox';
+                    checkbox.checked = wave.visible;
+                    checkbox.addEventListener('change', () => {
+                        wave.visible = checkbox.checked;
+                        this.updateWaveVisibility(index);
+                        
+                        // 如果这是活动波，则更新 GUI
+                        if (index === this.activeWaveIndex && this.gui) {
+                            const controller = this.waveFolder.__controllers.find(c => c.property === 'visible');
+                            if (controller) controller.updateDisplay();
+                        }
+                    });
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = wave.name;
+                    nameSpan.style.fontWeight = 'bold';
+                    nameSpan.style.color = wave.color;
+                    
+                    const editButton = document.createElement('button');
+                    editButton.textContent = '编辑';
+                    editButton.style.marginLeft = 'auto';
+                    editButton.style.padding = '2px 8px';
+                    editButton.addEventListener('click', () => {
+                        this.activeWaveIndex = index;
+                        this.updateActiveWaveGUI();
+                        
+                        // 更新波选择下拉菜单
+                        const controller = this.gui.__folders['波函数选择'].__controllers[0];
+                        controller.setValue(index);
+                    });
+                    
+                    header.appendChild(checkbox);
+                    header.appendChild(nameSpan);
+                    header.appendChild(editButton);
+                    
+                    // 创建波参数摘要
+                    const summary = document.createElement('div');
+                    summary.style.fontSize = '12px';
+                    summary.style.color = '#666';
+                    summary.innerHTML = `
+                        <div>振幅: ${wave.amplitude.toFixed(1)}</div>
+                        <div>波矢量: [${wave.kx.toFixed(1)}, ${wave.ky.toFixed(1)}, ${wave.kz.toFixed(1)}]</div>
+                        <div>中心: [${wave.centerX.toFixed(1)}, ${wave.centerY.toFixed(1)}, ${wave.centerZ.toFixed(1)}]</div>
+                    `;
+                    
+                    waveItem.appendChild(header);
+                    waveItem.appendChild(summary);
+                    
+                    this.waveList.appendChild(waveItem);
+                });
+            }
+            
+            showLoader(visible) {
+                this.loader.className = visible ? 'loader' : 'loader hidden';
+            }
+            
+            showStatusMessage(message, type = 'info') {
+                this.statusMessage.textContent = message;
+                this.statusMessage.className = `${type}-message`;
+                
+                // 5秒后隐藏
+                setTimeout(() => {
+                    this.statusMessage.className = `${type}-message hidden`;
+                }, 5000);
+            }
+            
+            exportCurrentParameters() {
+                const filename = this.exportFilename.value || 'default_wave_params.json';
+                
+                this.showLoader(true);
+                this.showStatusMessage(`正在导出波函数参数到 ${filename}...`, 'info');
+                
+                // 创建要导出的数据
+                const exportData = {
+                    waveFunctions: this.waveFunctions.map(wave => ({
+                        id: wave.id,
+                        name: wave.name,
+                        amplitude: wave.amplitude,
+                        kx: wave.kx,
+                        ky: wave.ky,
+                        kz: wave.kz,
+                        omega: wave.omega,
+                        sigmaX: wave.sigmaX,
+                        sigmaY: wave.sigmaY,
+                        sigmaZ: wave.sigmaZ,
+                        centerX: wave.centerX,
+                        centerY: wave.centerY,
+                        centerZ: wave.centerZ,
+                        velocityX: wave.velocityX,
+                        velocityY: wave.velocityY,
+                        velocityZ: wave.velocityZ,
+                        color: wave.color,
+                        visible: wave.visible
+                    })),
+                    metadata: {
+                        description: "导出的波函数参数",
+                        created: new Date().toISOString(),
+                        version: "1.0"
+                    }
+                };
+                
+                setTimeout(() => {
+                    this.showLoader(false);
+                    this.showStatusMessage(`已导出 ${exportData.waveFunctions.length} 个波函数到 ${filename}。`, 'info');
+                    
+                    console.log('导出的数据:', exportData);
+                    
+                    // 创建一个可下载的文件
+                    const jsonString = JSON.stringify(exportData, null, 2);
+                    const blob = new Blob([jsonString], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    // 创建下载链接
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = url;
+                    downloadLink.download = filename;
+                    
+                    // 添加到DOM并触发点击
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    
+                    // 清理
+                    document.body.removeChild(downloadLink);
+                    URL.revokeObjectURL(url);
+                }, 1000);
+            }
+            
+            // 工具函数：将 HSL 转换为 RGB
+            hslToRgb(h, s, l) {
+                let r, g, b;
+                
+                if (s === 0) {
+                    r = g = b = l; // 无色
+                } else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1;
+                        if (t > 1) t -= 1;
+                        if (t < 1/6) return p + (q - p) * 6 * t;
+                        if (t < 1/2) return q;
+                        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                        return p;
+                    };
+                    
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h + 1/3);
+                    g = hue2rgb(p, q, h);
+                    b = hue2rgb(p, q, h - 1/3);
+                }
+                
+                return { r, g, b };
+            }
+        }
+        
+        // 当页面加载完成时创建可视化器实例
+        document.addEventListener('DOMContentLoaded', function() {
+            // 直接创建应用实例
+            const app = new WaveFunctionVisualizer();
+        });
+    </script>
+</body>
+</html>
+

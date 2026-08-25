@@ -437,6 +437,96 @@ body {
     text-decoration: underline;
 }
 
+/* Documentation version selector */
+.version-switcher {
+    margin-left: 8px;
+}
+
+.version-switcher::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100px;
+    height: 5px;
+    z-index: 999;
+}
+
+.version-button {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 6px;
+    min-width: 100px;
+    height: 22px;
+    padding: 0 6px;
+    color: #202122;
+    background: #fff;
+    border: 1px solid #a2a9b1;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.version-label {
+    color: #54595d;
+    font-weight: 400;
+    text-align: left;
+}
+
+.version-caret {
+    color: #72777d;
+    font-size: 11px;
+}
+
+.version-button:hover,
+.version-switcher:hover .version-button {
+    background: #f8f9fa;
+    border-color: #72777d;
+}
+
+.version-menu {
+    right: 0;
+    left: auto;
+    width: 100px;
+    min-width: 100px;
+    margin-top: 4px;
+    padding: 5px 0;
+    overflow: hidden;
+    border-radius: 5px;
+    transform: none;
+}
+
+.version-menu a.version-option {
+    display: block;
+    padding: 6px 10px;
+    color: #202122;
+    text-align: left;
+}
+
+.version-menu .version-option strong {
+    display: inline-block;
+    min-width: 24px;
+}
+
+.version-menu .version-option span {
+    color: #72777d;
+    font-size: 12px;
+}
+
+.version-menu .version-option.active {
+    background: #f1f4f8;
+    box-shadow: inset 3px 0 #3366cc;
+}
+
+.version-menu .version-option:hover {
+    background: #eaecf0;
+    text-decoration: none;
+}
+
 .footnote {
     color: #3366cc;
     position: relative;
