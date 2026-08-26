@@ -1,135 +1,190 @@
-# Computer Vision's Rebirth
+# Computer Vision’s Rebirth
 
-<!--*"The best research is like water, which nourishes all things without contention."*-->
+<!--*“The best research is like water, which nourishes all things without contention.”*-->
 
 
-Our **WSG** (World Snapshot Graphics), **WSV** (World Snapshot Video), **WSF** (World Snapshot Fields) and **WaveGen** (Wave Generative Method) may promote the birth of some new areas:
+For more than half a century, computer vision has grown by dividing visual intelligence into separate tasks: classification, localization, detection, segmentation, estimation, reconstruction, tracking, generation, editing, rendering, planning, and control. Each task acquired its own data format, architecture, objective, benchmark, and deployment stack. This specialization created a vast field, but it also fragmented the field.
 
-### Computer Graphics in WS
+The Unified Law for Visual Tasks suggests another direction. If visual information can be encoded at the image boundary, then a visual task can be expressed as a generative transformation from available evidence to a requested World Snapshot target. **World Snapshot Graphics (WSG)** supplies the shared representation; **World Snapshot Models (WSMs)** learn the transformations; **TunnelingNet Channel Heads** make task routes trainable, selectable, repairable, and extensible.
 
-Development and learning of WSG, WSV, and other formats, exploring WS principles and algorithms based on line, lighting, and shape representation.
+Computer vision can therefore grow like a language model rather than like a directory of unrelated programs. A new aligned modality does not create only one capability. It becomes a new node in the Tree of Computer Vision and immediately forms families of estimation, generation, control, reconstruction, and multi-condition tasks with the existing nodes. Longer routes form Chains of Visual Thought. Sparse interfaces allow structured, symbolic, audio, sensor, and agent information to participate without being forcibly expanded into a dense image tensor.
 
-### Wave Generative Method
+This is what I mean by the **rebirth of computer vision**: the field changes from individually engineering visual tasks to generating, composing, training, routing, and deploying visual capabilities inside one expandable system.
 
-I have specifically developed a new type of generative model based on Math Wave functions (abbreviated as WaveGen) to better model world information. This new generative model has many advantages - conceptually and theoretically, it is rooted in the fundamental principles of the universe, making it much more elegant than the denoising process of diffusion models. Its control over physical conditions is natively supported, making it more elegant than embedded approaches like ControlNet. 
+### Universal Computer Vision
 
-Personally, I hope its impact will surpass both of these predecessors (More broadly, hope it is to unify all methods and any form of AI generation from 1D to 4D), and hope it will serve as a bridge for communication between the AI and physics communities.
+General computer vision, visual and multimodal foundation models, world models, World Snapshot Models, visual and multimodal agents, embodied intelligence, physical intelligence, spatial intelligence, and world reasoning can share one task language.
 
-### Physics in WS
+Within this language, classification, localization, detection, segmentation, estimation, reconstruction, restoration, completion, registration, correspondence, tracking, retrieval, indexing, prediction, generation, editing, rendering, simulation, planning, and control become requested visual outputs rather than isolated model species. The same system can support any-input-to-any-output vision, multi-input single-output and multi-input multi-output routes, multi-condition and multi-target generation, and unified, continual, incremental, modular, compositional, and open-world visual learning.
 
-For example, our WSG natively supports relative and absolute distances. We can create relative volume and predict relative mass through physics knowledge.
+This also creates the basis for automatic visual-task discovery and generation, task and model routing, tool and expert routing, visual-capability composition, workflow generation, optimization, execution, and verification.
 
-In WaveGen, the "mass" distribution of pixels is primarily manifested in two aspects: 1. Areas with higher probability density distribution of the wave function represent greater pixel "mass". 2. Features determine the physical properties of each pixel point. Areas with larger amplitude correspond to greater "mass", which affects kinetic energy calculations, where regions of greater "mass" require more energy when in motion. Therefore, overall, the mass distribution is determined by the quantum state superposition and probabilistic interpretation of the wave function, which influences the motion characteristics of pixels in the dynamic field. Time and other properties follow the same principle, supported by the model's theoretical framework.
+### Visual Reasoning and Chains of Visual Thought
 
-We use multiple sets of wave functions to represent the physical world distribution, with their outputs serving as high-dimensional features for decoding. I believe that after continuous training, sufficient wave functions in the latent space will become fitted to real space, or at least abstractly fitted to real space. At this point, a wave function can represent an entity or a part of it. It's similar to how humans can determine the boundaries of the world with the simplest points and lines. This is somewhat like grid learning hidden in latent space, though of course the underlying world may be very abstract.
+A visual task graph is also a reasoning graph. A route can move from RGB to depth, from depth to normals, from normals and a reference frame to RGB, or through a longer sequence of geometric, physical, material, semantic, temporal, and sparse variables. Every intermediate result remains inspectable and machine-usable.
 
-Since most world parameters exist in basic units, we can natively calculate world instances rather than through models learning parts separately for interaction.
+This supports visual reasoning, Chains of Visual Thought, compositional and large-scale visual reasoning, multimodal and cross-modal reasoning, physical, spatial, temporal, causal, counterfactual, and common-sense reasoning, and interactive world reasoning. Breadth comes from adding modalities and directed routes; depth comes from composing those routes into longer visual programs.
 
-### WS-Based World Generation Models
+### Computer Graphics in World Snapshots
 
-Just by changing the data loading suffix from .png to .wsg in text2img models, it becomes a text2world world model, very simple.
+WSG extends the pixel from a color carrier into a world-snapshot atom. RGB remains important, but geometry, motion, pose, segmentation, materials, physical properties, audio associations, confidence, and structured observations can occupy aligned variables at the same boundary.
 
-Then wsg has dozens or hundreds of properties, which previously might have required countless encoders or multimodal fusion methods, but now doesn't need them at all. You input text and can output information in dozens to hundreds of formats.
+This creates a computer-graphics research program around World Snapshots: encoding, rendering, visualization, compression, storage, transmission, interpolation, extraction, injection, conversion, validation, and editing of WSG and WSV; developing line, lighting, shape, surface, motion, and material representations; and studying how dense and sparse variables should interact.
 
-### WS-Based Movie Generation Models
+The result is not merely a richer image file. It is a common computational surface on which graphics, vision, generation, perception, and reasoning can meet.
 
-When the generated video length increases from 1 minute to 120 minutes, the attention mechanism used in traditional diffusion video models would cause their computational or storage requirements to increase by 200,000 times, which is unacceptable.
+### Generative Visual Perception and Understanding
 
-But WavGen, based on linear attention, can make an attempt to explore the field of movie generation, which will create a massive new trillion-dollar global market. Meanwhile, the existing film industry will be upgraded.
+Perception does not have to end in a private feature vector or a task-specific scalar head. A model can generate the requested depth map, normal field, skeleton, segmentation, physical-property map, material map, object identity, or structured observation in an explicit representation.
 
-### WS-Based Fine-tuning of Generative Models
+This turns visual perception and understanding into generative visual tasks. It also makes intermediate evidence easier to inspect, compose, correct, cache, share, and reuse. Classification or categorical masks may use a task-integrated categorical refiner, while the spatial region remains generated by the task route itself.
 
-Theoretically, most of the existing flourishing pre-trained generative models don't need to be retrained. They only need to be fine-tuned on WSG format files of certain scale to generate world segments (WSV).
+### Classification, Localization, Detection, and Segmentation
 
-For instance, the latest version of diffusion models generates content that is absolutely very close to reality. After fine-tuning, it can attach various physical properties or additional attributes to the generated content.
+The same framework can cover image, video, object, scene, material, action, behavior, event, sound, and cross-modal classification; open-vocabulary, fine-grained, zero-shot, and few-shot classification; object, keypoint, text-guided, visual-language, sound-source, 3D, and spatiotemporal localization; and 2D, 3D, video, small-object, dense, occluded, anomaly, defect, event, action, audio-instance, and multisensor detection.
 
-The more training it receives, the better the generated additional properties should be. Moreover, it won't affect the original generative capabilities (provided that your training data is equally refined). The additional new attribute generation capability depends on the quality and quantity of our new WSG data.
+Segmentation extends across semantic, instance, panoptic, part, human, object, video, 3D, 4D, interactive, open-vocabulary, audio-instance, material, motion, scene, medical, remote-sensing, industrial-defect, affordance, contact-region, and risk-region targets.
 
-However, world snapshot models trained on VAE, GAN, Diffusion and other models don't have the superiority of WavGen, because WaveGen is inherently a model designed to learn probability distributions of 3D and 4D universal space. Fine-tuning solutions are just temporary choices to save costs.
+These tasks differ in evidence and requested output, but their visual interfaces are compatible. Dense masks can express spatial support; sparse adapters can express boxes, points, identities, sets, relations, and variable-length structures.
 
-### WSG, WSV, WSF Data Collection
+### Geometry, Motion, Pose, and Structure
 
-We temporarily record instantaneous world information through various recognition and perception models. However, we can record WS more accurately through mechanical devices. Such WS data quality is significantly higher.
+World Snapshot variables naturally support monocular, stereo, video, metric, and relative depth; disparity; surface normals; curvature; edges and contours; optical flow and scene flow; motion; camera and object pose; 2D and 3D human pose; hand and face pose; skeletons; human parameters; object and scene structure; scale, distance, speed, acceleration, trajectory, deformation, articulation, occlusion, and visibility.
 
-### Data Mining Based on WSG, WSV, WSF
+These variables can be estimated from RGB, generated as controls for RGB, translated into one another, reconstructed from multiple observations, or composed into longer geometric reasoning routes. Geometry is therefore not a single auxiliary prediction. It is a connected domain inside the task graph.
 
-When we train a text2wsg model, we're actually training a text2world model. It contains dozens of times more information, all of which can be used for analysis.
+### Layered Human Motion Synthesis
 
-For instance, we can classify wsg through pose/motion information, classify wsg through depth and sound - the world itself has many characteristics, not just simple labels. This transcends traditional image classification to become world classification.
+When a World Snapshot Model generates a human, it can generate several aligned layers: RGB appearance, human segmentation, surface normals, depth, parametric 3D body structure, and 2D or 3D skeletons. These layers correspond at the image boundary and can constrain one another.
 
-### Pixel-Level Style Transfer
+The useful intuition is shadow puppetry with many synchronized layers. A sideways palm should not merely resemble a hand in RGB; its fingers, silhouette, depth, normals, skeleton, and body structure should remain mutually plausible. This supports pose estimation, motion analysis, motion transfer, animation, rehabilitation assessment, sports analysis, action scoring, sign-language recognition and generation, virtual humans, digital actors, motion capture, expression capture, face reenactment, lip synchronization, and audio-driven animation.
 
-Suppose you have two wsv files, one with a girl dancing and another with a boy dancing.
+### Occlusion, Visibility, and the World Snapshot Clothing Paradox
 
-Theoretically, you only need to exchange their RGB colors in corresponding body pixel regions while keeping their pose information unchanged to achieve motion transfer.
+An RGB image exposes only the visible surface. A richer World Snapshot may separately represent instance identity, segmentation, depth, visibility, and other layered evidence. This gives a model more structure for reasoning about overlapping objects and reduces the chance that one entity simply disappears behind another.
 
-### WS-Based Human Motion Synthesis
+The hidden appearance itself remains uncertain. If the visible sleeve of an occluded person is red, a model may infer that the hidden clothing is red, but the torso may in fact be blue. The representation should preserve the known geometry and visibility while allowing the generative model to resolve the unobserved appearance. I call this the **World Snapshot Clothing Paradox**: the hidden region is structurally constrained but visually underdetermined.
 
-In World Snapshot, when we generate human bodies, it's like shadow puppetry - we generate each layer of the person. From outside to inside, these layers are: surface skin layer (RGB colors), normal human body, depth human body, 3D human body (SMPL/Mesh Human), 2D skeleton structure... and so on.
+### Physical and Material Intelligence
 
-Since they are trained and generated simultaneously, with pixel-level fusion, correspondence, and binding, what we're actually generating is something with rich layers like a building or a world. Theoretically, if the model generates the building or world correctly, the different layers of the human body should be correct.
+World Snapshots can encode and predict lighting, reflectance, albedo, texture, shadow, transparency, roughness, metalness, refractive index, density, mass, volume, relative weight, support area, friction, elasticity, stiffness, hardness, temperature, pressure, stress, strain, flow, contact state, collision risk, affordance, stability, load-bearing capacity, uncertainty, confidence, risk, and reward.
 
-For example, when the palm is turned sideways, each finger should conform to the 3D structure, rather than having fingers that appear to have a landslide effect.
+This is a bridge from appearance recognition to physical and material reasoning. A model can estimate a property from RGB, use that property to control generation, infer one property from another when the evidence is sufficient, or combine several weak observations. It supports physical-property estimation, material characterization and discovery, contact and affordance reasoning, safety analysis, manipulation, simulation initialization, and scientific measurement.
 
-### WS-Based Occlusion Estimation
+### Pixel-Level Editing and Transfer
 
-World Snapshot shows promise in reducing the possibility of one dog disappearing when blocked by another dog.
+Aligned variables make editing more explicit. If two WSV clips contain different people performing related motions, RGB appearance may be transferred while pose, segmentation, depth, normals, or motion variables remain fixed. Conversely, pose or motion may change while identity and appearance are retained.
 
-Because if an image has two overlapping dogs, the overlapping portion in the segmentation layer will be labeled as a shared part between the two dog IDs, assigned with two depth values. The depth values will be in a list form, where each item has an ID, and the pixel values of each item are determined by the ID indicating whether this pixel belongs to this item. Similarly, depth values will indicate different layers between two items. For example, one item's depth values might fluctuate between zero and ten, while another item's depth values might fluctuate between ninety and one hundred.
+The same principle extends to image, video, 3D, 4D, scene, object, character, material, lighting, motion, camera, pose, expression, clothing, background, local-region, semantic, and physical-property editing. It also covers colorization, style transfer, domain transfer, image-to-image and video-to-video translation, reference-guided generation, and consistency across characters, objects, scenes, views, shots, time, geometry, physics, materials, lighting, motion, and audio.
 
-After training, the generative model will also be good at handling overlapping objects. For instance, after generation, our video player can make judgments, determining the depth differences between two objects, then deciding which pixels' RGB values should be displayed.
+### Generation, Restoration, and Completion
 
-However, there's an issue here: during training, if an object is occluded, you can't predict its color - you can only judge based on the visible parts that can be observed. We won't try to assign predicted colors to occluded parts. This should be decided by the generative model itself.
+A unified generative interface can serve general image and video generation, long and real-time video, interactive video, multiview image and video, 3D and 4D content, spatial video, immersive content, controllable generation, and reference-image generation.
 
-This also aligns with our logic - this is how we humans do it too. If the occluded person's arm is wearing red clothing, we humans might guess their entire outfit is red. But it's also possible that the main body of their clothing is blue. This has a kind of Schrödinger's cat feeling to it, which is very interesting. I call this the "World Snapshot Clothing Paradox."
+The same target-oriented formulation also covers generative restoration: image, video, and 3D repair; old-photo and cultural-heritage restoration; denoising; deblurring; super-resolution; image, video, scene, object, occlusion, and missing-modality completion; colorization; and sim-to-real or real-to-simulation translation.
 
-### WS-Based Games
+Text-to-image, text-to-video, text-to-3D, image-to-3D, video-to-3D, 3D-to-image, 3D-to-video, audio-to-image, audio-to-video, image-to-audio, and video-to-audio can be understood as routes connecting different evidence spaces to requested targets.
 
-WS is a world with explorable perspectives. If text2img models are replaced with text2wsv and can generate 30 frames per second,
+### Reconstruction and Inverse Rendering
 
-It would be more suitable than diffusion models as an infinite game frame generator, plus it has dozens of extra information like distance, sound, etc.
+Reconstruction includes image, video, 3D, 4D, multiview, dynamic-scene, human, hand, face, object, indoor, outdoor, city, building, road, terrain, underwater, and underground reconstruction. It also includes medical and scientific imaging, NeRF and Gaussian-splatting reconstruction, point clouds, meshes, voxels, occupancy fields, materials, lighting, sound fields, physical fields, RGB-D, and multi-attribute generative reconstruction.
 
-Or we can let Agents explore in WS.
+RGB-assisted inverse rendering is especially important: a partial observation supplies evidence about the requested property, while RGB provides identity, layout, texture, and context that the partial observation does not contain. This practical interface turns many otherwise ambiguous cross-variable mappings into usable reconstruction routes.
 
-### WS-Based Simulation Training
+### World Generation, Memory, and Digital Twins
 
-WSF can serve as a simulation of the real world, and scene creation of WaveGen is convenient. If generating 1 billion different scenes, we will have 1 billion non-artificial natural simulation scenes.
+Changing the target from RGB to a World Snapshot changes image generation into world-snapshot generation. The output can carry many aligned properties rather than only visible color. Extending the sequence produces World Snapshot Video; extending representation and memory supports persistent, dynamic, interactive, generative, predictive, physical, robotic, autonomous-driving, game, cinematic, and embodied world models.
 
-### Audio Processing in WS
+This supports past-snapshot reconstruction, hidden-variable inference, snapshot updating, repair, branching, rollback, retrieval, querying, completion, fusion, compression, transmission, databases, search engines, knowledge bases, and digital assets. It also supports real-time and generative digital twins for industry, cities, people, vehicles, robots, buildings, Earth systems, environments, and medicine.
 
-We can set sound attenuation at different pixels through relative distance, like when an Agent explores in wsv files, the sound differs at each position. We have many audio aspects to explore in this format.
+### World Snapshot Data and Data Mining
 
-### WS-Based Database Development
+Early WSG data can be assembled from existing perception models, renderers, simulators, structured datasets, and manual annotations. Higher-quality mechanical and multimodal sensors can record the same variables more directly. The format makes the origin, normalization, visualization, extraction, and confidence of every variable part of the data contract.
 
-Conversion from png to wsg, wsg extraction, usage and storage, compression. These are all directions that need development.
+Training a text-to-WSG model is not merely training text-to-image with extra decoration. It creates outputs with many analyzable variables. A World Snapshot may be indexed or classified through pose, motion, depth, sound, material, geometry, identity, and physical properties rather than through a single label.
 
-### Application of Gaussian Algorithms in WS
+The same infrastructure supports synthetic-data generation, augmentation, automatic annotation, pseudo-label generation, training and evaluation data generation, benchmark generation, long-tail and rare-event generation, safety testing, counterfactual data, model evaluation, diagnosis, interpretability, uncertainty analysis, and geometric, physical, semantic, temporal, cross-view, and cross-modal consistency verification.
 
-Although I believe current Gaussian algorithms might affect WSG file quality, if we don't have suitable mechanical devices to extract existing world information, we can use Gaussian as a recording substitute.
-Moreover, the Gaussian field has great potential to apply related methods to our WS files.
+### Audio, Sensors, and Multimodal Fusion
 
-### WS-Based Autonomous Driving
+Audio can identify active sources, condition visual generation, associate a sound with one or several spatial regions, or complement RGB and geometric evidence. Relative distance and scene structure can further support spatial sound, attenuation, sound-field reconstruction, and audio-visual reasoning.
 
-If a model trains on WSV files, it might learn to understand the existing world, like relative and absolute distances. If so, vision-based autonomous driving might be greatly enhanced because it has learned and stored radar distance knowledge.
+The same sparse and dense interfaces can incorporate radar, LiDAR, touch, inertial sensing, multispectral and hyperspectral imagery, thermal imaging, event cameras, medical sensors, and other measurements. This enables sensor fusion, cross-sensor generation, missing-sensor completion, calibration, simulation, and audio-visual, radar-visual, LiDAR-visual, tactile-visual, inertial-visual, spectral, thermal, and event-camera fusion.
 
-Since our model can use probabilities (quantum superposition states) to represent the distribution of the world, we don't need to visualize predicted future world scenarios, which greatly reduces computational cost. For example, when we see someone leave a room, we know there's a probability they went to the kitchen or left the house, without needing to visualize it in our brain.
+### Visual Agents and Embodied Intelligence
 
-Therefore, we can design a model that only deals with probabilities, considering strategies across different worldlines. We can then apply previously conceived strategies as the environment changes.
+A visual agent can use the task graph as a capability space. It can select an edge, request a depth map or physical property, compose several edges into a visual workflow, inspect intermediate World Snapshots, verify consistency, and revise the route.
 
-### WS-Based Medical Image Processing
+This supports multimodal and embodied agents; perception, planning, control, navigation, manipulation, grasping, avoidance, mapping, exploration, imitation learning, reinforcement learning, skill learning and composition, fault diagnosis, safety control, human-robot collaboration, and multisensor fusion. It also supports visual-language-action models, multi-agent collaboration, distributed world models, shared World Snapshots, and cloud-edge visual intelligence.
 
-The human body itself has a three-dimensional structure, WSV might record all patient body information without needing to read frame by frame of body layers.
+### Robotics and Autonomous Systems
 
-### Secure and Efficient WS Computing
+Robotics applications include household, service, industrial, medical, surgical, rehabilitation, logistics, warehouse, agricultural, underwater, aerial, space, biomimetic, and general-purpose robots.
 
-Perhaps new architectures can perform faster WSG calculations.
+Autonomous-driving applications include vehicle perception, localization, planning, and control; lane and drivable-area detection; traffic-participant detection; scene and trajectory prediction; collision prediction; risk assessment; driver behavior and monitoring; parking; vehicle-road cooperation; intelligent transportation; traffic simulation and digital twins; data generation; scene reconstruction; and counterfactual safety testing.
 
-### WS-Based Software Engineering
+Drone and unmanned-system applications include navigation, inspection, surveying, obstacle avoidance, formation, tracking, mapping, environmental perception, search and rescue, and collaborative autonomy.
 
-WS Vedio players need support across all platforms.
+### Scientific Computing and Simulation
 
-...
+World Snapshots can connect observations to simulators and physical fields. Relevant directions include fluid, structural, thermodynamic, electromagnetic, acoustic, particle, and molecular simulation; physics-informed learning; experimental analysis and design; materials discovery; microscopy; telescope and planetary imagery; Earth observation; and scientific discovery.
 
-There are many more fields I know or don't know about, related researchers can all try.
+A generative model can create diverse simulation initializations, infer missing physical variables, reconstruct fields from partial observations, or translate between measurements and visualizable results. Gaussian representations, radiance fields, meshes, point clouds, voxels, occupancy fields, and other scene representations can participate as source data, targets, or external tools without replacing the World Snapshot interface.
 
-*Conceived this blog on 23th Dec 2024 and completed on 23th Dec 2024*
+### Medicine and Life Sciences
+
+Medical applications include clinical decision support, lesion detection, tumor and organ segmentation, anatomical reconstruction, surgical planning and navigation, radiotherapy planning, longitudinal imaging, pathology, digital pathology, cell segmentation and tracking, tissue analysis, disease progression, biomechanics, movement analysis, rehabilitation, vital-sign estimation, telemedicine, and medical digital twins.
+
+Scientific imaging includes MRI, CT, ultrasound, microscopy, pathology, protein imaging, and other inverse problems. Agricultural and ecological applications include crop monitoring, pests and disease, weeds, fruit counting, maturity and yield, soil conditions, precision agriculture, livestock, aquaculture, forestry, and marine ecology.
+
+### Earth, Environment, and Infrastructure
+
+Remote-sensing and geospatial applications include aerial and satellite analysis, land-cover classification, land use, geospatial reasoning, map generation and updating, 3D and high-definition maps, indoor and navigation maps, GIS, weather and climate imagery, and environmental change detection.
+
+Monitoring extends to floods, fires, earthquakes, landslides, glaciers, coastlines, forests, water, oceans, ships, ports, roads, bridges, tunnels, railways, airports, power grids, pipelines, water systems, communication infrastructure, buildings, construction quality, and energy use. These capabilities support disaster response, damage assessment, reconstruction, resource allocation, smart cities, city planning, and city operations.
+
+### Industry, Commerce, and Everyday Systems
+
+Industrial vision includes manufacturing, quality inspection, surface defects, dimensions, assembly, welding, part recognition and pose, process monitoring, equipment status, predictive maintenance, fault localization and reasoning, process optimization, production-line digital twins, logistics, sorting, inventory, shelves, package inspection, traceability, and materials analysis.
+
+Commercial applications include retail vision, product recognition and retrieval, visual search, inventory, cashierless stores, virtual try-on, clothing and product generation, advertising, recommendation, brand assets, marketing, media production, insurance assessment, real-estate visualization, virtual tours, interior design, spatial layout, and furniture placement.
+
+Everyday systems include smart homes, household understanding and digital twins, appliance control, energy management, indoor safety, care for older adults and children, pet monitoring, smart glasses, wearables, mobile vision, edge vision, and visual IoT.
+
+### Media, Games, and Spatial Computing
+
+Media applications include AI film, television, animation, short video, advertising, live streaming, virtual production, previs, shot planning, storyboards, digital actors, virtual humans, visual effects, post-production, editing, summarization, retrieval, understanding, question answering, and media-asset management.
+
+Games can use World Snapshots for world, level, character, animation, material, physics, and scene generation; scene reconstruction; game agents and non-player characters; interactive narrative; persistent and open worlds; content updates; and mod ecosystems. A World Snapshot contains more machine-usable structure than an RGB frame, so an agent may inspect distance, motion, pose, sound association, segmentation, and physical attributes while it explores.
+
+Spatial computing includes virtual, augmented, and mixed reality; immersive training; virtual laboratories and museums; digital exhibitions; cultural-heritage digitization; archaeological reconstruction; design; education; professional training; driving, flight, medical, military, and emergency simulation.
+
+### Accessibility, Safety, and Public Services
+
+Accessibility applications include blind and low-vision navigation, visual question answering assistance, image and video description, accessible-content generation, captions, sign-language recognition, generation, and translation, and sound-scene understanding.
+
+Safety applications include anomaly behavior, people and crowd analysis, tracking, abandoned objects, intrusion, campus, airport, industrial and construction safety, fire and smoke warnings, hazardous materials, identity verification, face and gait recognition, liveness, forensics, authenticity and deepfake detection, provenance, copyright, and privacy-preserving vision.
+
+The same task families support emergency command, disaster response, search and rescue, accident reconstruction, evidence analysis, terrain understanding, equipment monitoring, reconnaissance, and coordinated unmanned systems.
+
+### A Visual Capability Ecosystem
+
+When a capability is represented as a directed task route, it can be trained and deployed as a module without becoming an isolated product. This supports capability hot loading, hot updates, hot swapping, incremental deployment, versioning, rollback, diagnosis, repair, validation, compatibility testing, authorization, metering, and service delivery.
+
+It also supports visual-task routing, model routing, tool routing, expert routing, capability orchestration, workflow generation and optimization, model and capability fusion, distillation, merging, compression, cloud service, edge and private deployment, multi-tenant service, capability markets, plugin ecosystems, and visual-task or multimodal-capability services.
+
+ControlWorld is one early interface for this idea: select a trained route in the Tree of Computer Vision, provide the required evidence, and generate the requested target. In the longer term, a visual agent should be able to select, compose, test, and repair these routes automatically.
+
+### From a Field of Tasks to a Task-Generative Field
+
+The most important consequence is not any single application above. It is the rate at which applications become expressible. Adding one aligned modality creates many new directed tasks with the existing modalities. Adding sparse variables introduces structured tasks. Composing routes increases reasoning depth. Improving one shared representation or generator can benefit many routes at once, while a weak route can still be repaired independently.
+
+Computer vision may therefore move beyond a fixed catalog of named tasks. Like large language models, which support an effectively unbounded number of language uses without assigning a separate model identity to every prompt, World Snapshot Models can gradually absorb increasingly fine-grained visual tasks into one expandable generative system.
+
+The inventory above deliberately mixes two different levels: **visual task definitions** and **application scenarios**. It is neither a count of WSM tasks nor a limit on possible deployments. A task is defined by its available evidence and requested target; the same task can serve many application scenarios, while one application may compose many tasks, tools, and reasoning routes. Therefore, the number of visual tasks expressible by WSM exceeds the number named here, and the number of possible application scenarios is much larger still.
+
+The list is not a promise that every application has already been completed. It is a research map showing which visual, physical, multimodal, embodied, scientific, industrial, and creative problems can be expressed through World Snapshot representations and WSM task interfaces. Many directions already exist as computer-vision fields; many become newly composable under WSM; others become new tasks when their input evidence or requested output changes.
+
+There are many more fields I know or do not yet know. Researchers from each field can add the variables, data, routes, tools, and evaluations that their problems require. That is how computer vision can be unified, expanded, and ultimately reborn.
+
+*Conceived this blog on 23 December 2024; substantially updated for WSM v1 Augustus on 26 August 2026.*
