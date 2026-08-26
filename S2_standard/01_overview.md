@@ -20,7 +20,7 @@ I make the following definitions:
 
 - **World Snapshot Video**, abbreviated as .wsv format, is a continuous world piece composed of several world snapshots.
 
-- **World Snapshot Model**, abbreviated as WSM, is a generative model that learns transformations among World Snapshot variables. WSM v1 treats RGB, geometry, motion, pose, material, physical properties, semantics, and sparse structures as endpoints in one directed visual-task graph.
+- **World Snapshot Fields**, abbreviated as .wsf format, also called world field, is a mixed neural radiance field file synthesized from two or more perspectives of wsg/wsv files through certain methods. Although wsv files already contain fragments of a world (such as 3D information), their viewpoints are fixed. wsf aims to obtain views from other perspectives and is an extended visualization method.
 
 ## Explain
 

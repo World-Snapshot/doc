@@ -1,11 +1,8 @@
 # Model Design Guideline Memo
 
-> **Design-history note:** This memo intentionally preserves the project's raw sequence of ideas. The active implementation is WSM v1 Augustus: WSG boundary variables, a rectified-flow backbone, TunnelingNet Channel Heads, sparse adapters, and ControlWorld. WaveGen, WSF, analytic wave functions, RWKV, and the wave core below are earlier hypotheses. Their surviving insights are explicit world variables, data-native control, modular growth, causal/physical ambition, and inspectable intermediate representations.
-
-
 Version: 1.0;
 Draft was established on: 2025-2-7;
-Last Updated: 2025-08-29;
+Last Updated: 2026-08-25;
 History Version at <a href="https://github.com/World-Snapshot/doc/commits/main/" target="_blank">link</a>
 
 Here I write down my design creation thoughts to help readers better understand why I designed the new model this way. It will help future researchers quickly get started with, use, and improve this model.
@@ -13,6 +10,18 @@ Here I write down my design creation thoughts to help readers better understand 
 This Guideline Memo can be considered as our motivation and what we should do. The main text just tell you how to do it.
 
 ## Overview
+
+I want to train the world itself. The first requirement is not a more complicated fusion module, but data whose basic units are closer to the information structure of the world. This is why I created World Snapshot Graphics.
+
+The implementation changed repeatedly, but the central problem did not: how can a model generate appearance, geometry, motion, pose, material, physical properties, semantics, and structured information without treating them as unrelated tasks?
+
+WSM v1 Augustus answers this through an explicit boundary representation and a directed task graph. WSG records aligned world variables. A shared rectified-flow generator provides the visual prior. TunnelingNet gives each directed task a compact trainable tunnel. Dense fields and sparse digitized structures use different boundary adapters but remain inside one task system.
+
+This memo preserves both the resulting design and the routes that did not survive. The visible sections describe current principles and open directions. Collapsed sections retain the original WaveGen, WSF, analytic-wave, Core Space, Wave2Pixel, RNN, and U-Net hypotheses because failed architectures can still contain useful questions.
+
+<details>
+<summary><strong>Archived 2025 overview: the original WaveGen and Core Space hypothesis</strong></summary>
+
 
 First, I want to train the entire world, with the key being making the data closer to the world's reality. To train the world itself, I created WSG.
 
@@ -38,7 +47,39 @@ This sets the tone for the entire new model.
 
 
 
-## Idea
+</details>
+
+## Principles That Survived
+
+The literal analytic wave core was abandoned, but the most important ideas survived:
+
+1. **Encode information at the boundary.** RGB is only one observable projection. World variables should be explicit, aligned, readable, and reusable.
+2. **Training breadth begins with representation.** Adding useful variables to data can create more capability than repeatedly designing isolated fusion modules.
+3. **Generation and understanding are one directed operation.** The available variables are conditions; the requested variable is the target.
+4. **Control should be data-native.** Depth, normals, pose, masks, material, audio, and structured objects should control generation through their own representations.
+5. **Intermediate variables should be observable.** A visual reasoning chain should expose its intermediate World Snapshots instead of hiding every decision in an opaque latent state.
+6. **The world representation and the renderer can be improved independently.** This intuition now appears as a shared backbone plus task-specific tunnels and boundary adapters.
+7. **Physical and causal structure remains a target.** WSM v1 validates the task interface; long-horizon dynamics and stricter physical constraints remain future work.
+
+## Current Realization: WSM v1 Augustus
+
+The current implementation replaces the old two-stage WaveGen/Wave2Pixel proposal with the following system:
+
+- **WSG boundary variables:** dense visual and physical attributes are normalized, encoded, generated, inverse-normalized, and rendered by their official readers.
+- **Four generative interfaces:** estimation/reconstruction, narrow RGB generation, cross-variable conditional control, and RGB-assisted inverse rendering.
+- **TunnelingNet:** a frozen FLUX.2 Klein 4B rectified-flow backbone is shared by a bank of compact task tunnels.
+- **Two evidence routes:** Modality Tunneling Attention gives non-RGB targets a separately normalized route to clean conditions; Native Joint Attention preserves the RGB generator's native prior.
+- **Dense and sparse modes:** image-like targets remain spatial fields; boxes, skeletons, parameters, trees, and audio tokens retain structured adapters.
+- **Categorical deployment:** semantic support and category assignment are composed as one deployed task through the base Head and its categorical refiner.
+- **ControlWorld:** the task graph, recommended checkpoint, inputs, output reader, legend, and inference log are exposed through one plugin interface.
+
+The old “core space” sought an editable representation between world and pixels. WSM v1 reaches part of that goal differently: World Snapshot variables themselves are the observable intermediate space, and directed Heads move information among them.
+
+<details>
+<summary><strong>Archived design paths: analytic waves, Core Space, Wave2Pixel, and direct 256-channel generation</strong></summary>
+
+## Early Architecture Questions
+
 
 
 
@@ -176,7 +217,11 @@ For Option One: Quantum waves and spatial waves actually have their own distinct
 
 Regarding Option Two: I initially had some doubts because we used point clouds and depth as constraints, which might not align with our concept. However, after some consideration, we aim to create a good shape in the future and standardization is about the wave world. If we use some methods similar to 3D Mesh generation, we should also be able to train a good wave world. Therefore, this can only be regarded as a choice of training strategy. (The preferred method should be point clouds, followed by scalar depth with world coordinates, then relative/scalar depth. Real-world measured 3D optical flow should also be fine, but the data is difficult to obtain.)
 
-## Large Canvas Position Encoding (LCPE)
+</details>
+
+## Open Design Proposals
+
+### Large Canvas Position Encoding (LCPE)
 
 Imagine there is a large canvas of 4400*4400. Then place the image in the center, and mark the positions of the entire canvas. However, only the area covered by this image is considered. Other areas are not included in the calculation and are empty/masked. This has some benefits:
 
@@ -212,8 +257,9 @@ You can refer to these formulas as the **"Unified Law for Visual Tasks"** or **"
 
 *More details at [this link](https://github.com/World-Snapshot/Unified-Law-for-Visual-Tasks).*
 
-## Question and discussion
+## Research Outlook
 
+<!--
 ### Sen Fang Initialization
 
 Recently (April 14, 2025), I suddenly realized that our wave core space generates pixels through velocity fields, which means the core space effectively replaces random Gaussian noise. This is like an initialization process, as a significant portion of generative models use noise or random pixels for initialization. <strong style="color: #666666">If we generate content not from random pixels, but through meaningful information tensors (shapes, spatial information, planar structures) for initialization, we could save anywhere from several times to hundreds of times the training and inference time. I call this concept ["Sen Fang Initialization"](https://github.com/World-Snapshot/Sen-Fang-Initialization).</strong>
@@ -232,6 +278,8 @@ This method actually has strong universality and can be applied to almost all AI
 
 **Note5:** (Aug 29, 2025) I suddenly realized that this [initialization](https://github.com/World-Snapshot/Sen-Fang-Initialization) process, apart from the two usage techniques mentioned above, can also have its own third method of usage/training.
 
+-->
+
 ### What is the next generation of entertainment for humans?
 
 Current diffusion models are like monopolistic enterprises. New generative models need to find their own areas that diffusion models cannot do or cannot do well in order to carve out a path. Otherwise, mature community environments like ComfyUI will defeat and conquer them. WaveGen aims to seamlessly process content from 2D to 4D, hoping it can become a complete generation pipeline like 3D rendering to 2D, but completely AI-based.
@@ -243,6 +291,26 @@ Due to its superior world modeling characteristics (diffusion can only achieve a
 For example, in terms of helping embodied intelligence, our most concise conception of a scene is points, lines, and surfaces. When we see city photos, there might be cars moving or stationary, or sudden changes. All of these conform to probability and the principles of core spatial representation. What humans have, the core space also has; the flaws humans have, the core space also has - nothing excessive, just perfectly appropriate.
 
 ## TLDR of Project Page
+
+- **TLDR (1/15):** Encode all information to the boundary. By flattening the world into a two-dimensional space, visual generation becomes almost lossless world generation.
+- **TLDR (2/15):** A World Snapshot Model turns visual generation into rich-information generation across RGB, geometry, motion, pose, physics, materials, semantics, audio, and other visualizable information.
+- **TLDR (3/15):** An ideal visual model requires spatial and temporal structure, dense representations, semantic instances, physical constraints, bidirectional inference, and representations that remain Reasonable, Interpretable, Visualizable, and Editable.
+- **TLDR (4/15):** Generation, estimation, conditional control, and reconstruction are four placements of evidence and target inside one generative system.
+- **TLDR (5/15):** TunnelingNet lets thousands of compact task routes learn independently and in parallel while sharing one visual generator.
+- **TLDR (6/15):** Conformal symmetry and relative position give visual representations greater geometric freedom, robustness, and compatibility across resolution and scale.
+- **TLDR (7/15):** Increasing the information carried by WSG while constraining the learned distribution improves semantic consistency across visual tasks.
+- **TLDR (8/15):** Like normal and red-green color-blind observers describing the same object, task routes need not share identical internal perception to use the same generator.
+- **TLDR (9/15):** A moving camera provides essential evidence about the world; changing viewpoint queries a higher-dimensional visual manifold rather than one fixed image plane.
+- **TLDR (10/15):** Explicit geometry, motion, material, support, and physical-property targets create a path toward visual models that reason about how the world can evolve.
+- **TLDR (11/15):** A visual task is defined jointly by its input evidence and requested output target; changing either side defines a different task.
+- **TLDR (12/15):** Task tunnels are separate for efficient training and distribution, but they can be registered together as one unified model at deployment.
+- **TLDR (13/15):** Connecting trained routes creates Chains of Visual Thought, where one generated World Snapshot becomes evidence for the next inference step.
+- **TLDR (14/15):** Estimation derives World Snapshots from images, conditional generation fixes part of a World Snapshot, and reconstruction recovers hidden snapshots from observations.
+- **TLDR (15/15):** WSM is compatible with 1,477 established visual tasks and creates 655–1,056 new ones, unifying and expanding Computer Vision in one generative framework.
+
+<details>
+<summary><strong>Archived 2025 project-page TLDRs</strong></summary>
+
 
 - **TLDR:** Requirements for implementing an ideal world model: 1. Encode all information to the boundary. 2. Conform to conformal symmetry. Follow this rule, flattens the world into a two-dimensional space, and visual generation is almost lossless world generation.
 - **TLDR:** World Snapshot Model: similar to a two-stage rich-information diffusion model, to a flow-based spatially conditioned generative model, to a 3DGS model that separates attributes from spatial information, to a model that fuses virtual NeRF and real point clouds, to an AI optical engine for rendering 3D models to 2D animation video (Cel shading/toon shading)...
@@ -259,3 +327,5 @@ ControlNet represents parameter-based controllable generation, while ControlWave
 - **TLDR:** All the pixels of our work exhibit wave-particle duality. In the field of world snapshots, waves represent reconstruction, time-space, order and existence, while particles represent generation, rendering, understanding and cognition.
 - **TLDR:** In Computer Vision before WSM be proposed, all estimation tasks can be regarded as deriving WSG from images, all conditional generation tasks can be seen as generating WSG with fixed partial results, and all reconstruction tasks can be considered as obtaining WSG sets through known images. More detail at [Unified Law for Visual Tasks](https://github.com/orgs/World-Snapshot/discussions/1).
 - **TLDR:** The latent space of WaveGen has the characteristics of being Reasonable, Interpretable, Visualizable, and Editable. Unlike all the previous works: the parameter latent space of previous models only has the simplest I/O interface.
+
+</details>

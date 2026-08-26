@@ -1,13 +1,10 @@
 # Q&As
 
-> **Current naming:** WaveGen evolved into World Snapshot Models (WSMs), and ControlWave evolved into ControlWorld. The modular plugin ideas below were retained and implemented; historical names remain where the question records the original design process.
-
-
-You can consider this page as a super navigation page. The Github organization itself already has a [simple navigation page](https://github.com/World-Snapshot), but this one is much more detailed.
+This page records practical questions that do not belong in the paper: how the ecosystem accepts new models, how plugins remain independent, what should be shared after training, and which problems come next.
 
 ## How to Contribute?
 
-Overall, It is like Minecraft or Terraria - it is forward-compatible/game-mod-style. We strive to make it easy for everyone to contribute, even without submitting a PR. Of course, we also fully welcome submissions.
+Overall, it is like Minecraft or Terraria: forward-compatible and game-mod-style. We strive to make it easy for everyone to contribute, even without submitting a PR. Of course, we also fully welcome submissions.
 
 <details>
 <summary>How do we conceive of modular contributions:</summary>
@@ -16,25 +13,59 @@ Overall, It is like Minecraft or Terraria - it is forward-compatible/game-mod-st
 2. ControlWorld also calls files in a certain folder or folders under plugins. They have their own independent tabs. This means that all the plugins, all the model decoders, they should all be independent and isolated from each other. Installing plugins/models, uninstalling plugins/models should only involve adding or removing folders in specific locations.
 3. For the backend of ControlWorld, we mainly place the newly added functions in this backend/python file under this plugin folder. If some basic functions are needed, we will call this backend located in the root directory. This way, we can ensure the modularization of the plugin. Unless you think certain functions are necessary and other plugins might also use them, after discussing with us, you can update them to this backend in the root directory.
 
-The advantage of this approach is that everyone can edit and upgrade in their own warehouse. And even there is no need to submit a PR. As long as their work can be called by ControlWorld, anyone just needs to open the panel, then manually put a certain folder in, or provide a download link when using it, and then they can use a certain plugin or model.
+The advantage of this approach is that everyone can edit and upgrade in their own repository. There is not always a need to submit a PR. As long as the work can be called by ControlWorld, a user can place its folder in the expected location or install it from a link, and then use the model or plugin.
 
 This kind of thinking has learned some game development thinking such as that of Minecraft and Terraria mods. This enables everyone to easily make any improvements to our work, while we only provide a UI platform for maintenance. It is very important to give any developer sufficient permissions without affecting the core game itself.
 
 </details>
 
-Each repository has a Contributing.md file that automatically displays on the code page of the repository, providing more details and the RoadMap of the repository:
+Each repository has a Contributing.md file that automatically appears on its code page:
 
 - [Contribute to WSMs](https://github.com/World-Snapshot/WSMs?tab=contributing-ov-file)
 - [Contribute to ControlWorld](https://github.com/World-Snapshot/ControlWorld?tab=contributing-ov-file)
 
-We also welcome contributions in all forms:
+We welcome contributions in all forms:
 
-- Try to add new changes or functions instead of modifying the existing code.
-- Try to discuss in Github rather than elsewhere.
-- We will try to install an automatic test for the main functions before release. As long as your changes do not affect the main functions, we will consider adding them at our discretion. Of course, it is recommended to use compatible plugins: simply place your plugin in our plugin folder or download it through a link to the plugin folder for use. This method is the best.
-- We estimate that in the majority of future PR cases, it will be debugging of ControlWorld. Of course, we have other projects and these projects may have different situations. We will update this document in a timely manner when the time comes.
+- Prefer adding a compatible function or plugin over changing unrelated core behavior.
+- Discuss ordinary bugs and proposals through GitHub Issues or PRs so that the decision remains public.
+- A new model can be contributed as an independent folder at the WSMs repository root, for example <code>WSM_v1_new_model</code>. Give it its own name, environment, documentation, and entry point. If it is useful, we can present it in the main README without forcing it into Augustus.
+- A ControlWorld plugin may keep its WebUI files inside the model folder. Installing or uninstalling it changes registration and visibility; it should not destroy the local plugin files.
+- We try to reply within 36 hours when we see a contribution.
 
-## Future Work / Full RoadMap
+## Current Roadmap
+
+### Phase I: Consolidate Augustus
+
+- Repair weak or low-evidence Heads without disturbing successful tasks.
+- Finish categorical deployment so that region generation and category assignment behave as one task.
+- Strengthen sparse outputs, especially structured human representations, boxes, audio-conditioned selection, and other non-field targets.
+- Keep data construction, official WSG Reader visualization, recommended checkpoints, inference, WebUI, and evaluation under the same modality contract.
+
+### Phase II: Expand the Task Bank
+
+- Add aligned modalities. One useful modality should create a family of estimation, generation, control, reconstruction, and cross-variable tasks.
+- Preserve the correct representation for each target: dense fields remain dense, while sparse structures keep their own adapters.
+- Train task tunnels independently and in parallel, then expose them through one graph and one ControlWorld interface.
+- Use evaluation results to update the official model registry rather than rediscovering a checkpoint on every run.
+
+### Phase III: Compose Visual Routes
+
+- Connect trained tasks into Chains of Visual Thought whose intermediate World Snapshots are visible and editable.
+- Study automatic routing, route verification, uncertainty, and recovery when an intermediate target is unreliable.
+- Use complementary evidence to strengthen weak mappings, as RGB-assisted inverse rendering already demonstrates.
+
+### Phase IV: Time, Physics, and Interactive Worlds
+
+- Extend aligned snapshots into World Snapshot Video and longer temporal routes.
+- Learn identity, geometry, motion, material, and physical variables together instead of asking RGB alone to hide all causality.
+- Explore the principle of least action, meaningful initialization, and explicit physical constraints as research directions rather than claims already completed by WSM v1.
+
+The literal analytic wave core is no longer the current implementation. Its deeper questions remain: what representation makes time, causality, physical constraints, and editable intermediate reasoning easier to learn?
+
+<details>
+<summary><strong>Archived August 2025 WaveGen, Core Space, and Wave2Pixel roadmap</strong></summary>
+
+## Historical Future Work / Full RoadMap
 
 ```mermaid
 gantt
@@ -108,8 +139,10 @@ Therefore, next, we should:
 
 - Of course, at the beginning of this project, we had a [brief reflection](https://world-snapshot.github.io/doc/index.html?page=S5_blogs/02_cv_rebirth.md).
 
-## How to cooperate?
+</details>
 
-For academic collaborations and any discussions, please send [emails](mailto:sen.fang@rutgers.edu)/[X(twitter)](https://x.com/SenFang01)/[Thread](https://www.threads.com/@senfang01) to the first author or the organization email. For more in-depth or business or funding collaborations, please send proposals, plans, and general details to [DM](mailto:dnm@cs.rutgers.edu) and copy the first author.
+## How to Cooperate?
 
-**Join us:** If you are a contributor, please refer to the above content. If you have an in-depth collaboration or sponsorship, please check [Q&As](https://world-snapshot.github.io/doc/index.html?page=S6_materials/04_questions.md#how-to-cooperate). If you wish to have long-term research cooperation and development with World Snapshot, including paper publication, please enter this [Slack](https://join.slack.com/t/senfanglab/shared_invite/zt-3e9y3e85d-jQu5Jt7UDYyEDfkuGCdJWA). The chat and communication community is located in this [Discord/QQ/WeChat](https://github.com/World-Snapshot/ControlWave/issues/2) Group.
+For academic collaboration and technical discussion, contact the first author by [email](mailto:sen.fang@rutgers.edu), [X](https://x.com/SenFang01), or [Threads](https://www.threads.com/@senfang01). Ordinary bugs, feature requests, and code changes should use the relevant repository's Issue or PR tracker so that authors and the community can solve them together.
+
+For deeper research, business, funding, or long-term development proposals, send the plan and general details to [DM](mailto:dnm@cs.rutgers.edu) and copy the first author.
