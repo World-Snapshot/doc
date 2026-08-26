@@ -1,107 +1,70 @@
-# The Comparison of WaveGen and Related Work
+# WSM v1 and TunnelingNet: Design Advantages
 
-*“The edifice of Computer Vision has been completed, with only two black clouds remaining - ‘quadratic growth’ and ‘logical physical consistency’. Future generations will only need to increase data and computing power.” -- This is what the big companies say.*
 
 ## Overview
 
-Here we provide a summary of WaveGen's advantages and experimental results to serve as a helpful summary.
+WSM v1 is designed around a different unit of scale. Instead of asking one model to expose one fixed prediction API, it asks a shared generator to produce whichever World Snapshot target a selected task requests. Classification, localization, detection, segmentation, estimation, reconstruction, generation, rendering, and control can therefore share a generative interface while preserving the representation each target needs.
 
-Before all, in short, it is dedicated to achieving some new features that was not well accomplished by previous methods: like variable FPS, variable resolution, causality, physics, consistency, training the world itself, predicting the future/past, synchronizing the real world with model's core space, and pixel-level control of the world distribution, unlimited duration, native 3D+t, etc.
+Its advantage is not that every historical vision architecture should be discarded. It is that many previously separate tasks can be trained, deployed, composed, and inspected within one directed system.
 
-## 1. Basic Comparison
+## 1. Representation
 
-| Features | Wave Function Generation | Diffusion Model | GAN Model | Point Cloud | NeRFields | 3D Gaussian |
-|----------|---------|-----------|-----|-------------|------|-------------|
-| Generation Mechanism | Virtual-Real World Point Transformation | Noise Addition and Removal | Adversarial Generation | Geometric Modeling | Volume Rendering | Gaussian Distribution |
-| Theory Foundation | Quantum Mechanics (Wave Collapse) | Thermodynamics (Entropy Inversion) | Game Theory | ✗ | ✗ | Statistical Mechanics |
-| Iteration Steps | Single-step | Multi-step | Single-step | - | - | - |
-| 2D Support | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| 3D Support | ✓ | ✗ | △Partial | ✓ | ✓ | ✓ |
-| Representation | Implicit ↔ Explicit | the Explicit | the Explicit | the Explicit | is Implicit | the Explicit |
+| Design | Primary boundary | Typical task organization | Adding a task |
+|---|---|---|---|
+| RGB generator | RGB image/video | generation endpoints | change conditioning or retrain |
+| Discriminative foundation model | embedding/tokens | fixed prediction heads or prompts | add a decoder/head |
+| Monolithic multi-task model | shared features | predefined output heads | change the joint model |
+| **WSM v1** | **World Snapshot variables** | **directed generative task routes** | **train a compact tunnel or sparse adapter** |
 
-## 2. Core Advantages
+WSG makes many targets spatially explicit. Depth, normals, flow, pose, masks, material fields, and physical maps remain aligned with the image boundary. Sparse mode covers structures that should remain lists, trees, parameters, or token sequences.
 
-### 2.1 Theoretical Foundation
+This combination avoids two extremes: reducing every target to opaque tokens, or forcing every structured target into a pseudo-image.
 
-These principles are only conceptually similar to each other, and it doesn't mean that we employ any sci-fi technologies.
+## 2. Task Scaling
 
-```mermaid
-graph TD
-    A["Wave Function Generation (WaveGen)"] --> B[Quantum Mechanics Base]
-    B --> C[Wave Function Collapse]
-    B --> D[Quantum Superposition]
-    B --> E[Uncertainty Principle]
-    A --> F[Multi-scale Representation]
-    F --> G[Detail Levels]
-    F --> H[Global Structure]
-```
+One Channel Head corresponds to one selectable task. The shared backbone learns a broad visual prior; the Head learns how a particular set of conditions reaches a particular target.
 
-### 2.2 Representation Capability
+A new aligned modality creates more than one capability. It can become:
 
-#### 2D
-- **Compared to Diffusion Models**:
-  - It is somewhat like a two-stage generative model, which makes it possible to have 3D-native features.
-  - Too many new features and functions
-  - After orthogonal separation of shape and rendering, the training becomes stable and easy
+- a target estimated from RGB;
+- a condition for RGB generation;
+- a condition for another World Snapshot target;
+- evidence in RGB-assisted inverse rendering;
+- an intermediate node in a visual chain.
 
-#### 3D
-- **Compared to Point Clouds**:
-  - Continuous field representation, no discretization issues
-  - Natural support for multi-view consistency
-  - Probabilistic generation avoids holes
+The marginal training cost is the tunnel rather than another full backbone. Independent Heads can be scheduled across GPUs, tested independently, and later loaded around the same generator.
 
-- **Compared to NeRF**:
-  - Faster rendering speed
-  - Lower memory consumption
-  - Support for dynamic scenes
+## 3. Evidence Routing
 
-- **Compared to 3D Gaussian**:
-  - Unified physical framework
-  - More functions and real-world attributes
-  - A simpler shape representation, the mathematical wave is somewhat like an extremely large dynamic Gaussian kernel.
+TunnelingNet does not concatenate every condition indiscriminately. Its two attention routes reflect a useful experimental finding.
 
-## 3. Technical Features
+**Native Joint Attention** preserves the backbone's RGB synthesis behavior when the target is RGB. **Modality Tunneling Attention** gives a non-RGB target a direct, separately normalized path to clean evidence. This reduces the burden on a small task tunnel: it need not rediscover how to carry the condition through an unrelated noisy target stream.
 
-### 3.1 Unique Advantages
+Multiple conditions remain separate lanes. First-frame RGB, current RGB, WSG conditions, references, and audio can therefore have different meanings even when they coexist in one task.
 
-I have arranged the features of WaveGen from the most common to the least common. The previous models basically did not have these features. Considering some excellent works, they can generally reach a range of 4-5. Generally speaking, they even cannot manage to have 1-4 at the same time.
+## 4. Modular Training, Unified Deployment
 
-1: consistency; 2: native 3D+t; 3: variable resolution; 4: unlimited duration; 5:  predicting the future; 6: variable FPS; 7: physics; 8: causality; 9: predicting the past; 10: pixel-level control of the world distribution; 11: synchronizing the real world with model's core space; 12: training the world itself
+The physical checkpoint layout is modular because modularity makes thousands of experiments manageable. It does not imply thousands of unrelated full models.
 
-```mermaid
-gantt
-    title Scale Range Comparison
-    dateFormat X
-    axisFormat %s
-    
-    section WaveGen
-    Full scale range      :0, 12
-    section Diffusion
-    Limited scale range   :0, 5
-    section GAN
-    Limited scale range         :0, 5
-    section AR
-    Limited scale range         :0, 5
-```
+- the backbone is shared and frozen;
+- each dense task adds a compact target-side tunnel;
+- sparse tasks add their native adapter;
+- categorical tasks include a compact semantic refiner;
+- the recommended registry binds each released task to its official run;
+- ControlWorld presents the assembled routes as one model interface.
 
-### 3.2 Computational Efficiency
-| Model | Training Time | Inference Time | Memory Usage |
-|-------|---------------|----------------|--------------|
-| WaveGen | Medium | Fast | Medium |
-| Diffusion | Slow | Slow | High |
-| GAN | Fast | Fast | Low |
-| Point Cloud | - | Fast | Low |
-| NeRF | Slow | Slow | High |
-| 3DGS | Medium | Fast | Medium |
+This makes failure local. Improving one weak target does not require retraining every successful task, and a new task can be distributed as a small incremental artifact.
 
-## 4. Application Scenarios
+## 5. Observable Visual Reasoning
 
-| Application | WaveGen Model | Diffusion | GAN Model | Point Cloud | NeRF | 3DGS |
-|-------------|---------|-----------|-----|-------------|------|------|
-| Image/Conditional Generation | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| 3D Reconstruction | ✓ | △ | △ | ✓ | ✓ | ✓ |
-| View Synthesis | ✓ | △ | △ | ✓ | ✓ | ✓ |
-| 4D Reconstruction (Dynamic Scenes) | ✓ | △ | △ | △ | △ | △ |
-| Real-time Rendering | ✓ | △ | ✓ | △ | ✗ | ✓ |
-| understanding/estimation | ✓ | △ | ✗ | ✗ | ✗ | ✗ |
+A conventional model may hide intermediate reasoning in activations or text tokens. A WSM visual chain exposes intermediate targets as World Snapshots:
 
+`RGB -> Depth -> Normals -> Edge`
+
+Each step can be visualized with the official reader, measured against ground truth, replaced by another Head, or manually edited before the chain continues. The chain is therefore both a computation and a diagnostic record.
+
+## 6. Current Scope
+
+WSM v1 validates its law and architecture over more than one thousand trained visual tasks and supports thousands of task definitions. It is a research system rather than a claim that every route has equal evidence or equal maturity.
+
+Some mappings are naturally strong because their input contains the requested information. Others are ambiguous, weakly supervised, categorical, or limited by automatically constructed labels. The graph makes these differences visible instead of hiding them behind one aggregate score. Its modular design also turns every weak route into a precise upgrade target.

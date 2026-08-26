@@ -1,95 +1,123 @@
-# ControlWave
+# TunnelingNet and ControlWorld
 
 <!--*"Wave is all things those worlds need."*-->
-*"Training the world requires its shadow, an operating system that overlaps with reality. The virtual mathematical wave is concepts' distribution and the skeleton of the world. The control wave is the control of reconstruction, time-space, order and existence." -- SF*
 
 ## Overview
 
-ControlWave is a WebUI that makes WaveGen more convenient to control. Unlike [ControlNet](https://github.com/lllyasviel/ControlNet?tab=readme-ov-file), WaveGen natively supports various controls and doesn't require training additional neural blocks like ControlNet does. Therefore, this is just a WebUI.
+ControlWave began as the idea of controlling a hidden wave core and its rendered pixel layer. The current implementation no longer contains that wave core. Its practical successor is **ControlWorld**, the reference WebUI for selecting, composing, and running World Snapshot Model tasks.
 
-ControlWave is mainly divided into two parts, one concerning the core space and one concerning the pixel layer. It's like an inner world and an outer world. For ControlWave, first it should have all the basic functions of ControlNet, and then by controlling the core space, it have more amazing capabilities.
+The original separation survives in a more precise form:
 
-**Note1:** Although ControlWave is a WebUI, in this section I will explain its main working principle and incorporate a part of the WaveGen method here. That is, how to control the wave core space.
+- the **task layer** selects a directed route in the World Snapshot graph;
+- the **evidence layer** supplies text, RGB, WSG modalities, audio, or structured conditions;
+- the **generation layer** loads the shared backbone and selected TunnelingNet Channel Head;
+- the **boundary layer** decodes the target with its WSG Reader and exposes the result.
+
+ControlWorld is therefore not a collection of unrelated demo tabs. It is a visual router for a model whose tasks share one interface.
 
 ## Idea
 
-As mentioned in the previous unit about the generation process, our wave core space file will consist of multiple sets of wave function parameters. It will be a file similar to JSON/NPZ. Then, "Calculate wave function field and probability cloud in 3D space" is essentially a process of getting the WSF file.
+### From Core-Space Control to Task Routing
 
-- **Generate parameters needed for the wave function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains; Constant offset term C)
-<br>
-↓
-<br>
-- **Calculate wave function field and probability cloud in 3D space** (world parameters: we need space (x, y, z) and time (t) parameters to compute the solution of the equation)
-<br>
-↓
-<br>
-...
+The early ControlWave document proposed fixing part of a high-dimensional state and generating the rest. WSM v1 implements the useful part without a hand-designed wave state.
 
-Then as mentioned in blog "00 Discuss Real World Models", our model is bidirectional, and our main components can pass information to each other, the model can be used for world generation and understanding.
+For every task, ControlWorld resolves:
 
-Therefore, if we can reverse-engineer an image or video back into wave space, we can accomplish tasks such as image or video generation based on reference images or 4D reconstruction. Moreover, our reference images can attempt to use only conditional input images like ControlNet, because our model has inherently learned conditions such as pose, depth, etc., and we have also learned information about materials, characters, lighting, and so on.
+`(task type, input modalities, target modality, Channel Head)`
 
-Using images to reconstruct wave space is quite simple - we just need to operate the pixel layer in reverse. However, for conditional generation, the problem we need to solve is how to collapse the wave to conform to conditions (that is, in the case where some channels among the 256 channels are determined, complete the remaining channels, and even complete more extensive the rest of the generated image) into pixel images.
+and constructs the corresponding evidence lanes. A modality retains its WSG channel definition, normalization contract, reader, and—where needed—structured adapter.
 
-## How to control the core space
+Control is directional. Depth to RGB is different from RGB to Depth; Normal plus first-frame RGB to Edge is different from Normal to Edge. The same variables participate in different tasks because direction and available evidence are part of the task definition.
 
-### Implement Controllable Generation with Fixed Partial Results
+### The WSG Task Graph
 
-Our choosed method is: Reverse-engineer the results, then forward reason, relying on the inherent properties of flow models to operate in high-dimensional space to achieve similar effects. Let me describe it in detail: 
+The WebUI graph is generated from dense and sparse task configurations. Its nodes are modalities; its directed edges are trained or configured tasks. Dense WSG modalities and sparse targets participate in the same graph.
 
-First of all, we know that SD essentially generates high-dimensional representations from the text and then decodes. Therefore, we should freeze the VAE and fine-tune the expansion layer (try not to damage the RGB for compatibility), resulting in the WSG encoder-decoder. At this point, we should start training the Unet part. If it only generates 3/4 channels for the input of the VAE decoder, it is no longer compatible. We also have no intention of damaging or upgrading the VAE. Because Unet is more suitable for improvement or upgrading. 
+The graph supports two-way interaction:
 
-Secondly, for Unet, it should also be frozen for channel expansion. At this point, we should consider our requirements:
+1. selecting inputs and output highlights the corresponding path;
+2. clicking an available edge updates the input signature, target, and compatible checkpoint selectors.
 
-- **A** for ordinary generation WSG: Then we only need to learn to generate content directly from 256 channels of Gaussian distribution.
-- **B** for conditional generation: Then we should learn to generate content from 256 channels (part Gaussian, part valid information) (the Gaussian part becomes valid, and the valid part remains unchanged)
-- **C** for generating content with fixed channels: This can actually be regarded as similar to conditional generation. If it is RGB, it is confirmed, to generate the rest, it should be run in reverse, inputting the three-channel Gaussian and 253 empty channels, and then generating normally. If other conditions are confirmed, these information should be input into the initialization tensor, and then use the conditional generation with conditions.
-- **D** for estimation/understanding tasks: For an RGB, we should first restore to Gaussian, and then input the 3-channel Gaussian and 253 empty channels. We can see that this is actually the requirement of C. So, in this way, we theoretically prove that generation and understanding are actually one task. Just like in the Evaluation.md of ["result repository"](https://github.com/World-Snapshot/The-results-of-Augustus), we realized a long time ago that they are similar. 
+Dense and sparse Heads can reuse numeric indices, so a task is resolved by its full contract and registered run rather than by the integer alone.
 
-In this regard, Unet requires the following functions: 1. It should be able to generate normally from 256 channels, and except for the first 4 channels, the remaining channels will learn the input and output information in an invariant manner. 2. It should be able to learn to generate the wsg result from 3/4 channels (or the other channels are empty and masked). As long as these two functions are achieved, Unet is considered to have been upgraded successfully. 3. The original 4-channel functionality should be retained (that is, for the extended channels, there should be a situation where all are not enabled, which can become a regular RF model), because the high-dimensional space of VAE is strictly corresponding. If this is not done, you cannot recover from RGB to the 3/4-channel Gaussian tensor. We cannot achieve the estimation/understanding task.
+The recommended-model registry is consulted first. It stores repository-relative run paths so the configuration works on another machine. A warning status can mark a route whose evidence is weak, training remains incomplete, or categorical reliability needs improvement.
 
-### What methods will be used in the future to transmit the information in the wave space to the decoder?
+## How to Control a World Snapshot Task
 
-In future, we also should consider encoding as many domains as possible—such as materials, physics, etc.—as controllable domains into the wave. This information can all be reflected in the solution/information of the wave function; when reconstructing the wave space from multiple perspectives of the wave, we only need to separate certain spectra.
+### Supplying Conditions
 
-Pose and lighting are still uncertainties. 1. It seems that in the process of restoring real images to wave space, the shape of the wave can achieve similar pose control functionality. As in the previous question, ControlWave controls controllable generation not through ControlNet training, but through information recorded in wave space, just as we need OpenPose pose JSON files rather than pose visualization images. We need to build in some such preprocessing/extraction models. 2. Lighting information needs to work with different angles, which requires further consideration on how to create engine-like light sources.
+ControlWorld lays out every input required by the selected signature:
 
-## Basic Generation (Control like PS and Rendering like UE/Blender)
+- text;
+- current-frame RGB;
+- first-frame RGB appearance evidence;
+- one or more WSG modality images;
+- a native reference image;
+- audio or an audio-derived feature;
+- a sparse structured condition.
 
-### Implement Real-time Pixel-Level Preview
+Image inputs share a compact grid instead of consuming one row each. Adding a second or third condition does not require a separate handwritten page.
 
-For real-time output during preview, we can first generate RGB and then generate other channels, but this must ensure consistency between preview and exported images. Our choosed method is: Separate generation modes: Split into ordinary three-channel generation and full generation (during export) modes. (Preview and export results may not be consistent, need to ensure a good technique)
+Uploaded visualizations are converted according to the modality contract. Formal inference uses the same routing semantics as training. A condition preview must not be confused with the normalized latent entering the model, and a target-conditioned training preview must not be confused with true inference.
 
-For real-time output during preview, we implement a dual-mode generation system that balances speed and quality. Our approach enables fast previewing while ensuring consistency with the final exported results. We separate generation into two modes:
+### Loading a Task
 
-- **Preview Mode:** Generates only RGB channels (3 channels) for quick visualization
-- **Export Mode:** Generates all channels (256 channels) for the complete wave field
+A deployed task consists of the shared backbone and selected Channel Head. ControlWorld resolves the official run from the registry, then chooses the best checkpoint within that run instead of searching all training directories by timestamp.
 
-To ensure consistency between preview and export results, we implement a random seed recording mechanism. When a user initiates a preview, the system:
+For categorical outputs, the categorical refiner is an integral part of the task. It can be embedded in a checkpoint or stored in a sibling `categorical_refiner/` directory beside `ckpt/`. The runtime loads the best compatible refiner automatically. If a required refiner is absent, the route should appear incomplete rather than silently return poorly calibrated pseudo-colors.
 
-1. Records the exact random seed used for the UNet velocity field generation
-2. Generates a 3-channel velocity field for quick ODE decoding and display
-3. When the user chooses to export, the system reuses the identical random seed to generate the full 256-channel velocity field
-4. The exported result's RGB channels match precisely with the preview image
+Sparse tasks load their native adapter and sidecar information similarly. A task package remains self-contained while small refiners can still be replaced independently.
 
-This technique guarantees that what users see in preview is exactly what they'll get in the export, just with more additional channels.
+## Basic Generation and Visualization
 
+### Running Inference
 
+The inference sequence is:
 
-### Multi-layer output and semantic area control
+1. resolve the graph edge and recommended run;
+2. validate every required condition;
+3. load the backbone, Channel Head, and required sidecars;
+4. encode each condition into its assigned lane;
+5. sample the target;
+6. invert target normalization;
+7. construct the output WSG or structured result;
+8. invoke the official target reader;
+9. expose every generated artifact in the output list.
 
+When a reader produces multiple visualizations—alternative normal displays, raw values, masks, overlays, or metadata—the UI keeps them as separately selectable outputs. The first suitable visualization is displayed by default.
 
+The inference log below the run action streams worker startup, checkpoint resolution, condition preparation, sampling, decoder output, reader selection, warnings, and errors. A single spinner cannot explain which component of a multi-part task failed.
 
-### How to use image input for world reconstruction
+### Native Legends and Output Meaning
 
+The control panel beside the output is derived from the target modality. Continuous values use the official normalization range and color mapping. Categorical values use their palette definition. RGB outputs have no artificial scalar legend.
 
+If the generated target is RGB, the panel may describe the controlling non-RGB condition. If the target is non-RGB, the target takes priority. Quantiles such as Q1 and Q99 are diagnostic statistics, not semantic legends, and must not replace the WSG definition.
+
+This keeps the WebUI, evaluation output, paper figures, and standalone WSG Reader consistent.
+
+## Implementation
+
+### Plugin Architecture
+
+ControlWorld discovers plugins without requiring their WebUI files at the plugin repository root. A plugin can keep those files inside a `webui/` directory while training code, data utilities, and model implementation remain independently organized.
+
+The WSM v1 plugin owns its configuration, frontend, backend adapter, inference worker, and task-graph logic. ControlWorld supplies navigation, theme, plugin lifecycle, shared layout, and backend registration.
+
+Installation and uninstallation are registry operations. Uninstalling removes a plugin from active tabs and runtime registration but does not delete its source directory. It can return to the installable state without destructive filesystem operations.
+
+Plugins inherit the host typography, spacing, colors, form controls, and light/dark variables by default. Specialized visualizations remain possible, but ordinary controls should look native to ControlWorld.
+
+### Reproducible Evaluation
+
+The evaluator uses the same task resolution, best-checkpoint selection, categorical-refiner loading, normalization inversion, and WSG Reader path as the WebUI. A route that works only in a training preview but fails in true inference is not deployed.
+
+Evaluation is incremental. Each result records its task contract, checkpoint, samples, metrics, and artifacts. Compatible completed results can be reused; a changed checkpoint or contract creates another attempt. Large task banks can therefore be evaluated over several sessions without recomputing unchanged tasks.
 
 ## Discussion
 
-### How to control the pixel network
+### What the Original ControlWave Idea Became
 
-Manifolds represent low-dimensional structures in high-dimensional space, capable of smoothly and continuously describing the state space of complex systems. They can also be understood as distributions in high-dimensional space, and most generative models today are learning to transform one distribution into another. In this context, we can imagine a scenario where using prompts to generate images is like searching within this space, while visually creating a core space is finding ways to make this space explicitly visible and manipulable.
+ControlWave imagined manipulating the information from which a world is rendered instead of attaching a separate control network for every visual cue. The current system reaches that goal through explicit World Snapshot variables and directed task routes.
 
-We can imagine that we think the Earth is flat because it's too large, and we think the scenes we see are two-dimensional planes because they exist on the surface of an immensely vast latent high-dimensional space. We search this manifold through viewpoints and prompts by moving along its surface. Therefore, videos with continuously changing camera positions are our best training data, as they can depict a complete world.
-
-The key to controlling the pixel layer is the reverse process.
+There is no hidden wave file to edit. Instead, depth, normals, pose, masks, material properties, physical attributes, audio conditions, and sparse structures can be selected, generated, inspected, and chained. ControlWorld is the operating surface for those abilities; TunnelingNet makes each route trainable without copying the full model.

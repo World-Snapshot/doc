@@ -1,5 +1,7 @@
 # Rethink Best Papers
 
+*“The edifice of Computer Vision has been completed, with only two black clouds remaining - ‘quadratic growth’ and ‘logical physical consistency’. Future generations will only need to increase data and computing power.” -- This is what the big companies say.*
+
 The Best Papers also have their hierarchies, and let's just talk about the interesting ones.
 
 ## ResNet and WSG

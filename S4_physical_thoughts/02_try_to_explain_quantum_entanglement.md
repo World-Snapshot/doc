@@ -1,89 +1,130 @@
-# Try to Explain Quantum Entanglement and "Spooky Action at a Distance"
+# Is the Universe a World Snapshot Model?
 
-While completing the World Snapshot project, I gained some insights, which I am releasing simultaneously at arXivxxxx.xxxx. It's not part of the WS project, just an interesting experimental attempt, so I wrote the related content separately in a new preprint.
-<!--It is also part of a serious publication, which is prohibited from being republished or submitted to any form of publisher or address except by me. Its content can be discussed or advertised on the Internet, and my name (Sen Fang / 房森) must be mentioned.-->
+While building World Snapshot Models, I gradually encountered a question larger than the model itself:
 
-Modern quantum mechanics has three fundamental problems that remain unsolved: 1. Why are measurement results random? 2. How is "spooky action at a distance, i.e. quantum entanglement" accomplished? 3. Is the wave function physical reality, or merely a mathematical tool?
+> **Is the universe also a World Snapshot Model?**
 
-In this section, I am temporarily only addressing the second question.
+This question does not mean that the universe is literally running our code, nor that it is a neural network hidden behind reality. It asks whether the universe and WSM share the same information structure: a complete world description evolves continuously, while observers can access only partial snapshots rendered at its boundary.
 
-## Background
+A World Snapshot is not merely a screenshot. It is an addressable collection of variables describing what exists at one moment: appearance, geometry, motion, material, physical properties, relations, and any other information that can be observed or inferred. A World Snapshot Model learns how these variables are generated, transformed, and kept mutually consistent.
 
-[Action at a distance](https://en.wikipedia.org/wiki/Action_at_a_distance) is the concept in physics that an object's motion can be affected by another object without the two being in physical contact. Quantum entanglement suggests that if a pair of entangled particles is generated such that their total spin is known to be zero, and one particle is found to have clockwise spin on the first axis, then the other particle (when measured on the same axis) will be found to have counterclockwise spin. For position, momentum, spin, etc, the situation is similar.
+If the universe follows a similar organization, then phenomena that appear mysterious from the viewpoint of isolated objects may become simpler from the viewpoint of one globally constrained world representation.
 
-This phenomenon (is real, proved by [Bell's Theorem](https://www.quantamagazine.org/how-bells-theorem-proved-spooky-action-at-a-distance-is-real-20210720/) in 1964, the 2022 Nobel Prize was awarded for contributions to quantum entanglement information transmission science) is difficult to explain because: 1. Before measurement, each particle is in a superposition state and theoretically can take any allowed value. However, once one particle is measured, the other immediately "collapses" into a definite complementary value. This process appears to violate the principle of locality - it should be like flipping coins where, although the sum of probabilities of heads and tails is 1, there can be cases where both coins show heads. Rather than "one coin being heads meaning the other must be tails". 2. It easily exceeds the speed of light in its mutual influence. In 1905, Einstein's special relativity established a new view of space-time and indicated that the speed of light in vacuum is the limit for all physical interactions. This theory eliminated the possibility of instantaneous action at a distance in physics. 
+## What Would It Mean for the Universe to Be a WSM?
 
-## My Predictions and Inferences
+Let the complete description of the universe at time <i>t</i> be <i>U</i><sub>t</sub>. Its evolution can be written abstractly as:
 
-Einstein believed that action at a distance was achieved through the influence of space-time. However, I propose a new perspective: <strong style="color: #666666">"quantum entanglement/'action at a distance' occurs at a speed of conceptual level. When I change variables in a wave function, the entire function affects the result. Therefore, I believe quantum entanglement operates at a speed of conceptual level."</strong> The entire universe may be like an ever-expanding WSF, with the WaveGen mechanism or concept covering every point in universe.
+<code>U_t -> U_(t+1)</code>
 
-However, this occurrence isn't that fast. The "Schrödinger's cat" hypothesis suggests that macroscopic quantum superposition in biological systems is possible. But why doesn't it exist? It's because the number of particles is simply too large, causing mutual disturbance and susceptibility to external influences, making it easy for large quantum state organisms to collapse. Quantum states might only exist stably in the microscopic world.
+An observer does not read all of <i>U</i><sub>t</sub>. The observer obtains a local World Snapshot through a limited reader:
 
-I agree with this view. So I think: In the World Snapshot model, action at a distance occurs at a conceptual level (like changing the input variables of a wave function/WaveGen), and affects the speed of emergence depends on the rate of collapse, which is the speed at which world pixels transition from virtual to real. The real world should be the same.
+<code>S_(observer,t) = Reader_observer(U_t)</code>
 
-I think the phenomenon of quantum entanglement/"Action at a distance" can be explained to some extent through World Snapshot. However, I still need some thinking to design a complete experiment. The steps we need to take are: 1. How to create entangled particles in WSF 2. Successfully reproduce the results of the real world 3. Explain non-local action through the results.
+The world and an observation of the world are not the same object. A camera records RGB. A depth sensor records geometry. A human observes only a narrow range of physical signals. Each is a different reader of one shared world.
 
-## Idea
+Under this hypothesis:
 
-I think we can use Backward Derivation:
+- physical fields are variables in the global World Snapshot;
+- physical laws are transition and consistency rules over these variables;
+- time is the ordered evolution of World Snapshots;
+- measurement is a reader producing a locally observable result;
+- different observers may read different projections of the same world;
+- correlations can be global properties of one representation rather than messages exchanged between independent representations.
 
-First, we can test the entangled pairs generated by our WaveGen and verify that they are indeed entangled. We can test it a hundred or thousand times. When we find that the entangled particles only show opposite states, it proves that our entangled particles are successfully generated. (We can also consider rigorous methods to prove that this is an entangled pair: If we cannot rigorously prove this is an entangled pair, then we fall into circular reasoning. This is unacceptable.)
+This resembles the motivation behind WSG. RGB alone records only the visible surface. WSG expands the boundary so more properties of the same world can be represented together. The universe, if it is an ideal WSM, would contain an incomparably richer variable system and an exact transition rule.
 
-Then, we can consider two scenarios: 1. Different wave functions in the same spacetime: entangled particle pairs are in one image file, using wave function model A to collapse one particle, and then using wave function model B to collapse the other particle. 2. Same wave function in different spacetime: placing the entangled particles in two physically separated image files, they maintain their quantum states through WaveGen, and then collapse.
+## The Holographic Precedent
 
-If we discover that: 1. Only our model and the produced entangled pairs can find entanglement phenomena, while others using another wave function collapse models cannot produce entanglement phenomena. 2. Under the same wave function, the entangled particle in different spacetime successfully collapsed correctly. This proves that quantum entanglement and "spooky action at a distance" are indeed propagated through conceptual means (they have to be within the coverage of the same wave function) rather than through spacetime.
+This hypothesis is not based only on an analogy invented after WSM. It has a serious precedent in theoretical physics: the holographic principle.
 
-If opponents think that the particles we produce are not completely isolated, we can ask them why only our WaveGen model can achieve quantum entanglement effects, while other WaveGen models cannot observe entanglement effects.
+In [“The World as a Hologram”](https://arxiv.org/abs/hep-th/9409089), Leonard Susskind developed the idea that the information contained in a spatial region can be represented on its lower-dimensional boundary. Maldacena later provided the best-known concrete realization through [AdS/CFT](https://arxiv.org/abs/hep-th/9711200): under specific conditions, a gravitational theory in a <i>d</i>+1-dimensional bulk has an equivalent description in a <i>d</i>-dimensional boundary field theory.
 
-If this phenomenon occurs: once our model's wave function maintenance is lost, other WaveGen models cannot even observe it. Opponents might say this proves that the wave function grants this entanglement phenomenon. The wave function is necessary for the experiment to succeed, with no other possibilities - but this is exactly what we wanted to prove.
+World Snapshot follows the same direction of dimensional organization. Instead of explicitly reproducing every dimension of a world as an inaccessible internal object, WSM encodes observable world properties into an <i>N</i>-1-dimensional boundary and learns how those properties are generated, transformed, and kept consistent.
 
-However, opponents might argue this is a pseudo-entanglement phenomenon that only exists when we maintain it. In reality, perhaps entanglement exists without wave function maintenance. This would suggest we haven't truly produced entangled pairs.
+In this sense, WSM is a computational method for constructing a lower-dimensional generative description of a higher-dimensional world. WSG is not merely a richer image format; it is an engineered boundary on which the variables of a world can be recorded and manipulated.
 
-But we have previously verified that our wave function can produce entangled pairs. And our experiment has no external force influence. Even physical gravity cannot affect the images. So this verification path and experimental environment are very pure.
+The holographic principle does not prove that the physical universe is literally a WSM. It establishes something more useful for this discussion: **representing an (N)-dimensional world through an <i>N</i>-1-dimensional boundary is a physically serious form of equivalence, not an arbitrary computer-vision metaphor.**
 
-In this way, we have explained one of the three major puzzles of quantum mechanics. The other two may have also been explained in some sense.
+For this reason, a toy computational experiment is unnecessary here. Training a network to reproduce Bell correlations would prove only that the network can fit those statistics. The universe-as-WSM proposal stands or falls on the structural equivalence between world, boundary, observation, and global consistency—not on whether a small simulation can imitate one quantum experiment.
 
-<details>
-<summary>Flowchart - Quantum Entanglement's Backward derivation</summary>
+## Global Consistency Before Local Appearance
 
-```mermaid
-flowchart TD
-    A[Experiment Start] --> B[Generate Entangled Pairs Using WaveGen]
-    B --> C{Verification Test<br>100-1000 times}
-    C -->|Success| D[Confirm Successful Generation<br>of Entangled Pairs]
-    C -->|Failure| E[Experiment Failed]
-    
-    D --> F{Compare with Other Models}
-    F -->|Only Our Model Succeeds| G[Supports Conceptual Propagation Theory]
-    F -->|Other Models Also Succeed| H[Refutes Conceptual Propagation Theory]
-    
-    G --> I{Opposition Questions:<br>Particles Not Fully Isolated}
-    I --> J[Why Can Only Our Model<br>Observe Entanglement Effects?]
-    
-    J --> K{Wave Function Loss Experiment}
-    K -->|Other Models Cannot Observe| L[Proves Wave Function Necessity]
-    K -->|Other Models Can Observe| M[Proof Failed]
-    
-    L --> N{Opposition Questions:<br>Pseudo-Entanglement Phenomenon}
-    N --> O[Verified Production of<br>Real Entangled Pairs]
-    O --> P[Pure Experimental Environment<br>No External Forces]
-    
-    P --> Q[Proof Successful:<br>Quantum Entanglement Originates from Wave Function<br>Through Conceptual Level Influence]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style Q fill:#9f9,stroke:#333,stroke-width:2px
-```
+Computer vision usually begins with local appearance: this pixel belongs to this object, this edge belongs to this surface, and this frame follows the previous frame. WSM reverses the priority. These local observations are outputs of a larger consistent World Snapshot.
 
-</details>
+The same change of viewpoint may be useful in physics. Two distant observations can be locally separate while still belonging to one global state. Their relationship need not be created after one observation occurs; it may already be part of the complete constraint that defines the state.
 
-## Method
+This does not require the universe to transmit a controllable message instantaneously. It requires the complete World Snapshot to remain self-consistent whenever a local reader produces an observation.
 
+## Try to Explain Quantum Entanglement and "Spooky Action at a Distance"
 
+Quantum entanglement is one of the strongest tests of the universe-as-WSM hypothesis. If a World Snapshot framework cannot even express non-classical global correlations, it is not a serious candidate for describing the organization of the universe.
 
-*Conceived this section on 19th Jan 25, Updated on 20th Jan 25*
+### Background
 
-<!--
-The 2022 Nobel Prize in Physics was awarded to French physicist Alain Aspect, American theoretical and experimental physicist John F. Clauser, and Austrian physicist Anton Zeilinger for their contributions to quantum information science. Through experiments with entangled photons, they established that Bell's inequality does not hold in the quantum world, and pioneered the field of quantum information.
+Consider two particles prepared in an entangled state whose total spin is constrained. When the same measurement axis is selected for both particles, their outcomes can be strongly correlated or anti-correlated. Each local result is individually unpredictable, yet the joint statistics follow a precise rule.
 
-In general, these three scientists experimentally verified the violation of Bell's inequality, thus proving the completeness of quantum mechanics. They proved that quantum mechanics is complete and quantum entanglement exists. More directly, they demonstrated the potential for studying and controlling particles in entangled states. What happens to one particle in an entangled pair determines what happens to the other particle, even when they are too far apart to interact with each other. The laureates' development of experimental tools laid the foundation for a new era of quantum technology.
--->
+Bell's theorem made this distinction testable. Local hidden-variable models satisfy Bell inequalities; quantum mechanics predicts correlations that can violate them. Experiments with entangled photons established such violations, work recognized by the [2022 Nobel Prize in Physics](https://www.nobelprize.org/prizes/physics/2022/press-release/). Bell's original argument is available in [“On the Einstein–Podolsky–Rosen Paradox”](https://cds.cern.ch/record/111654).
+
+The result is often described too casually. Bell tests do not show that one particle sends a controllable faster-than-light message to another. They show that the observed joint statistics cannot be reproduced by the relevant class of locally factorized hidden-variable explanations. Entanglement still obeys the no-signalling constraint: one observer cannot choose an outcome and use it to transmit information instantaneously.
+
+The real puzzle is therefore sharper:
+
+1. the two local outcomes are individually random;
+2. their joint distribution is more strongly constrained than a local classical account allows;
+3. the constraint appears without a controllable signal travelling between the two measurements.
+
+### My Prediction and Inference
+
+My original intuition was:
+
+> <strong style="color: #666666">“Quantum entanglement or action at a distance occurs at a conceptual level. When I change variables in a wave function, the entire function affects the result. Therefore, I believe quantum entanglement operates at a conceptual level.”</strong>
+
+In a World Snapshot Model, “conceptual level” can be stated more precisely. It is not another physical speed. It is the level at which a relation is defined.
+
+If two values are members of one global variable, their consistency does not require a message to travel from one value to the other. A circle does not inform its opposite side when its radius changes; both sides are constrained by the same circle. Likewise, an entangled pair may be better understood as one jointly defined object with two spatially separated observation interfaces, rather than two complete local objects that later negotiate their results.
+
+The correlation belongs to the representation before it belongs to either observation.
+
+### A World Snapshot Interpretation
+
+Under the WSM hypothesis, an entangled system contains at least three layers:
+
+1. **The global state.** One joint World Snapshot variable describes the entangled system.
+2. **The local readers.** Observer A and observer B choose measurement settings and obtain only their local outputs.
+3. **The consistency rule.** The joint reader must produce outcomes whose distribution respects the global state, even though neither local reader can inspect or control the other output.
+
+This can be written as:
+
+<code>Global entangled state + local settings -> jointly consistent local outcomes</code>
+
+The important object is the joint conditional distribution:
+
+<code>P(a, b | x, y)</code>
+
+Here, <i>x</i> and <i>y</i> are the two measurement settings, while <i>a</i> and <i>b</i> are the outcomes. A purely local classical explanation attempts to factorize the result through a shared hidden variable λ:
+
+<code>P(a, b | x, y, λ) = P(a | x, λ) P(b | y, λ)</code>
+
+Bell violations show that this locally factorized form is insufficient for the observed correlations. A universe-level WSM would instead treat the pair as one global variable and the two measurements as partial readers of that variable.
+
+This offers a concrete interpretation of “action at a distance”: perhaps there is no action travelling across the distance. The distance exists in the rendered spatial snapshot, while the correlation exists in the global definition from which that snapshot is read.
+
+### Why Macroscopic Objects Look Different
+
+A macroscopic object interacts with an enormous environment. Its useful state becomes distributed across many degrees of freedom, making coherent quantum relationships extremely difficult to isolate and preserve. In WSM language, the object is no longer read through a small clean joint variable; it is entangled with a vast number of surrounding variables.
+
+The analogy is not that neural-network noise causes physical decoherence. The useful structural similarity is that a compact global constraint becomes inaccessible when its information is dispersed across a much larger system.
+
+This may explain why the World Snapshot viewpoint feels natural at the microscopic level but ordinary local objects appear sufficient at the macroscopic level.
+
+## Discussion
+
+The universe-as-WSM hypothesis changes the unit of thought.
+
+If we begin with isolated particles, entanglement looks like an impossible communication problem. If we begin with one globally defined World Snapshot, spatial separation and informational separation are no longer identical. The two observations can be distant in rendered space while remaining components of one state description.
+
+This is also why the question belongs naturally to the World Snapshot project. We did not approach physics merely to borrow its vocabulary. We built a model around boundary encoding, explicit world variables, generative transformation, and global consistency. The physical universe is the largest possible case of the same representational question.
+
+Perhaps the universe is not assembled from independently existing local pictures. Perhaps every local picture is a partial reading of one evolving World Snapshot Model.
+
+*Conceived this section on 19th Jan 2025; reframed under the World Snapshot Model hypothesis on 25th Aug 2026.*

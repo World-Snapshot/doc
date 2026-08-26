@@ -2,6 +2,7 @@
 
 *"I now define the frame of the System of the World Models." -- SF*
 
+
 ## What is Real the World Models
 
 [Yann LeCun](http://yann.lecun.com/) often says that large language models are not world models, and humanity needs something new to reach the next level. Indeed, large language models often make mistakes in the most basic reasoning, and perhaps super-alignment is a direction to enhance Agent intelligence. But LLMs are indeed not world models; in my view, they are just two-dimensional beings.

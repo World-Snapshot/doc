@@ -1,304 +1,141 @@
-# Learn Wave Generative Method (WaveGen)
+# World Snapshot Model v1 (Augustus)
 
-*"God plays dice, our world snapshot does play dice too." -- SF*
 
 ## Overview
 
-World Snapshot aims to unify digital reality at the pixel level, and [WaveGen](https://github.com/World-Snapshot/WaveGen) is its sharpest weapon. We defined and discussed the forms of WSG, WSV, and WSF in sequence, but I never said we would train these three formats separately.
+World Snapshot Model v1, code-named **Augustus**, is the first large-scale implementation of the Unified Law for Visual Tasks. It does not train RGB generation, depth estimation, pose estimation, material prediction, reconstruction, and conditional control as unrelated systems. It represents each as a generative route from available evidence to a requested World Snapshot target.
 
-In theory, WaveGen can directly train a continuous world field (WSF). When we fix the angle, it becomes WSV, and when we take a specific frame from it, we get WSG image generation. Therefore, we will try to directly generate a dynamic world scene, which wave collapses according to viewing angles and frame numbers, and then export the format we want.
+The active implementation uses World Snapshot Graphics (WSG), a shared rectified-flow visual backbone, and TunnelingNet. WSG exposes visual and physical variables at the image boundary; TunnelingNet gives each task a small trainable tunnel through one shared generator. A Channel Head identifies one complete task: its input evidence, target, interface type, routing recipe, and deployable parameters.
 
 ## Background
 
-According to [Fourier series](https://en.wikipedia.org/wiki/Fourier_series), multiple sine functions superimposed can represent any curve with n bends. This also applies in 3D and 4D spaces, just as multiple 3D waves can represent any sandbox with various peaks. In the last section (WSF), we discussed the core space of the world, which is a space that represents the real world through multiple sets of math special shape dynamic math functions (All the special shape dynamic math functions mentioned in the following text are shape-shaped dynamic mathematical functions).
+### From WaveGen to WSM
 
+WaveGen was the first attempt to answer a useful question: can a generative model represent more of the world than RGB appearance? Its early documents explored analytic wave functions, a continuous core space, view-dependent collapse, and direct manipulation of hidden world variables.
 
+The analytic wave-function architecture was eventually abandoned. Experiments did not justify forcing learned visual structure into a hand-designed family of spherical harmonics or probability clouds. The current system does **not** generate a WSF or a mathematical wave core.
 
-<details>
-<summary>For a forest scene that needs to be represented, it may require 700-800 sets of special shape dynamic math functions to describe it well.</summary>
+Several underlying ideas survived and became more concrete:
 
-For a small forest scene (approximately 100m × 100m):
-- Large trees (about 20-30): 15-20 special shape dynamic math function sets per tree
-- Terrain variations: 10-15 special shape dynamic math function sets for basic terrain
-- Shrubs: 3-5 special shape dynamic math function sets per shrub
-- Ground vegetation: 1-2 special shape dynamic math function sets per square meter for main variations
-Rough estimate:
+1. **RGB is not the final boundary.** Geometry, motion, pose, material, physics, semantic regions, audio evidence, and structured objects can be first-class targets.
+2. **Control should come from information itself.** A depth map, normal map, skeleton, mask, audio feature, or first RGB frame is routed as evidence rather than reduced to a vague text description.
+3. **Generation and understanding share one operation.** Changing which variable is observed and which variable is generated changes the task without changing the generative formulation.
+4. **Flow is a useful transport view.** The present model uses rectified flow in visual latent space rather than the old analytic wave space.
+5. **Internal variables should be observable.** WSG Readers decode non-RGB targets into official visualizations and, where possible, restore physical or semantic units.
 
-Trees: 20 trees × 20 sets = 400 special shape dynamic math function sets
-Terrain: 15 special shape dynamic math function sets
-Shrubs: 50 clusters × 4 sets = 200 special shape dynamic math function sets
-Ground surface: about 100 special shape dynamic math function sets
-
-This equals approximately 700-800 special shape dynamic math function sets. With fractal properties and hierarchical representation, this number could potentially be optimized down to 300-400 sets while maintaining the main visual features.
-</details>
-
-<details>
-<summary>For a house that needs to be represented, a total of approximately 45-50 sets of special shape dynamic math functions are needed.</summary>
-
-For a typical living room (approximately 20 square meters):
-- 4 walls + ceiling + floor: about 24 special shape dynamic math functions (edges and corners)
-- One set of sofas: about 8 special shape dynamic math functions
-- One coffee table: about 4 special shape dynamic math functions
-- One TV cabinet: about 4 special shape dynamic math functions
-- 5-6 small objects: about 5-6 special shape dynamic math functions
-This totals approximately 45-50 sets of special shape dynamic math functions.
-Important trade-offs:
-
-For more precise detail description: might need 100+ special shape dynamic math function sets
-For rough shapes only: 20-30 sets might be sufficient
-If considering surface textures: each surface might require an additional 5-10 special shape dynamic math function sets
-
-This estimation is based on each major edge/contour needing at least one special shape dynamic math function, with curved or complex shapes requiring multiple superimposed special shape dynamic math functions.
-</details>
-
-Text as input, multiple sets of special shape dynamic math functions as output. As of now (March 11, 2025), I'm still unclear about their specific functions. Ideally, whether we manually set a core space similar to the real world, or it naturally uses waves to construct and reconstruct real scenes through learning, both are what we hope for.
-
-However, if after learning, the model has its own highly abstract method of representing the world in its mind, we may have to accept this as well. It's like how we ask LLMs to think in English, but they insist on thinking in representations, strange characters, or tensor flows. Therefore, I'm still unclear about what scenes exist in the world's core space.
+The V0 documentation preserves the original WaveGen proposal. This V1 page documents the system that was actually trained and evaluated.
 
 ## Theory
 
-Although the complex solutions generated by the wave equation at each position and moment are the high-dimensional features we need, we don't actually treat them as true probabilities. We haven't fully utilized the quantum special shape dynamic math function, but instead have made adaptive improvements. What we need is the concept of transformation between virtual and real, therefore we abandoned its various basis functions or complex atomic nuclear potential concepts.
+### The Unified Law
 
-What we need are some probability cloud/wave with shapes as free as possible to fit this world, although this may not be necessary, it helps with Visualization and Editability. Therefore, we not only need to interpret the high-dimensional features but also make some adaptive improvements, such as adding decay factors, central positions, etc.
+The central statement is:
 
-### Basic special shape dynamic math function
+> **If all information can be encoded into the image itself, two-dimensional image generation becomes lossless World Snapshot generation.**
 
-The time-dependent Schrödinger special shape dynamic math function in 3D cartesian coordinates can be expressed as:
+“Image” here means an image-like boundary representation, not an ordinary three-channel photograph. A World Snapshot can contain RGB together with aligned descriptions of shape, movement, articulation, material, physical properties, semantic identity, and other observable variables.
 
-$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t)}$
+A visual task becomes a directed transformation:
 
-We encode these parameters directly from text input through a neural network:
+`F_k: C_k -> T_k`
 
-- A: Amplitude (generated from text)
-- $k_x$, $k_y$, $k_z$: Wave vector components (generated from text)
-- $\omega$: Angular frequency (generated from text)
-- x, y, z: Spatial coordinates (sampling points)
-- t: Time parameter (user-specified)
+where `C_k` is the evidence available to task `k`, and `T_k` is the requested target. Moving a variable from the condition side to the target side defines another task. Adding a modality creates many additional routes, while composing routes creates a Chain of Visual Thought.
 
-### Add Directional Decay
+### Four Generative Interfaces
 
-The attenuation term is not inherent in the special shape dynamic math function, and it allows us to control the spatial extent of the special shape dynamic math function in each direction, enabling the generation of various shapes like spheres, ellipsoids, or more complex geometric forms based on the text description.
+The dense task graph is organized by four training interfaces. They are implementation contracts discovered to cover the graph, not a restrictive taxonomy of computer vision.
 
-The time-dependent Schrödinger special shape dynamic math function in 3D cartesian coordinates with directional decay can be expressed as:
+### A. Estimation and Reconstruction
 
-$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot x + k_y \cdot y + k_z \cdot z - \omega t)} \cdot D(\hat{r})$
+The current RGB frame is observed and an additional World Snapshot variable is generated:
 
-Where $D(\hat{r})$ is a directional decay function that depends on the unit vector $\hat{r}$ pointing from the origin to the point $(x,y,z)$. This function can be represented using [spherical harmonics](https://en.wikipedia.org/wiki/Spherical_harmonics):
+`RGB_current -> Target_WSG`
 
-$D(\hat{r}) = d_0 \cdot \exp(-(\hat{r} \cdot \mathbf{S} \cdot \hat{r})) \cdot (1 + \sum_{l,m} w_{l,m} \cdot Y_{l}^{m}(\theta, \phi))$
+Targets include depth, normals, curvature, edges, optical flow, pose, masks, material maps, physical properties, object structure, and audio-related representations. Conventional perception becomes target generation.
 
-With parameters:
-- $d_0$: Base decay rate (generated from text)
-- $\mathbf{S}$: Diagonal matrix with axis scaling factors (generated from text)
-- $w_{l,m}$: Spherical harmonic weights (generated from text)
-- $Y_{l}^{m}$: Spherical harmonic functions
-- $\theta, \phi$: Polar and azimuthal angles of the direction vector $\hat{r}$
+### B. Narrow Visual Generation
 
-This directional decay allows us to represent complex asymmetric shapes with different extents in different directions, without requiring explicit rotation parameters.
+Text supplies semantic intent, a non-RGB condition supplies structure, and the first RGB frame can preserve appearance:
 
-### Add Center
+`(Text, Condition_WSG, RGB_first) -> RGB_current`
 
-Additionally, we must establish a center for the special shape dynamic math function, around which the decay occurs:
+Pose-to-person, geometry-guided, and material-guided generation use this route. Broad generation can be composed as text to RGB followed by RGB to another World Snapshot target.
 
-$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r})$
+### C. Conditional Control
 
-Where $\hat{r}$ is now the unit vector from center to point $(x,y,z)$:
+One additional World Snapshot variable controls another:
 
-$\hat{r} = \frac{(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)}{||(x-\text{Center}_x, y-\text{Center}_y, z-\text{Center}_z)||}$
+`Condition_WSG -> Target_WSG`
 
-- $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$: Initial center position of the special shape dynamic math function at t=0 (generated from text)
+Examples include normals to edges, pose to human segmentation, or one physical/material property to another. Cross-modal visual association becomes directly testable.
 
-The center position at any time t (!= 0) is calculated as: $C(t)_x = \text{Center}_x + v_x \cdot t$; $C(t)_y = \text{Center}_y + v_y \cdot t$; $C(t)_z = \text{Center}_z + v_z \cdot t$. Where $v_x$, $v_y$, $v_z$ are the velocity components generated from the text for each time step.
+### D. RGB-Assisted Inverse Rendering
 
-### Add Information Systems
+A first RGB frame supplies scene evidence while another observation identifies the current state:
 
-In order to facilitate the editing of information in the high-dimensional wave space, we should encode the information of the WSG domain that is suitable for control into the waves: 1. It is more convenient than text input/control. 2. And it should be reflected in the solutions of each special shape dynamic math function: the information of matter, semantics and partial material properties should be correlated. 3. The integrated wave information should also be easy to separate: during reverse reasoning, the image can be restored to the wave, and the image can be regenerated after editing. However, if it is returned as a text description, it is inconvenient to separate and control.
+`(RGB_first, Observation_WSG) -> HiddenTarget_WSG`
 
-The enhanced special shape dynamic math function with dynamic information systems can be expressed as:
-
-$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r}) \cdot M(\mathcal{I})$
-
-Where $M(\mathcal{I})$ is a modulation function that encodes a sparse set of information values, and $\mathcal{I} = \{(s_1, v_1), (s_2, v_2), ..., (s_k, v_k)\}$ represents a set of position-value pairs, with $s_i$ being the system position (1-256) and $v_i$ being the corresponding value.
-
-The modulation function is defined as:
-
-$M(\mathcal{I}) = 1 + \sum_{(s,v) \in \mathcal{I}} \epsilon \cdot \sin(\omega_{\text{base}} \cdot s \cdot t + \phi(v))$
-
-Where:
-- $\epsilon$ is a small constant modulation depth (e.g., 0.001)
-- $\omega_{\text{base}}$ is the base frequency spacing between systems
-- $\phi(v)$ is a phase encoding function that maps the value $v$ to a phase offset
-
-During training, the model learns:
-1. Which information positions are relevant for different types of content, and which positions are useful.
-2. The appropriate value ranges for each position based on training data
-3. How to map textual descriptions to meaningful information values
-
-For extraction, we use a frequency analysis technique that identifies which frequency bands contain significant energy, then decodes the corresponding position-value pairs. This allows us to precisely reconstruct the original sparse information set from the special shape dynamic math function.
-
-The extractable information domains (subsets of positions that contain related information) automatically emerge during training, forming logical groupings such as:
-- Material properties (e.g., positions 143-174 might encode reflectivity, texture, etc.)
-- Semantic attributes (e.g., positions 175-206 might encode object categories, descriptions, etc.)
-
-This dynamic architecture enables the special shape dynamic math function to adapt to different domains and use cases without requiring manual specification of information ranges.
-
-### Add a Constant
-
-Since waves have oscillations, it is difficult to determine their specific boundaries and how they radiate to the surrounding environment. At certain moments, the value might be 0, so it is necessary to generate a constant when generating wave parameters, which serves as the intermediate value when the special shape dynamic math function oscillates.
-
-The complete time-dependent special shape dynamic math function in 3D cartesian coordinates with all enhancements can be expressed as:
-
-$\psi(x,y,z,t) = A \cdot e^{i(k_x \cdot (x-\text{Center}_x) + k_y \cdot (y-\text{Center}_y) + k_z \cdot (z-\text{Center}_z) - \omega t)} \cdot D(\hat{r}) \cdot M(\mathcal{I}) + C$
-
-Where:
-- $A$: Amplitude (generated from text)
-- $k_x, k_y, k_z$: Wave vector components (generated from text)
-- $\omega$: Angular frequency (generated from text) 
-- $\text{Center}_x, \text{Center}_y, \text{Center}_z$: Center position (generated from text)
-- $D(\hat{r})$: Directional decay function
-- $M(\mathcal{I})$: Information modulation function
-- $x, y, z$: Spatial coordinates
-- $t$: Time parameter
-- $C$: Constant offset term (generated from text) - serves as the baseline value around which the wave oscillates
-
-The constant $C$ ensures that the special shape dynamic math function maintains a meaningful baseline value even when the oscillatory components approach zero, providing better control over the wave's spatial extent and environmental interaction. A more in-depth exploration of the constant term can be found in [Guideline](https://github.com/World-Snapshot/doc/index.html?page=S6_materials/02_guideline.md#how-to-observe-the-core-space-of-the-wave-during-training).
+Appearance evidence often resolves ambiguities that cannot be recovered from a narrow condition alone.
 
 ## Idea
 
-### Model Structure
+### Model Structure: TunnelingNet
 
-Based on the theory above, we can consider creating a prototype of the model. The structure I've conceived is as follows:
+A conventional approach would copy and fine-tune a complete generator for every task. TunnelingNet separates the shared visual generator from a task-specific tunnel:
 
-- **Generated from Text Input and Time input** (Time point or range)
-<br>
-↓
-<br>
-- **Generate parameters needed for the special shape dynamic math function** (Wave vector components $k_x$, $k_y$, $k_z$; Angular frequency $\omega$; Amplitude $A$; Center position $\text{Center}_x$, $\text{Center}_y$, $\text{Center}_z$; Velocity components $v_x$, $v_y$, $v_z$; Base decay rate $d_0$; Axis scaling factors $\mathbf{S}$; Spherical harmonic weights $w_{l,m}$; Information system values for controllable domains; Constant offset term C)
-<br>
-↓
-<br>
-- **Calculate special shape dynamic math function field and probability cloud in 3D space** (world parameters: we need space (x, y, z) and time (t) parameters to compute the solution of the equation)
-<br>
-↓
-<br>
-- **Obtain special shape dynamic math function characteristics from different perspectives** (enter additional camera parameters, observing high-dimensional core feature space from different angles to obtain different views)
-<br>
-↓
-<br>
-- **Decode features through pixel network to render the final image** (we can also reuse text input for more control)
+`p_(theta, phi_k)(x_target | x_conditions, prompt)`
 
-As stated in "00 Discuss Real World Models", the main part of this structure should be bidirectional, where information can be exchanged mutually.
+Here, `theta` is the frozen FLUX.2 Klein 4B rectified-flow backbone and `phi_k` is the trainable Channel Head for task `k`. The text encoder, VAE, and base transformer remain frozen. A dense tunnel modifies target-side embedding, modulation, attention projections, and feed-forward projections while preserving the shared model.
 
-**Note:** In the past, I attempted to use mathematical waves based on spherical harmonics, but the results were not satisfactory. If you need to view the content, you can click on [this link](https://github.com/World-Snapshot/doc/index.html?page=demos/old_wave_sys.md). However, they have been completely abandoned.
+Each tunnel contains about 12.51M trainable parameters. Separate GPUs can train separate tasks; checkpoints remain independently distributable; and selected Heads can later be assembled into one task bank around the same backbone. The separation exists for training and deployment convenience. Conceptually, the loaded task bank is one World Snapshot Model.
+
+### Two Attention Routes
+
+- **Modality Tunneling Attention (MTA)** serves estimation/reconstruction, conditional control, and inverse rendering. The target keeps its self-attention path and receives a separately normalized target-to-condition path. Clean evidence remains on frozen condition lanes while the task tunnel updates the noised target lane.
+- **Native Joint Attention (NJA)** serves narrow RGB generation. Text, target, structural condition, and RGB evidence share the native joint field so RGB synthesis can reuse the backbone's prior.
+
+MTA adds no separate attention parameters. Its contribution is routing: heterogeneous evidence reaches the target directly without retraining every condition lane.
 
 ## Further Approach
 
-### Wave Decoder
+### Dense and Sparse Tasks
 
-Next, the question is how to implement decoding generation at the pixel level. For our generative model, we should choose one that is fastest (because we need to "search" multiple times based on changes in perspective), bidirectional (the definition of an ideal world model), and can provide the longest semantic continuous rendering support (this point cannot be guaranteed, as no one has tried it as of March 20, 2025). After research, I plan to use a flow-based model as the foundation ([rectified flow model](https://github.com/gnobitab/RectifiedFlow/tree/main)/[official](https://github.com/lqiang67/rectified-flow/tree/main)), because flow-based model theoretically supports precise bidirectional generation, and it doesn't even process the image too much (i.e. doesn't extract tokens or use potential space for compression). I love this.
+Dense targets naturally fit image-like WSG channels: depth, normals, flow, masks, material fields, and physical maps remain spatially aligned with RGB. They train from normalized latent caches with the shared rectified-flow objective.
 
-**Note:** On June 14, 2025, I originally intended to not use VAE at all because its randomness would ruin the accuracy of our bidirectional reasoning (it cause that we couldn't achieve 100% accuracy on all estimation tasks. If we abandon the VAE, the RF + Unet structure can enable our world snapshot model to achieve an accuracy rate of nearly 100% on thousands of tasks. Once I have 10,000 GPUs available, I will give it a try), but without using VAE, it would be almost impossible to train. I had to give in temporarily.
+Boxes, keypoints, skeleton trees, body parameters, object structures, and audio token sequences are better represented as digitized structures. The **sparse mode** uses task-specific adapters around the same task contract. It does not pretend that every list or tree is a raster image.
 
-### Sen Fang Initialization 
+This is an important change from early WaveGen. The current system does not force every variable into one mathematical representation. It unifies the **interface and task graph**, while allowing the suitable adapter at the boundary.
 
-The rectified flow model generates a velocity field in some way, which is the process of transferring a distribution to another distribution. The initial distribution is usually a randomly generated Gaussian noise distribution. If we plan to use the flow model for decoding, we can actually take advantage of this and align the different perspectives of the generated wave core space with this initial distribution. All processes from one distribution to another can be regarded as countless distributions. Our wave space enables the model to "advance a few steps ahead" or set the starting point at a certain point in the process, thereby accelerating the generation process (Previously, single-step generation was usually aimed at accelerating the process of recovering from noise, but we directly recover from a meaningful certain "image").
+### Data, Normalization, and Native Visualization
 
-This process is a kind of Sen Fang initialization. The wave space used as the initialization can control the movement of the perspective, and it can also utilize the information inherent in the wave space, and even be utilized in different generation models. Therefore, as long as some generation models use random initialization as the starting point, this method can be used. That is to say, Sen Fang initialization is helpful for almost all generation models (Accelerate + Enhance the ability to understand the space; Of course, if one wants to fully understand the space, it would be best to start by initializing it using the wave space method, and then make some adjustments based on the data from the camera). More information can be found in [the Guidelines of the Materials](https://github.com/World-Snapshot/doc/index.html?page=S6_materials/02_guideline.md#sen-fang-initialization) or in [this link](https://github.com/World-Snapshot/Sen-Fang-Initialization).
+Training samples intersect the identifiers available for the target and every required condition. A resolved sample contains target and condition latents, optional RGB evidence, caption embeddings, frame position, video identity, and source metadata. This prevents unrelated frames or dataset families from being paired merely because they share a modality name.
 
-### Core Space: Mechanism and usage method
+Each WSG modality carries a normalization contract. Training uses normalized tensors; export applies the inverse transform before its WSG Reader visualizes or extracts the result. A pseudo-RGB latent is only an intermediate representation and must not replace the official visualization.
 
-In reality, the entire world is divided into active and inactive parts, such as the environment and movable objects or animals. For movable objects or animals, in fact, they only undergo a relatively low-frequency change: for example, a car only twists the steering wheel when turning, and changes the transmission when accelerating; when humans operate their bodies, they may control larger body parts at a very low frequency, such as raising their hands or taking steps, and these are just one operation.
-
-Therefore, I believe that in order to save computing power and improve the effect, the frequency of the wave core space can be somewhat different from that of the outside world. For example, the evolution of the internal world is 8Hz, while the outside can be observed infinitely, and even 30Hz to 120Hz, or even 3000Hz, as long as the decoding ability of your decoder can keep up, or parallel decoding is possible. (Our design enables us to perform parallel decoding. Within the range of 8Hz, you can parallelly achieve 10,000 FPS, because the evolution of the wave space within the 8Hz operation interval is fixed.)
-
-To elaborate further, the movement of the wave is determined by the current speed v at the moment. Then, its various properties change approximately every 0.125 seconds. When we observe from the outside, we can observe it multiple times. This method has solved the problem in the field of Computer Vision where previous generation models had difficulty changing the frame rate. It's that easy, lol. But, the more important significance here is that we have addressed the consumption of dynamic modeling similar to 3D + time, just like the VAE of the next era.
-
-This also demonstrates the superiority of the wave space and its powerful ability to represent the world. Some visual generation models attempt to forcibly obtain the representation of the world, but it might take several billion more resources to achieve the same effect as ours. Currently, major companies are running headlong down the wrong path, as this is the only effective approach available before 2025.
-
-### Core Space: Create causal interaction
-
-At this point, we can notice an interesting phenomenon. The control frequencies of good keyboards and mice are all above 1000Hz, and the reverse inference from the decoding device in the outside world to the wave space is also faster than the wave space itself. At this time, we discover that we can control the evolution of the wave space in real time and create causal generation!
-
-For instance, if we manipulate the special shape dynamic math function representing the shape of a car (a cube), and change it at a frequency of 1000 Hz, and if our wave space is generated and evolved based on the previous frame (of course we do), the model will generate cars that avoid our driving route; or if we use the decoder for reverse reasoning and convert the human body into a wave, then humans can enter the two-dimensional world, the world of the snapshot model, and interact with it. For example, you can interact your arm with the water in the video. I call this the game mode. Humans control the protagonist, and the model is responsible for creating feedback based on real-world experiences.
-
-Furthermore, if we regard external videos as control, for instance, we observe the surrounding vehicles and update their status in real time to the wave space, just as the real world is playing a game. At this point, the wave space will generate the causal path of one of the vehicles based on these externally controlled vehicles. At this time, an autonomous driving mode is completed. Of course, the same principle applies to robots. Theoretically, we can completely load the concept of what a person is like (from the knowledge of World Snapshot Models) into a robot. If a robot precisely replicates all the behaviors of a human in any given video, then with the assistance of LLMs (large language models), it can be regarded as a being that is even closer to a human.
-
-This is the implementation method of the real-time, causal model. Many top researchers in the past have been advocating this idea, but there was no good way to achieve it. At least I have taken a big step forward.
-
-### Core Space: Non-pure probabilistic AI models
-
-I plan to use the PLA Loss (Principle of Least Action) to impose constraints on the physical properties within the wave space. However, the splitting and merging of the wave space itself can theoretically solve extreme cases, and my annotation of the world itself can also make the world more reasonable.
-
-If possible, I will attempt to transform the physical information domain into encoded information and integrate it into the waves to strengthen the constraints. Nevertheless, the wave space is a controllable non-probabilistic space. This is an unprecedented method to change the potential space of the model. However, I won't forcibly enable the strict physical mode for it.
+Categorical targets add a stricter requirement: spatial support and semantic identity must both be correct. For these tasks, a compact categorical refiner is part of the deployed Channel Head. The final result is generated support followed by category assignment, not an optional post-hoc score correction.
 
 ## Implementation
 
-Then we began to conceive of how we could train a core space. In a sense, the essence of the wave space is like a blurry area that connects images and numbers. Just as someone first expressed a function using equations, the image is the function.
+### Training and Execution
 
-### Training sequences at spatial dimension
+Dense and sparse task graphs are stored as JSON configurations. A launcher resolves the Channel Head, task type, modalities, dataset contract, and recipe, then writes the runtime configuration beside the run. Dense Heads use AdamW over tunnel parameters, bfloat16, optional gradient checkpointing, gradient clipping, deterministic validation grids, best-checkpoint tracking, and WSG-native previews.
 
-After some consideration, I believe that a sequence model like LongT5 should be used to model the wave space (other methods can also be employed if there are good training strategies). Regarding this training strategy, the problem lies in how we can train our ability to generate the wave space while retaining the spatial information.
-
-First of all, our optimization goal should be to satisfy the principle of minimum action while ensuring that the equilibrium positions of each wave can fit as many point clouds provided from different perspectives as possible. In this way, the shape of the wave will be learned from the point clouds. The question is what constitutes a good strategy and what is the optimal method?
-
-I decided to adopt a similar concept to VAR and transform the parameters of an appropriate number of waves spatially into a "problem of predicting the next number in a sequence". That is to say, we first consider generating a wave, and a single wave may be able to fit an object, which is sufficient. Then we can consider generating the cube of 2 or 3 waves, which will gradually divide an object to obtain more instances. The details of the object will gradually become richer.
-
-The number of waves here is in line with 3D requirements, but this is only for convenience of representation, not meaning that 8 waves occupy a specific location. Then our special shape dynamic math function has approximately 20 values. $8^3 \cdot 20 = 10k$, and I decided to set this as the maximum number of waves (only for this model, there can be up to $8^3$ (512) special shape dynamic math functions in the wave space). The length of LongT5 is 16k. For a 16k context, the remaining 6k will be the content of the text.
-
-Then I considered that each time it generates, it should rely on the wave parameters and text from the previous two frames, because waves have a speed, and two frames make it easier to obtain the acceleration. In this way, actually the number of waves should be reduced a little. For example, $6^3 \cdot 20 = 4k$, and two frames would be $8k$, and the text has an $8k$ length. Thus, we have obtained a relatively good situation:
-
-We will first train the model to start from one wave, trying to fit the point cloud from a certain perspective. Then we will expand to 8 waves, and continue to increase the number until $6^3$ (216) waves per frame. This is somewhat like an autoregressive approach, but it is not convenient for the usual parallel processing. I will modify the maximum number of waves and decide whether to skip certain levels during the practice.
-
-### Wave2Pixel Decoder
-
-My initial idea was to freeze the Tiny VAE and train it on a widened number of layers, approximately four times. Each of these four times corresponds to our data focus, from details to abstraction. This should yield good results while keeping the RGB unchanged. Then, we could consider fine-tuning the Unet or not, as long as it can complete the additional information (generation and estimation). Of course, if we want the additional information to affect the RGB, fine-tuning would be necessary (condition control). 
-
-Later, I discovered that even a simple widening would destroy the potential space / upsampling/downsampling. I tried for 6 days without any good results, including MSE and piecewise MSE. I then tried to train from scratch and found that this was indeed a better choice because the potential space should have a more flexible structure. I also tried piecewise normalization and inverse normalization, training directly within the original distribution range, adding KL divergence, but none of them showed significant effects. 
-
-I realized that the latent space dimension must be larger than your original data in order to achieve better training. So I should create a VAE with at least 256 latent channels. But this should be quite difficult to train. I wouldn't dare to attempt it without 1000 GPUs. Maybe we could try to have separate input and output layers with input and output heads, but I don't have the time to try it anymore. 
-
-I began searching on the internet, and then suddenly thought of the article on [LayerDiffuse](https://arxiv.org/abs/2402.17113). Then I decided to simulate this method and create the WSG VAE Group. That method is equivalent to creating perturbations, training additional VAEs to learn the decoded results after the RGB latent space is perturbed. It can extract RGB plus additional features from the high-dimensional RGB features, or it can extract the RGBA additional features from RGB plus additional features. 
-This can be applied to generation and estimation tasks. However, it cannot be used for conditional control. Lvmin Zhang also noticed this issue and recommended using ControlNet to solve it. Nevertheless, since I am planning to control all the information within the image itself, even though I don't have enough GPU to train the WSG VAE at present, I should still retain this design concept as much as possible. 
-
-To be more specific, the current situation is that the VAE with perturbation terms does not learn how the latent variables change when the conditions change for RGB. This makes it impossible for us to perform conditional control. Then, if we add an offset for RGB, we can reverse-engineer the latent variables of RGB through their respective information perturbations. 
-
-That is to say, when we are training, we not only need to train the VAE for the new channels, which will encode the additional channels into perturbation terms and then decode them back to the latent variables. We should also learn what the differences are between the current high-dimensional features of RGB and the rendered results. This part should be handled by the RGB shadow channels. 
-
-In summary, I plan to consider RGB as a shifted entity as well. When the different channels of WSG's codecs provide the shift for RGB, I should provide the theoretical situation of how RGB is controlled and changed. 
-
-This approach has both advantages and disadvantages:
-
-- It is very convenient for expansion
-- It does not require full-scale reasoning, but can be separated
-- Any existing generative model can be transformed into a world snapshot model without training using this method. (RF can perform any task, diffusion's support for estimation tasks should be not so good, flow matching if it can perform inversion should also enable diffusion models to perform estimation)
-- Direct conversion of any channel cannot be done randomly; it must be mediated by RGB.
+Runs are stored by Channel Head and experiment. The recommended-model registry chooses the official run; inference selects the best base checkpoint inside it and loads its categorical refiner when required. This prevents a newer ablation or longer but inferior run from silently replacing the released model.
 
 ## Discussion
 
-### Core Space
+### Visual Chains
 
-Our special shape dynamic math function generation method essentially uses multiple sets of special shape dynamic math functions to construct a core space that can simulate the world. This space is inherently physical: it possesses characteristics such as energy, probability, density, mass, temporal evolution, interactive constraints between different parts, different scale perspectives, 1-4D unification, and transformation between virtual and real states (both explicit and implicit).
+A single Head performs one directed task. Multiple Heads can be composed:
 
-This core ("world core" or "heart of the world") can be viewed as world representations space, where each special shape dynamic math function is a world representation (represents a relatively independent object, a semantic entity, a part or whole). For example, when we generate Batman and Superman fighting from text, the process or results of generation might be different each time. However, after training, these superimposed and entangled abstract world representations that evolve with time in the core space will always strive to be as reasonable as possible.
+`Text -> RGB -> Depth -> Normals -> Edge`
 
-In my WaveGen, the focus is more on using text to control this "world core" or "heart of the world" to utilize its generative capabilities. In the future, people could develop something like ControlWave to try controlling this "world core" through other methods. Currently, the reconstruction capability might be relatively weak and needs exploration.
-
-### Connections to previous work
-
-WaveGen's "world core" is an expandable superposition of complex waves that can simulate the world, with extremely free and expandable expressiveness. It's almost like a genius creation. Its characteristics are difficult to summarize:
-
-Compared to diffusion, its virtual-real transformation and noise addition/removal are similar, and it inherently acts like a single-step diffusion model - equivalent to diffusion with fewer layers. Since special shape dynamic math functions only need very simple parameters to simulate a world, it saves considerable cross-attention space. Its information about world distribution is mainly stored in the pixel space decoding process.
-
-Compared to point clouds, they are like a form of our foundation, but they're difficult to compare. The difference might be that we have more information and a "heart of the world" to unify the underlying logic of the world in an abstract way.
-
-Compared to NeRF, it's equivalent to using hundreds of special shape dynamic math functions instead of Gaussians for reconstruction. Our functions are virtual and need decoding. This is like software engineering decoupling rule. We use pixels to render the world, which makes editing and processing convenient and saves enormous space. Although we also need to sample points, we're much faster than MLP. The disadvantage is that we're too free because we're essentially like Text2NeRF or Text-to-4DGS, a generative model. For world reconstruction or reconstruction using reference images, we could consider recovering wave characteristics from reference images to guide generation, or increase the number of special shape dynamic math function groups while reducing pixel freedom.
-
-Compared to 3DGS, we're equivalent to using probability clouds instead of Gaussian kernels, and they're fundamentally quite similar in core space. If we use 99% special shape dynamic math functions and 1% pixel decoding, we and 3DGS might be like functional analogues (or chemical homologues) - different compositions achieving similar results. (On June 24, 2025, I realized that we are essentially using waves to represent shapes and generating models to represent details: Why don't we use very large Gaussian kernels? Because they are too large to represent details well. Instead, it's like we've applied a layer of paint, without this problem. So we are quite similar to first representing shapes with Gaussian kernels, and other attributes will be added later. Perhaps this is an alternative to the wave core space. In the future, someone might actually achieve a world snapshot model based on a huge Gaussian kernel core space.)
+Intermediate World Snapshots are inspectable rather than hidden reasoning tokens. A chain can be edited, evaluated, replaced, or branched at any step. This is the practical descendant of the old “core space” intuition: intermediate world variables are exposed at the boundary and can participate in further generation.
 
 ## Prospect
 
-At the WSG level, I hope we can generate a perfect photo of a world scene. At the WSV level, we can generate an entire movie at once, or even generate continuous video spanning several days. At the WSF level, we hope to create a naturally coherent world where every user is a creator god.
+### What Remains from the Original Inspiration
 
-I hope AI can generate a happy world without fatigue, without regret, only happiness and dreams coming true. When users enter it, they can even live a happy life forever. I mean: <strong style="color: #666666">Hope humans will have the ability to create the subordinate universe in the future.</strong> This is also where the meaning of this project's title is located.
+The original documents asked for a world representation that was generative, bidirectional, controllable, modular, and able to reveal more than appearance. WSM v1 realizes those goals through WSG, rectified flow, directed task interfaces, and task tunnels—not through literal quantum wave functions.
 
-*Please read blogs "07 Tensors are Basis of Light"*
+The abandoned equations remain useful as design history: they show why editable internal variables, reversible transport, variable routing, and an observable world boundary mattered from the beginning. The current implementation keeps those ambitions while grounding each claim in trainable routes, held-out inference, native visualizations, and deployable checkpoints.

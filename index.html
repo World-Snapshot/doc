@@ -92,7 +92,7 @@
                     <a href="#" class="nav-link" data-md="S2_standard/01_overview.md">Overview</a>
                     <a href="#" class="nav-link" data-md="S2_standard/02_wsg_ver1.md">World Snapshot Graphics v1</a>
                     <a href="#" class="nav-link" data-md="S2_standard/03_wsv_ver1.md">World Snapshot Video v1</a>
-                    <a href="#" class="nav-link" data-md="S2_standard/04_wsf_ver1.md">World Snapshot Fields v1</a>
+                    <!-- Archived in V0: World Snapshot Fields v1 (S2_standard/04_wsf_ver1.md). -->
                 </div>
             </div>
 
@@ -102,11 +102,7 @@
                     Get Start
                 </div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link" data-md="S3_get_start/01_wave_gen.md">Wave Function Generation</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/02_controlwave.md">ControlWave</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/03_advantages.md">Advantages Comparison</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/04_best_practices.md">Best Practices</a>
-                    <a href="#" class="nav-link" data-md="S3_get_start/05_advanced_features.md">Advanced Features</a>
+                    <!-- Get Start pages are retained in S3_get_start/; their navigation links are intentionally hidden. -->
                 </div>
             </div>
 
@@ -117,7 +113,7 @@
                 </div>
                 <div class="nav-items">
                     <a href="#" class="nav-link" data-md="S4_physical_thoughts/01_principle_of_least_action.md">Principle of Least Action</a>
-                    <a href="#" class="nav-link" data-md="S4_physical_thoughts/02_try_to_explain_quantum_entanglement.md">Try to Explain Quantum Entanglement</a>
+                    <a href="#" class="nav-link" data-md="S4_physical_thoughts/02_try_to_explain_quantum_entanglement.md">Is the Universe a World Snapshot Model?</a>
                 </div>
             </div>
 
@@ -205,7 +201,7 @@
 
             try {
                 currentPage = filename;
-                const response = await fetch(filename);
+                const response = await fetch(filename, { cache: 'no-store' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }

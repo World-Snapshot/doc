@@ -1,5 +1,7 @@
 # World Pixel Grandfather Paradox
 
+*"God plays dice, our world snapshot does play dice too." -- SF*
+
 ## Origin: The Dimensional Journey of a Quantum Pixel
 In an image space constructed by a WaveGen generative model, a special world pixel was born. Unlike ordinary WSG256 value combinations, it not only was a quantum state described by complex wave functions but also was a conscious world pixel. This pixel possessed two essential qualities:
 - As a deterministic display unit output by the generative model

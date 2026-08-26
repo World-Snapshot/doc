@@ -1,5 +1,8 @@
 # Model Design Guideline Memo
 
+> **Design-history note:** This memo intentionally preserves the project's raw sequence of ideas. The active implementation is WSM v1 Augustus: WSG boundary variables, a rectified-flow backbone, TunnelingNet Channel Heads, sparse adapters, and ControlWorld. WaveGen, WSF, analytic wave functions, RWKV, and the wave core below are earlier hypotheses. Their surviving insights are explicit world variables, data-native control, modular growth, causal/physical ambition, and inspectable intermediate representations.
+
+
 Version: 1.0;
 Draft was established on: 2025-2-7;
 Last Updated: 2025-08-29;

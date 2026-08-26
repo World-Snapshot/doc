@@ -2,6 +2,7 @@
 
 *"NLP is the soul, Robotics is the body, and CV is the world." -- SF*
 
+
 ## Does the Creation of the World require Human Intervention
 
 The world is so vast - is it really possible for us to manually construct it? Since the emergence of neural networks, they have accomplished many things humans cannot do. Perhaps building the world doesn't need much human intervention - was anyone adjusting the universe's parameters during the Big Bang? I don't know.

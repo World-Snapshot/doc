@@ -1,6 +1,5 @@
 # Learn Wave Generative Method (WaveGen)
 
-*"God plays dice, our world snapshot does play dice too." -- SF*
 
 ## Overview
 

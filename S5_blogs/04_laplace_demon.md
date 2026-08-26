@@ -1,5 +1,7 @@
 # Create Laplace's Demon
 
+*"Training the world requires its shadow, an operating system that overlaps with reality. The virtual mathematical wave is concepts' distribution and the skeleton of the world. The control wave is the control of reconstruction, time-space, order and existence." -- SF*
+
 ## Background
 In the 18th century, scientists hypothesized that if a being knew the exact position and momentum of every atom in the universe, it could use Newton's laws to demonstrate the entire process of universal events, including past and future. For this being, past and future would be crystal clear. This being later became known as "Laplace's demon".
 

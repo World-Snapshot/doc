@@ -1,5 +1,7 @@
 # Tensors are Basis of Light
 
+*"Perhaps multimodal fusion was never an issue in the first place; it was just that previously, people used RGB to record the world. The stronger the generation ability is, the stronger the understanding ability should be. This is actually a logical conclusion." --SF*
+
 ## Introduction
 
 Photons are the smallest unit of real light. Does light in virtual world have units? If so, what is the unit of light? If we want to thoroughly train the entire world, we should carefully consider this question.
