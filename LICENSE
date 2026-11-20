@@ -1,21 +1,38 @@
-MIT License
+World Snapshot Documentation Licensing Notice
 
-Copyright (c) 2026 World Snapshot
+This repository uses separate licenses for its website template and its
+World Snapshot technical content.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Website template — MIT License
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Only the following paths are licensed under the MIT License in
+LICENSE-MIT:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+- index.html
+- static/
+
+These files implement the general-purpose documentation renderer and website
+template.
+
+2. World Snapshot content — Rutgers Non-commercial Research License
+
+All other material in this repository is licensed under the Rutgers
+Non-commercial Research License in LICENSE-RU-NCRL, unless a file contains a
+separate license notice. This includes, without limitation:
+
+- S1_preface/ through S7_end/
+- V0/
+- book/
+- demos/
+- World Snapshot, WSG, WSV, WSF, WSM, TunnelingNet, and ControlWorld
+  documentation, specifications, methods, figures, examples, and related
+  research materials
+
+The MIT License for the website template does not extend to the World Snapshot
+technical content rendered by that template.
+
+For commercial-use rights concerning the World Snapshot content, contact
+Rutgers, The State University of New Jersey, at
+compliance@research.rutgers.edu, copying Dimitris N. Metaxas at
+dnm@cs.rutgers.edu and Sen Fang at sen.fang@rutgers.edu, and reference Rutgers
+Docket #2027-020.

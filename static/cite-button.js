@@ -333,7 +333,7 @@ const CiteButton = (function() {
             '</div>',
             '<footer>',
             '<div class="footer-text">',
-            '© CC BY-SA 4.0: Feel free to use this template, but please keep the Powered by <a href="https://github.com/World-Snapshot/doc" target="_blank">World Snapshot Doc</a>.',
+            'Website template: <a href="https://github.com/World-Snapshot/doc/blob/main/LICENSE-MIT" target="_blank" rel="noopener noreferrer">MIT License</a>. World Snapshot technical content: <a href="https://github.com/World-Snapshot/doc/blob/main/LICENSE-RU-NCRL" target="_blank" rel="noopener noreferrer">Rutgers Non-commercial Research License</a>. Powered by <a href="https://github.com/World-Snapshot/doc" target="_blank" rel="noopener noreferrer">World Snapshot Doc</a>.',
             '</div>',
             '</footer>',
             '<script>',
