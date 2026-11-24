@@ -37,11 +37,11 @@ field and for the work of computer-vision researchers.
 
 Our work therefore addresses <strong class="tutorial-key">three goals</strong>, with three corresponding solutions:
 
-1. <strong>Unifying visual-task forms.</strong> This is addressed by the Unified Law, a conceptual solution that organizes visual tasks into four generative interfaces.
+- <strong>Unifying visual-task forms.</strong> This is addressed by the Unified Law, a conceptual solution that organizes visual tasks into four generative interfaces.
 
-1. <strong>Unifying visual input and output formats.</strong> This is addressed by World Snapshot Models and World Snapshot Graphics. WSM provides four training interfaces and their corresponding strategies, while WSG unifies the data format.
+- <strong>Unifying visual input and output formats.</strong> This is addressed by World Snapshot Models and World Snapshot Graphics. WSM provides four training interfaces and their corresponding strategies, while WSG unifies the data format.
 
-1. <strong>Unifying training objectives across visual tasks.</strong> This is addressed by TunnelingNet. Every visual task takes a generative form and produces each type of visual or world information in the form appropriate to that task, while only slightly deflecting the original generation path.
+- <strong>Unifying training objectives across visual tasks.</strong> This is addressed by TunnelingNet. Every visual task takes a generative form and produces each type of visual or world information in the form appropriate to that task, while only slightly deflecting the original generation path.
 
 The three solutions form one connected sequence: the Unified Law defines the
 shared task form; WSM and WSG define the interfaces and world-information
@@ -264,31 +264,9 @@ this task-library parameterization by <strong class="tutorial-result">about $241
 ## How Parameter and Training Costs Scale with More Capabilities
 
 The qualitative differences above become decisive when capabilities are added
-at scale. A dense TunnelingNet contains 12.51M trainable parameters. Under the
-representative configurations used in our engineering comparison, the
-per-capability parameter or weight-memory increment of established extension
-paradigms is approximately the multiple shown in
-Table 2. These ratios are
-configuration-dependent rather than universal constants, but they expose the
-different scaling coefficients of the six paradigms.
+at scale. <strong class="tutorial-emphasis">A dense TunnelingNet contains 12.51M trainable parameters and serves as the $1.0\times$ reference.</strong> Under the representative configurations used in our engineering comparison, the approximate per-capability parameter or weight-memory increments are $1.8\times$ for IP-Adapter, $4\times$ for IC-Control style, typically $1$--$8\times$ for LoRA, $29\times$ for ControlNet, $300$--$10{,}000\times$ for MoE, and $312.5\times$ for full fine-tuning. These ratios are configuration-dependent rather than universal constants, but they expose the different scaling coefficients of the six paradigms.
 
-<div class="tutorial-table-scroll">
-<table id="tutorial-parameter-scaling">
-<caption><strong>Illustrative per-capability parameter scale relative to one 12.51M-parameter TunnelingNet.</strong> The comparison uses representative configurations of each paradigm; implementations vary.</caption>
-<thead><tr><th><strong>Extension paradigm</strong></th><th><strong>Relative scale</strong></th></tr></thead>
-<tbody>
-<tr><td><strong class="tutorial-result">TunnelingNet</strong></td><td><strong class="tutorial-result">$1.0\times$</strong></td></tr>
-<tr><td>IP-Adapter</td><td>$\sim1.8\times$</td></tr>
-<tr><td>IC-Control style</td><td>$\sim4\times$</td></tr>
-<tr><td>LoRA</td><td>typically $1$--$8\times$</td></tr>
-<tr><td>ControlNet</td><td>$\sim29\times$</td></tr>
-<tr><td>MoE</td><td>$\sim300$--$10{,}000\times$</td></tr>
-<tr><td>Full fine-tuning</td><td>$\sim312.5\times$</td></tr>
-</tbody>
-</table>
-</div>
-
-<strong class="tutorial-key">A 10,000-capability library makes the scaling difference concrete.</strong> Linearizing the representative increments in Table 2, TunnelingNet adds <strong class="tutorial-result">approximately 125.1B resident parameters</strong>, producing <strong class="tutorial-result">a deployed system with roughly 129B resident parameters</strong> while an ordinary request still activates only the backbone and one selected TunnelingNet. The corresponding increments are about 225B for IP-Adapter, 500B for IC-Control, 125B--1.00T for LoRA, 3.63T for ControlNet, 37.5T--1.25P for MoE, and 39.1T for separate full fine-tuning. At this scale, most alternatives become difficult to train, store, transfer, and repeatedly upgrade. The conclusion is supported by measured experiments, not parameter arithmetic alone. Under matched trainable parameters, TunnelingNet reduces pooled training time by <strong class="tutorial-result">$20.6\times$</strong>; across five representative external tasks, WSM records <strong class="tutorial-result">23 first-place and three second-place results</strong>. The scaling advantage is therefore achieved without trading away task quality. At the ultra-large scale of hundreds to 10,000 capabilities considered here, WSM is the only evaluated approach that simultaneously maintains a manageable resident library, near-backbone active computation per request, rapid capability acquisition, and competitive or leading task quality. These properties make it the most practical currently demonstrated route toward ultra-large, LLM-scale visual capability systems containing hundreds of billions, and eventually trillions, of resident parameters.
+<strong class="tutorial-key">A 10,000-capability library makes the scaling difference concrete.</strong> Linearizing these representative increments, TunnelingNet adds <strong class="tutorial-result">approximately 125.1B resident parameters</strong>, producing <strong class="tutorial-result">a deployed system with roughly 129B resident parameters</strong> while an ordinary request still activates only the backbone and one selected TunnelingNet. The corresponding increments are about 225B for IP-Adapter, 500B for IC-Control, 125B--1.00T for LoRA, 3.63T for ControlNet, 37.5T--1.25P for MoE, and 39.1T for separate full fine-tuning. <strong class="tutorial-emphasis">At this scale, most alternatives become difficult to train, store, transfer, and repeatedly upgrade.</strong> The conclusion is supported by measured experiments, not parameter arithmetic alone. Under matched trainable parameters, TunnelingNet reduces pooled training time by <strong class="tutorial-result">$20.6\times$</strong>; across five representative external tasks, WSM records <strong class="tutorial-result">23 first-place and three second-place results</strong>. The scaling advantage is therefore achieved without trading away task quality. At the ultra-large scale of hundreds to 10,000 capabilities considered here, WSM is the only evaluated approach that simultaneously maintains a manageable resident library, near-backbone active computation per request, rapid capability acquisition, and competitive or leading task quality. <strong class="tutorial-emphasis">These properties make it the most practical currently demonstrated route toward ultra-large, LLM-scale visual capability systems containing hundreds of billions, and eventually trillions, of resident parameters.</strong>
 
 Parameter count alone does not explain the acquisition advantage. Our
 parameter-matched LoRA NJA and TunnelingNet comparison holds the
